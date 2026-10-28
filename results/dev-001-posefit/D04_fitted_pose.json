@@ -1,0 +1,147 @@
+{
+  "pose": {
+    "pose_class": "crouched",
+    "observations": [
+      "Mannequin in a half-squat: knees deeply bent and pushed forward, pelvis roughly 0.6 m above the floor",
+      "Torso leans slightly forward, head up and facing the camera",
+      "Both feet flat on the floor, shoulder-width apart",
+      "Character's left arm (image right) extends forward and down; right arm (image left) has the elbow bent with the hand held in front of the belly",
+      "Joint positions adjusted by silhouette fitting against the input image (render-and-compare)."
+    ],
+    "uncertainties": [
+      "Depth (Y) values are estimated from a single view with unknown camera parameters",
+      "Exact torso yaw is unclear; the body looks turned slightly to the side",
+      "Foot spacing and arm angles are approximate"
+    ],
+    "joints": [
+      {
+        "joint": "pelvis",
+        "x": -0.0225,
+        "y": 0.0,
+        "z": 0.62
+      },
+      {
+        "joint": "neck",
+        "x": -0.0225,
+        "y": -0.2133,
+        "z": 1.0596
+      },
+      {
+        "joint": "head",
+        "x": -0.0225,
+        "y": -0.2715,
+        "z": 1.2584
+      },
+      {
+        "joint": "Lhip",
+        "x": 0.0975,
+        "y": 0.0,
+        "z": 0.62
+      },
+      {
+        "joint": "Lknee",
+        "x": 0.1275,
+        "y": -0.36,
+        "z": 0.39
+      },
+      {
+        "joint": "Lankle",
+        "x": 0.1275,
+        "y": -0.07,
+        "z": 0.08
+      },
+      {
+        "joint": "Lshoulder",
+        "x": 0.2075,
+        "y": -0.2098,
+        "z": 1.0348
+      },
+      {
+        "joint": "Lelbow",
+        "x": 0.3642,
+        "y": -0.3598,
+        "z": 0.8584
+      },
+      {
+        "joint": "Lwrist",
+        "x": 0.4623,
+        "y": -0.4598,
+        "z": 0.6944
+      },
+      {
+        "joint": "Rhip",
+        "x": -0.1425,
+        "y": 0.0,
+        "z": 0.62
+      },
+      {
+        "joint": "Rknee",
+        "x": -0.1725,
+        "y": -0.36,
+        "z": 0.39
+      },
+      {
+        "joint": "Rankle",
+        "x": -0.1725,
+        "y": -0.07,
+        "z": 0.08
+      },
+      {
+        "joint": "Rshoulder",
+        "x": -0.2525,
+        "y": -0.2098,
+        "z": 1.0348
+      },
+      {
+        "joint": "Relbow",
+        "x": -0.3821,
+        "y": -0.2598,
+        "z": 0.7921
+      },
+      {
+        "joint": "Rwrist",
+        "x": -0.1972,
+        "y": -0.3946,
+        "z": 0.7972
+      }
+    ],
+    "contacts": [
+      "left foot on floor",
+      "right foot on floor"
+    ]
+  },
+  "log": {
+    "score_start": 0.5099,
+    "score_end": 0.7546,
+    "objective_history": [
+      0.5099,
+      0.6051,
+      0.6939,
+      0.6939,
+      0.6975,
+      0.6975,
+      0.6998,
+      0.7104,
+      0.7104,
+      0.7156,
+      0.7156,
+      0.7164,
+      0.7164,
+      0.7164,
+      0.7164,
+      0.7213,
+      0.7335,
+      0.7356,
+      0.736
+    ],
+    "penalty": 0.0186,
+    "params": {
+      "lean_front": -8.0,
+      "shift_x": -0.0225,
+      "Larm_side": 12.0,
+      "Rarm_side": 9.0,
+      "Relbow": 3.75
+    },
+    "note": "Score is the mean of silhouette IoU and skin (head/hands) IoU between the input and our render of the pose; it is not a joint error. The search maximises score minus penalty."
+  }
+}

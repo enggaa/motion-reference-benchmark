@@ -1,0 +1,8 @@
+D01 score 0.5072 -> 0.8645 | err before (0.089, 0.146, 0, 0) after (0.045, 0.137, 0, 0) | {'scale': 0.055, 'shift_y': -0.0112, 'Larm_side': -12.0, 'Rarm_side': 1.5, 'Larm_front': -1.5, 'Rarm_front': 6.0, 'Lelbow': 1.875} | 60s
+D02 score 0.4035 -> 0.7703 | err before (0.144, 0.272, 0, 0) after (0.106, 0.338, 0, 0) | {'scale': 0.12, 'shift_x': 0.0262, 'Rarm_side': -9.0, 'Lelbow': -22.5, 'Relbow': -15.0} | 62s
+D03 score 0.4229 -> 0.7875 | err before (0.134, 0.304, 18, 18) after (0.111, 0.618, 18, 18) | {'scale': 0.09, 'shift_x': 0.0075, 'shift_y': 0.015, 'Larm_side': 12.0, 'Rarm_side': -18.0, 'Larm_front': -6.0, 'Rarm_front': 63.0, 'Relbow': -7.5} | 70s
+D04 score 0.5099 -> 0.7725 | err before (0.126, 0.387, 0, 0) after (0.163, 0.658, 0, 0) | {'lean_front': -8.0, 'shift_x': -0.03, 'shift_y': -0.0075, 'Larm_side': -6.0, 'Larm_front': 75.0, 'Rarm_front': 12.0, 'Relbow': 3.75} | 67s
+D05 score 0.5162 -> 0.8822 | err before (0.083, 0.112, 0, 0) after (0.05, 0.18, 0, 0) | {'scale': 0.06, 'shift_y': -0.015, 'Rarm_side': 6.0, 'Larm_front': -18.0, 'Rarm_front': -3.0, 'Lelbow': 11.25} | 61s
+D06 score 0.4332 -> 0.782 | err before (0.134, 0.336, 0, 0) after (0.102, 0.342, 0, 0) | {'scale': 0.1, 'shift_x': 0.03, 'shift_y': 0.015, 'Larm_front': -22.5, 'Lelbow': -45.0} | 60s
+D07 score 0.6271 -> 0.8865 | err before (0.054, 0.099, 0, 0) after (0.043, 0.152, 0, 0) | {'scale': 0.03, 'shift_y': -0.015, 'Rarm_side': 3.0, 'Larm_front': -18.0, 'Rarm_front': 3.0, 'Lelbow': 3.75} | 61s
+D08 score 0.285 -> 0.8194 | err before (0.136, 0.344, -12, 18) after (0.128, 0.285, 4, 18) | {'lean_side': 16.0, 'lean_front': -16.0, 'scale': 0.09, 'shift_y': 0.03, 'Larm_side': 6.0, 'Rarm_side': 12.0, 'Larm_front': -6.0, 'Relbow': -15.0} | 60s

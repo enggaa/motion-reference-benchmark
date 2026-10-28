@@ -1,0 +1,8 @@
+D01 score 0.5072 -> 0.8634 | err before (0.089, 0.146, 0, 0) after (0.046, 0.145, 0, 0) | {'scale': 0.055, 'shift_y': -0.0112, 'Larm_side': -12.0, 'Larm_front': -1.5, 'Rarm_front': 6.0} | 58s
+D02 score 0.4035 -> 0.7661 | err before (0.144, 0.272, 0, 0) after (0.099, 0.301, 0, 0) | {'scale': 0.12, 'shift_x': 0.0262, 'Rarm_side': -1.5, 'Larm_front': 3.0, 'Lelbow': -7.5} | 61s
+D03 score 0.4229 -> 0.7845 | err before (0.134, 0.304, 18, 18) after (0.08, 0.289, 18, 18) | {'scale': 0.09, 'shift_x': 0.0037, 'shift_y': 0.015, 'Larm_side': 10.5, 'Rarm_side': -6.0, 'Larm_front': -6.0, 'Rarm_front': 3.0, 'Lelbow': -1.875} | 64s
+D04 score 0.5099 -> 0.7546 | err before (0.126, 0.387, 0, 0) after (0.119, 0.34, 0, 0) | {'lean_front': -8.0, 'shift_x': -0.0225, 'Larm_side': 12.0, 'Rarm_side': 9.0, 'Relbow': 3.75} | 67s
+D05 score 0.5162 -> 0.8732 | err before (0.083, 0.112, 0, 0) after (0.044, 0.123, 0, 0) | {'scale': 0.06, 'shift_y': -0.0112, 'Rarm_side': 6.0, 'Larm_front': -16.5, 'Rarm_front': -3.0} | 68s
+D06 score 0.4332 -> 0.7764 | err before (0.134, 0.336, 0, 0) after (0.109, 0.355, 0, 0) | {'scale': 0.095, 'shift_x': 0.03, 'shift_y': 0.015, 'Larm_side': -2.25, 'Lelbow': -0.9375} | 60s
+D07 score 0.6271 -> 0.8858 | err before (0.054, 0.099, 0, 0) after (0.032, 0.076, 0, 0) | {'scale': 0.03, 'shift_y': -0.015, 'Larm_side': -6.0, 'Rarm_side': 3.0, 'Larm_front': -6.0, 'Rarm_front': 3.0, 'Lelbow': 3.75} | 64s
+D08 score 0.285 -> 0.8344 | err before (0.136, 0.344, -12, 18) after (0.06, 0.224, 12, 18) | {'lean_side': 24.0, 'scale': 0.04, 'shift_y': -0.0075, 'Rarm_side': -3.0, 'Rarm_front': 3.0, 'Lelbow': 7.5} | 63s

@@ -1,0 +1,151 @@
+{
+  "pose": {
+    "pose_class": "seated",
+    "observations": [
+      "Mannequin sits on a dark chair facing roughly the camera, torso upright and slightly turned.",
+      "Thighs point forward on the seat, shins vertical, both feet flat on the floor.",
+      "Character's left arm (viewer's right) hangs by the side, with the elbow slightly bent and the hand near the thigh.",
+      "Character's right arm (viewer's left) has the elbow bent and the hand resting on the right thigh.",
+      "Head is upright and looks toward the camera.",
+      "Joint positions adjusted by silhouette fitting against the input image (render-and-compare)."
+    ],
+    "uncertainties": [
+      "Depth (Y) values are estimated from a single view with unknown camera parameters.",
+      "The body yaw is ignored, so the pose is approximated in a frontal frame.",
+      "Exact chair seat height is assumed to be about 0.45 m."
+    ],
+    "joints": [
+      {
+        "joint": "pelvis",
+        "x": 0.029,
+        "y": 0.0573,
+        "z": 0.5475
+      },
+      {
+        "joint": "neck",
+        "x": 0.029,
+        "y": 0.0573,
+        "z": 1.084
+      },
+      {
+        "joint": "head",
+        "x": 0.029,
+        "y": 0.0354,
+        "z": 1.314
+      },
+      {
+        "joint": "Lhip",
+        "x": 0.1605,
+        "y": 0.0573,
+        "z": 0.5475
+      },
+      {
+        "joint": "Lknee",
+        "x": 0.1824,
+        "y": -0.4026,
+        "z": 0.5475
+      },
+      {
+        "joint": "Lankle",
+        "x": 0.1824,
+        "y": -0.4574,
+        "z": 0.0767
+      },
+      {
+        "joint": "Lshoulder",
+        "x": 0.2809,
+        "y": 0.0573,
+        "z": 1.0402
+      },
+      {
+        "joint": "Lelbow",
+        "x": 0.3253,
+        "y": 0.0792,
+        "z": 0.7461
+      },
+      {
+        "joint": "Lwrist",
+        "x": 0.3553,
+        "y": -0.049,
+        "z": 0.5479
+      },
+      {
+        "joint": "Rhip",
+        "x": -0.1023,
+        "y": 0.0573,
+        "z": 0.5475
+      },
+      {
+        "joint": "Rknee",
+        "x": -0.1023,
+        "y": -0.3807,
+        "z": 0.5694
+      },
+      {
+        "joint": "Rankle",
+        "x": -0.1023,
+        "y": -0.4026,
+        "z": 0.0876
+      },
+      {
+        "joint": "Rshoulder",
+        "x": -0.2228,
+        "y": 0.0573,
+        "z": 1.0402
+      },
+      {
+        "joint": "Relbow",
+        "x": -0.2666,
+        "y": 0.0244,
+        "z": 0.7665
+      },
+      {
+        "joint": "Rwrist",
+        "x": -0.1023,
+        "y": -0.1617,
+        "z": 0.6351
+      }
+    ],
+    "contacts": [
+      "pelvis on chair seat",
+      "left foot on floor",
+      "right foot on floor",
+      "right hand on right thigh",
+      "back near chair backrest"
+    ]
+  },
+  "log": {
+    "score_start": 0.4332,
+    "score_end": 0.7764,
+    "objective_history": [
+      0.4332,
+      0.648,
+      0.6525,
+      0.6966,
+      0.6966,
+      0.7225,
+      0.7481,
+      0.7481,
+      0.7481,
+      0.749,
+      0.749,
+      0.749,
+      0.7492,
+      0.7492,
+      0.7492,
+      0.7492,
+      0.7594,
+      0.7594,
+      0.7596
+    ],
+    "penalty": 0.0168,
+    "params": {
+      "scale": 0.095,
+      "shift_x": 0.03,
+      "shift_y": 0.015,
+      "Larm_side": -2.25,
+      "Lelbow": -0.9375
+    },
+    "note": "Score is the mean of silhouette IoU and skin (head/hands) IoU between the input and our render of the pose; it is not a joint error. The search maximises score minus penalty."
+  }
+}
