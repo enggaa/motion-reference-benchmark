@@ -1,0 +1,276 @@
+{
+  "verifier_version": "v2",
+  "group": "D05-01",
+  "attempt": "0015",
+  "backend": "claude-code",
+  "model": "sonnet",
+  "created_utc": "2026-10-28T17:54:41.314859+00:00",
+  "steps": [
+    {
+      "step": "review_initial",
+      "verdict": {
+        "first_frame": {
+          "matches_input": true,
+          "notes": "Frame 0 shows a standing neutral pose with both arms down and feet apart, as in the input image. The automatic overlap score is 0.8555, which is acceptable."
+        },
+        "requirements": [
+          {
+            "id": "r1",
+            "quote": "오른손을 한 번 왕복해 흔들고 내린 다음",
+            "status": "fail",
+            "evidence": "The character's right hand (image left in the front view) is raised in frames at 1.125 s and 2.29 s, and it is down by 3.4 s. The summary shows five turning points (outward 0.58, inward 1.21, outward 1.75, inward 2.29, outward 2.83) while the hand is raised from 0.62 to 2.83 s. That is about two back-and-forth waves, not one. The hand is also up for about 2.2 s."
+          },
+          {
+            "id": "r2",
+            "quote": "왼손을 한 번 왕복해 흔들고 내려라",
+            "status": "uncertain",
+            "evidence": "The left hand (image right in the front view) is raised in the frames at 4.58 s and 5.71 s. It is down by 6.875 s and stays still until the end. The summary has only one outward turn (5.17 s), which fits one back-and-forth wave, but eight frames cannot confirm the wave directly. The left arm is also raised at a different swing count than the right arm."
+          },
+          {
+            "id": "r3",
+            "quote": "오른손 ... 다음, 왼손",
+            "status": "pass",
+            "evidence": "The order is correct. Right is raised at about 0.6–2.8 s, and left follows at about 4.0–6.25 s with no overlap. The arms are down in between (frame at 3.4 s)."
+          }
+        ],
+        "repair_instructions": [
+          "Right hand: wave exactly one round trip. Raise the right arm (character's right) to the shoulder or head level, move the hand outward once and back inward once, then lower it. Remove the second out-and-back oscillation. The summary should show about one outward turn, not five turning points.",
+          "Keep the raised phase short and similar for both arms (about 1.5–2 s each). Right should be done by about 2.5 s, and left should run at about 4–6 s with one outward turn, as it does now.",
+          "Keep both arms down between the two waves and at the end."
+        ],
+        "verdict": "repair"
+      },
+      "tries": [
+        {
+          "latency_s": 13.691227197647095,
+          "returncode": 0,
+          "stderr": "",
+          "cli_version": "2.1.309",
+          "model": "claude-sonnet-5-5",
+          "tools": [
+            "StructuredOutput"
+          ],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 4044,
+            "cache_read_input_tokens": 1174,
+            "output_tokens": 1501,
+            "output_tokens_details": {
+              "thinking_tokens": 664
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 4044,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 1501,
+                "cache_read_input_tokens": 1174,
+                "cache_creation_input_tokens": 4044,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 4044
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "model_usage": {
+            "claude-sonnet-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 1501,
+              "cacheReadInputTokens": 1174,
+              "cacheCreationInputTokens": 4044,
+              "webSearchRequests": 0,
+              "costUSD": 0.0313074,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 664,
+              "canonicalModel": "claude-sonnet-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "notional_cost_usd": 0.0313074,
+          "num_turns": 2
+        }
+      ]
+    },
+    {
+      "step": "repair",
+      "tries": [
+        {
+          "latency_s": 46.5727653503418,
+          "returncode": 0,
+          "stderr": "",
+          "cli_version": "2.1.309",
+          "model": "claude-sonnet-5-5",
+          "tools": [
+            "StructuredOutput"
+          ],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 10224,
+            "cache_read_input_tokens": 2240,
+            "output_tokens": 8938,
+            "output_tokens_details": {
+              "thinking_tokens": 877
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 10224,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 8938,
+                "cache_read_input_tokens": 2240,
+                "cache_creation_input_tokens": 10224,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 10224
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "model_usage": {
+            "claude-sonnet-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 8938,
+              "cacheReadInputTokens": 2240,
+              "cacheCreationInputTokens": 10224,
+              "webSearchRequests": 0,
+              "costUSD": 0.130504,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 877,
+              "canonicalModel": "claude-sonnet-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "notional_cost_usd": 0.130504,
+          "num_turns": 2
+        }
+      ],
+      "check": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "step": "review_repaired",
+      "verdict": {
+        "first_frame": {
+          "matches_input": true,
+          "notes": "Frame 0 shows a standing pose with both arms hanging at the sides and feet apart, as in the input. The slight body turn also matches. The overlap score is 0.86."
+        },
+        "requirements": [
+          {
+            "id": "r1",
+            "quote": "오른손을 한 번 왕복해 흔들고 내린 다음",
+            "status": "uncertain",
+            "evidence": "Frames at 1.125 s and 2.29 s show the character's right hand (image left in the front view) raised, and it is lowered by 3.42 s. The summary shows outward turns at 0.5 s and 1.58 s and inward turns at 1.0 s and 2.21 s. That looks like about two sweeps, not one round trip, so I can't confirm a single wave."
+          },
+          {
+            "id": "r2",
+            "quote": "왼손을 한 번 왕복해 흔들고 내려라",
+            "status": "uncertain",
+            "evidence": "Frames at 4.58 s and 5.71 s show the left hand raised above the head, and it is lowered by 6.875 s. The summary shows only one turning point (outward, 5.42 s) while the hand is up from 4.33 to 6.38 s. I can't confirm one full out-and-back wave."
+          }
+        ],
+        "verdict": "repair",
+        "repair_instructions": [
+          "Right arm, 0.5-2.6 s: make exactly one back-and-forth wave. Raise the right hand to about head height, move it outward once and back inward once, then lower it by about 2.6 s. The current motion has outward turns at 0.5 s and 1.58 s and inward turns at 1.0 s and 2.21 s, which reads as more than one wave.",
+          "Left arm, 4.3-6.4 s: make one clear back-and-forth wave. Raise the left hand, move it outward (to the character's left) and back inward once, then lower it fully. Only one turning point is detected now, so add a visible return sweep before lowering.",
+          "Keep the right-then-left order. Hold the body still from the end of the right wave until the left hand starts, and again after the left hand is down. The left hand must be fully lowered before the end."
+        ]
+      },
+      "tries": [
+        {
+          "latency_s": 16.950300455093384,
+          "returncode": 0,
+          "stderr": "",
+          "cli_version": "2.1.309",
+          "model": "claude-sonnet-5-5",
+          "tools": [
+            "StructuredOutput"
+          ],
+          "usage": {
+            "input_tokens": 4,
+            "cache_creation_input_tokens": 5775,
+            "cache_read_input_tokens": 6404,
+            "output_tokens": 2143,
+            "output_tokens_details": {
+              "thinking_tokens": 584
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 5775,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 784,
+                "cache_read_input_tokens": 5230,
+                "cache_creation_input_tokens": 1719,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1719
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "model_usage": {
+            "claude-sonnet-5-5": {
+              "inputTokens": 4,
+              "outputTokens": 2143,
+              "cacheReadInputTokens": 6404,
+              "cacheCreationInputTokens": 5775,
+              "webSearchRequests": 0,
+              "costUSD": 0.0451784,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 584,
+              "canonicalModel": "claude-sonnet-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "notional_cost_usd": 0.0451784,
+          "num_turns": 3
+        }
+      ]
+    }
+  ],
+  "decision": "blocked",
+  "reference_for_final": null,
+  "note": "Gate result only; final-video human review is separate and may still fail."
+}

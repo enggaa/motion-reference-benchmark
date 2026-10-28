@@ -1,0 +1,127 @@
+{
+  "fps": 24,
+  "frames": 193,
+  "segment_lengths_m": {
+    "pelvis-neck": 0.5381,
+    "neck-head": 0.2243,
+    "neck-Lshoulder": 0.2615,
+    "neck-Rshoulder": 0.2615,
+    "pelvis-Lhip": 0.1344,
+    "pelvis-Rhip": 0.1344,
+    "Lshoulder-Lelbow": 0.3049,
+    "Rshoulder-Relbow": 0.2908,
+    "Lhip-Lknee": 0.4715,
+    "Rhip-Rknee": 0.4491,
+    "Lelbow-Lwrist": 0.2234,
+    "Relbow-Rwrist": 0.2384,
+    "Lknee-Lankle": 0.4604,
+    "Rknee-Rankle": 0.4603
+  },
+  "max_segment_length_error_m": 2.220446049250313e-16,
+  "unreachable_targets": {},
+  "max_keyframe_error_m": {
+    "Rwrist": 0.0436,
+    "Lwrist": 0.0427,
+    "Lelbow": 0.0377,
+    "Relbow": 0.0236
+  },
+  "first_frame_shift_m": 0.0,
+  "props": {
+    "chair": true
+  },
+  "note": "Lengths fixed to keyframe 0 of the plan; arms/torso interpolate segment directions, legs reach interpolated ankles. Unreachable targets are clamped, not stretched.",
+  "grid_times_s": [
+    0.0,
+    1.125,
+    2.2917,
+    3.4167,
+    4.5833,
+    5.7083,
+    6.875,
+    8.0
+  ],
+  "motion_summary": {
+    "right_wrist": {
+      "lateral_turns": [
+        {
+          "t": 4.58,
+          "toward": "outward",
+          "while_raised": true
+        },
+        {
+          "t": 5.12,
+          "toward": "inward",
+          "while_raised": true
+        },
+        {
+          "t": 5.54,
+          "toward": "outward",
+          "while_raised": true
+        }
+      ],
+      "near_or_above_shoulder_s": [
+        [
+          3.54,
+          5.62
+        ]
+      ],
+      "above_head_s": [
+        [
+          3.75,
+          5.38
+        ]
+      ]
+    },
+    "left_wrist": {
+      "lateral_turns": [
+        {
+          "t": 1.79,
+          "toward": "outward",
+          "while_raised": true
+        },
+        {
+          "t": 2.29,
+          "toward": "inward",
+          "while_raised": true
+        },
+        {
+          "t": 2.71,
+          "toward": "outward",
+          "while_raised": true
+        }
+      ],
+      "near_or_above_shoulder_s": [
+        [
+          0.88,
+          2.79
+        ]
+      ],
+      "above_head_s": [
+        [
+          1.0,
+          2.58
+        ]
+      ]
+    },
+    "whole_body_still_s": [
+      [
+        0.0,
+        0.5
+      ],
+      [
+        6.04,
+        8.0
+      ]
+    ],
+    "pelvis_height_m": {
+      "start": 0.56,
+      "end": 0.56
+    }
+  },
+  "first_frame_match": 0.7866,
+  "plan_sha256": "057e123b926dba3b557cac7e2376285f9925fc5a23e768b8130ca902ae10f4e9",
+  "video_sha256": "6e6e61d17d466a0be65495d71f56e56414835a7d297749bbe5bc092bb19a0372",
+  "front_video_sha256": "304203f32f7824b88344f26be3b10436543787b410248d49c8bdb33e98b9cc09",
+  "blender": "Blender 4.2",
+  "group": "D06-01"
+}

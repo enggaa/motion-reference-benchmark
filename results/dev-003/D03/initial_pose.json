@@ -1,0 +1,260 @@
+{
+  "llm": {
+    "pose_class": "standing",
+    "observations": [
+      "Character faces roughly toward the camera, turned slightly to its right (viewer's left).",
+      "Torso is tilted slightly, with the upper body leaning toward the character's left (viewer's right). Head is forward of the neck.",
+      "Both arms hang down by the sides with slight elbow bends. The character's right arm (viewer's left) is angled slightly outward and back.",
+      "Legs are nearly straight and close together. The character's left foot (viewer's right) is a little behind the right foot.",
+      "Both feet are on the floor."
+    ],
+    "uncertainties": [
+      "Depth (Y) values are estimated from perspective and foreshortening.",
+      "The amount of torso lean and twist is uncertain.",
+      "Which foot is further forward is hard to judge."
+    ],
+    "joints": [
+      {
+        "joint": "pelvis",
+        "x": 0,
+        "y": 0,
+        "z": 0.95
+      },
+      {
+        "joint": "neck",
+        "x": 0.05,
+        "y": -0.08,
+        "z": 1.42
+      },
+      {
+        "joint": "head",
+        "x": 0.08,
+        "y": -0.12,
+        "z": 1.62
+      },
+      {
+        "joint": "Lhip",
+        "x": 0.12,
+        "y": 0,
+        "z": 0.93
+      },
+      {
+        "joint": "Lknee",
+        "x": 0.13,
+        "y": -0.03,
+        "z": 0.5
+      },
+      {
+        "joint": "Lankle",
+        "x": 0.14,
+        "y": 0.03,
+        "z": 0.07
+      },
+      {
+        "joint": "Lshoulder",
+        "x": 0.27,
+        "y": -0.06,
+        "z": 1.38
+      },
+      {
+        "joint": "Lelbow",
+        "x": 0.3,
+        "y": -0.03,
+        "z": 1.12
+      },
+      {
+        "joint": "Lwrist",
+        "x": 0.29,
+        "y": -0.06,
+        "z": 0.91
+      },
+      {
+        "joint": "Rhip",
+        "x": -0.12,
+        "y": 0,
+        "z": 0.97
+      },
+      {
+        "joint": "Rknee",
+        "x": -0.15,
+        "y": -0.05,
+        "z": 0.54
+      },
+      {
+        "joint": "Rankle",
+        "x": -0.2,
+        "y": -0.1,
+        "z": 0.07
+      },
+      {
+        "joint": "Rshoulder",
+        "x": -0.18,
+        "y": -0.06,
+        "z": 1.4
+      },
+      {
+        "joint": "Relbow",
+        "x": -0.27,
+        "y": 0.02,
+        "z": 1.16
+      },
+      {
+        "joint": "Rwrist",
+        "x": -0.3,
+        "y": -0.05,
+        "z": 0.95
+      }
+    ],
+    "contacts": [
+      "Left foot on floor",
+      "Right foot on floor"
+    ]
+  },
+  "fitted": {
+    "pose_class": "standing",
+    "observations": [
+      "Character faces roughly toward the camera, turned slightly to its right (viewer's left).",
+      "Torso is tilted slightly, with the upper body leaning toward the character's left (viewer's right). Head is forward of the neck.",
+      "Both arms hang down by the sides with slight elbow bends. The character's right arm (viewer's left) is angled slightly outward and back.",
+      "Legs are nearly straight and close together. The character's left foot (viewer's right) is a little behind the right foot.",
+      "Both feet are on the floor.",
+      "Joint positions adjusted by silhouette fitting against the input image (render-and-compare)."
+    ],
+    "uncertainties": [
+      "Depth (Y) values are estimated from perspective and foreshortening.",
+      "The amount of torso lean and twist is uncertain.",
+      "Which foot is further forward is hard to judge."
+    ],
+    "joints": [
+      {
+        "joint": "pelvis",
+        "x": 0.0087,
+        "y": 0.0539,
+        "z": 0.988
+      },
+      {
+        "joint": "neck",
+        "x": 0.1282,
+        "y": -0.0293,
+        "z": 1.4648
+      },
+      {
+        "joint": "head",
+        "x": 0.1881,
+        "y": -0.0709,
+        "z": 1.6664
+      },
+      {
+        "joint": "Lhip",
+        "x": 0.1335,
+        "y": 0.0539,
+        "z": 0.9672
+      },
+      {
+        "joint": "Lknee",
+        "x": 0.1439,
+        "y": 0.0227,
+        "z": 0.52
+      },
+      {
+        "joint": "Lankle",
+        "x": 0.1543,
+        "y": 0.0851,
+        "z": 0.0728
+      },
+      {
+        "joint": "Lshoulder",
+        "x": 0.349,
+        "y": -0.0085,
+        "z": 1.3918
+      },
+      {
+        "joint": "Lelbow",
+        "x": 0.366,
+        "y": 0.0227,
+        "z": 1.1201
+      },
+      {
+        "joint": "Lwrist",
+        "x": 0.3442,
+        "y": -0.0085,
+        "z": 0.9025
+      },
+      {
+        "joint": "Rhip",
+        "x": -0.1161,
+        "y": 0.0539,
+        "z": 1.0088
+      },
+      {
+        "joint": "Rknee",
+        "x": -0.1473,
+        "y": 0.0019,
+        "z": 0.5616
+      },
+      {
+        "joint": "Rankle",
+        "x": -0.1993,
+        "y": -0.0501,
+        "z": 0.0728
+      },
+      {
+        "joint": "Rshoulder",
+        "x": -0.1115,
+        "y": -0.0085,
+        "z": 1.4775
+      },
+      {
+        "joint": "Relbow",
+        "x": -0.2051,
+        "y": 0.1248,
+        "z": 1.2507
+      },
+      {
+        "joint": "Rwrist",
+        "x": -0.2363,
+        "y": 0.099,
+        "z": 1.0219
+      }
+    ],
+    "contacts": [
+      "Left foot on floor",
+      "Right foot on floor"
+    ]
+  },
+  "fit": {
+    "score_start": 0.5045,
+    "score_end": 0.7793,
+    "objective_history": [
+      0.5045,
+      0.5645,
+      0.6468,
+      0.6889,
+      0.6889,
+      0.6999,
+      0.6999,
+      0.7317,
+      0.7317,
+      0.7317,
+      0.7337,
+      0.7367,
+      0.7367,
+      0.7367,
+      0.7367,
+      0.741,
+      0.75,
+      0.75,
+      0.75
+    ],
+    "penalty": 0.0293,
+    "params": {
+      "lean_side": 8.0,
+      "scale": 0.04,
+      "shift_x": 0.0075,
+      "shift_y": 0.0525,
+      "Larm_side": 3.0,
+      "Rarm_front": 12.0
+    },
+    "note": "Score is the mean of silhouette IoU and skin (head/hands) IoU between the input and our render of the pose; it is not a joint error. The search maximises score minus penalty."
+  }
+}

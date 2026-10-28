@@ -1,0 +1,47 @@
+{
+  "fps": 24,
+  "frames": 145,
+  "segment_lengths_m": {
+    "pelvis-neck": 0.5547,
+    "neck-head": 0.2296,
+    "neck-Lshoulder": 0.2637,
+    "neck-Rshoulder": 0.2638,
+    "pelvis-Lhip": 0.1355,
+    "pelvis-Rhip": 0.1356,
+    "Lshoulder-Lelbow": 0.289,
+    "Rshoulder-Relbow": 0.287,
+    "Lhip-Lknee": 0.4768,
+    "Rhip-Rknee": 0.4526,
+    "Lelbow-Lwrist": 0.2268,
+    "Relbow-Rwrist": 0.2609,
+    "Lknee-Lankle": 0.476,
+    "Rknee-Rankle": 0.4994
+  },
+  "max_segment_length_error_m": 2.220446049250313e-16,
+  "unreachable_targets": {},
+  "max_keyframe_error_m": {
+    "Lwrist": 0.0249,
+    "Lelbow": 0.0218
+  },
+  "first_frame_shift_m": 0.0,
+  "props": {
+    "chair": true
+  },
+  "note": "Lengths fixed to keyframe 0 of the plan; arms/torso interpolate segment directions, legs reach interpolated ankles. Unreachable targets are clamped, not stretched.",
+  "grid_times_s": [
+    0.0,
+    0.875,
+    1.7083,
+    2.5833,
+    3.4167,
+    4.2917,
+    5.125,
+    6.0
+  ],
+  "first_frame_match": 0.7598,
+  "plan_sha256": "a976e080d14fe14ac2d26af9815fee27b8dbbc51bdc32da9e82dfe6363af750b",
+  "video_sha256": "20c666c3a6a72808f80e4c1a18e7de8466c3ca652da9dfa028dc69ae449d4a56",
+  "front_video_sha256": "daadec865f936e6cfe6aae064421f01c4152aea8e778fb392f18c1b17e00f179",
+  "blender": "Blender 4.2",
+  "group": "D02-01"
+}
