@@ -105,7 +105,10 @@ def motion_summary(frames,fps):
   raised=[h>-.12 for h in height];at=lambda t:raised[min(range(len(times)),key=lambda i:abs(times[i]-t))]
   # Turns made while the hand rises or drops belong to raising/lowering; dev-003's reviewer counted them as wave swings.
   turns=[{'t':round(t,2),'toward':'outward' if (kind=='max')==(outward>0) else 'inward','while_raised':at(t)} for t,v,kind in turning_points(times,lateral,.04)]
-  out[side+'_wrist']={'lateral_turns':turns,'near_or_above_shoulder_s':_spans(times,raised,.2),'above_head_s':_spans(times,[J(f,s+'wrist')[2]>J(f,'head')[2] for f in frames],.2)}
+  # Lateral offset from the shoulder every 0.1 s while raised, in cm (+ = outward). Turn counts alone were ambiguous: a wave that starts at the
+  # inward extreme reads out-in-out-in (two round trips) but gives only four turns, which dev-004's v3 rule counted as one and a half.
+  step=max(1,round(fps/10));series=[[round(times[i],2),round(outward*lateral[i]*100)] for i in range(0,len(times),step) if raised[i]]
+  out[side+'_wrist']={'lateral_turns':turns,'raised_lateral_cm':series,'near_or_above_shoulder_s':_spans(times,raised,.2),'above_head_s':_spans(times,[J(f,s+'wrist')[2]>J(f,'head')[2] for f in frames],.2)}
  speed=[0.0]+[max(math.dist(a['joints'][j],b['joints'][j]) for j in JOINTS)*fps for a,b in zip(frames,frames[1:])]
  out['whole_body_still_s']=_spans(times,[v<.05 for v in speed],.5)
  out['pelvis_height_m']={'start':round(J(frames[0],'pelvis')[2],3),'end':round(J(frames[-1],'pelvis')[2],3)}

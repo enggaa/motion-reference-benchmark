@@ -11,11 +11,11 @@ VERDICT_SCHEMA={'type':'object','additionalProperties':False,'required':['requir
  'requirements':{'type':'array','items':{'type':'object','additionalProperties':False,'required':['id','quote','status','evidence'],'properties':{'id':_S,'quote':_S,'status':{'type':'string','enum':['pass','fail','uncertain']},'evidence':_S}}},
  'first_frame':{'type':'object','additionalProperties':False,'required':['matches_input','notes'],'properties':{'matches_input':{'type':'boolean'},'notes':_S}},
  'verdict':{'type':'string','enum':['pass','repair']},'repair_instructions':{'type':'array','items':_S}}}
-VERIFIER_VERSION='v3'
+VERIFIER_VERSION='v4'
 VERIFY_PROMPT="""You review a reference motion video before it is given to a video model, which will copy its motion onto the input image.
 Image 1 is the input. Image 2 shows eight frames of the reference from the input camera, row by row, at the listed times. Image 3 shows the same eight frames from a front camera, where the character's right side is on the image left.
 The text also gives a motion summary measured on the rendered skeleton at every frame: hand turning points (outward means away from the body midline), when each hand is near shoulder height or above the head, and when the whole body is still. Eight frames cannot resolve fast repetitions, so count repetitions and check timings with the summary, and use the frames for posture, side and contact.
-Count waves only from turns with while_raised true: a round trip is the hand going one way and coming back, so a raised-hand sequence of inward, outward, inward turns is one round trip, and four alternating raised turns are one and a half. Turns with while_raised false come from raising or lowering the arm and are not swings.
+Count waves with the docs/RUBRIC.md definition: one round trip is the hand moving one way and then returning to the side it started from. Use raised_lateral_cm, the hand's sideways offset from its shoulder every 0.1 s while raised (+ = outward), and start counting from the hand's position when it first gets raised. Count only clear swings; ignore sideways drift of a few centimetres. Turns with while_raised false come from raising or lowering the arm.
 1. Split the request into its explicit requirements and copy each quote verbatim from the request.
 2. Judge each requirement from the frames only: pass, fail or uncertain, with the frames that show it as evidence. A requirement passes only when you can see it. Count repetitions, check left and right from the character's point of view, check that held states are held and that the final state is visible before the end.
 3. Judge whether frame 0 matches the input image: posture, lean direction, arm and leg placement.
