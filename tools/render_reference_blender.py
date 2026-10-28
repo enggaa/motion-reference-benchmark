@@ -1,9 +1,10 @@
 """Blender-only: draw solved frames with the same procedural mannequin, camera and lighting as tools/render_inputs.py.
-Usage: blender -b --factory-startup --python tools/render_reference_blender.py -- frames.json out_dir"""
+Usage: blender -b --factory-startup --python tools/render_reference_blender.py -- frames.json out_dir [input|front]
+The input view matches the benchmark images; the front view (orthographic, from -Y) is only a verification aid for motions the input view hides."""
 import bpy,json,sys
 from pathlib import Path
 from mathutils import Vector
-frames_path,out=sys.argv[sys.argv.index('--')+1:][:2];data=json.loads(Path(frames_path).read_text(encoding='utf-8'));out=Path(out);out.mkdir(parents=True,exist_ok=True)
+args=sys.argv[sys.argv.index('--')+1:];frames_path,out=args[:2];view=args[2] if len(args)>2 else 'input';data=json.loads(Path(frames_path).read_text(encoding='utf-8'));out=Path(out);out.mkdir(parents=True,exist_ok=True)
 bpy.ops.wm.read_factory_settings(use_empty=True);scene=bpy.context.scene
 def material(name,color):
  m=bpy.data.materials.new(name);m.diffuse_color=(*color,1);return m
@@ -33,7 +34,7 @@ for s in 'LR':
  for p in ['shoulder','elbow','wrist','knee']:parts[s+p]=ellipsoid(s+p,(.058,.058,.058),joint)
  parts[s+'hand']=ellipsoid(s+'hand',(1,1,1),face);parts[s+'foot']=ellipsoid(s+'foot',(.075,.15,.054),joint)
 cube('floor',(0,0,-.035),(200,200,.05),floor)
-bpy.ops.object.camera_add(location=(-3.1,-5.5,2.6));camera=bpy.context.object;target=Vector((0,-.1,.92));camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler();camera.data.type='ORTHO';camera.data.ortho_scale=2.15;scene.camera=camera
+bpy.ops.object.camera_add(location=(-3.1,-5.5,2.6) if view=='input' else (0,-6,1.0));camera=bpy.context.object;target=Vector((0,-.1,.92)) if view=='input' else Vector((0,0,1.0));camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler();camera.data.type='ORTHO';camera.data.ortho_scale=2.15;scene.camera=camera
 scene.render.engine='BLENDER_WORKBENCH';scene.display.shading.light='STUDIO';scene.display.shading.color_type='MATERIAL';scene.display.shading.show_shadows=True;scene.display.shading.show_cavity=True;scene.display.shading.background_type='WORLD';scene.world=bpy.data.worlds.new('World');scene.world.color=(.22,.24,.27)
 scene.render.resolution_x=576;scene.render.resolution_y=768;scene.render.resolution_percentage=100;scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGB'
 for n,f in enumerate(data['frames']):

@@ -3,6 +3,7 @@ from pathlib import Path
 from .core import ROOT,validate,make_run,record,summarize,read,save,consensus,sha,artifact,ensure_binding
 from .planner import plan_run,DryRunBackend,ClaudeCodeBackend
 from .reference import render_group,find_blender
+from .verify import verify_group
 def main():
  p=argparse.ArgumentParser(prog='python -m motionbench');sub=p.add_subparsers(dest='command',required=True)
  sub.add_parser('validate')
@@ -14,12 +15,14 @@ def main():
  c=sub.add_parser('artifact');c.add_argument('--run',required=True);c.add_argument('--attempt',required=True);c.add_argument('--kind',required=True);c.add_argument('--file',required=True)
  c=sub.add_parser('planner');c.add_argument('--run',required=True);c.add_argument('--backend',choices=['dry-run','claude-code'],default='dry-run');c.add_argument('--model',default='sonnet');c.add_argument('--max-calls',type=int,default=8);c.add_argument('--group');c.add_argument('--allow-test',action='store_true');c.add_argument('--pose-fit',action='store_true')
  c=sub.add_parser('render-reference');c.add_argument('--run',required=True);c.add_argument('--group',required=True);c.add_argument('--blender');c.add_argument('--fps',type=int,default=24);c.add_argument('--register',action='store_true')
+ c=sub.add_parser('verify-reference');c.add_argument('--run',required=True);c.add_argument('--group',required=True);c.add_argument('--model',default='sonnet')
  a=p.parse_args()
  if a.command=='validate':result=validate()
  elif a.command=='plan':result=make_run(a.out,a.split,a.repeats,a.seed)
  elif a.command=='record':result=record(a.run,a.attempt,a.status,a.stage,a.output)
  elif a.command=='planner':result=plan_run(a.run,DryRunBackend() if a.backend=='dry-run' else ClaudeCodeBackend(a.model),a.max_calls,a.group,a.allow_test,find_blender() if a.pose_fit and a.backend!='dry-run' else None)
  elif a.command=='render-reference':result=render_group(a.run,a.group,a.blender,a.fps,a.register)
+ elif a.command=='verify-reference':result=verify_group(a.run,a.group,ClaudeCodeBackend(a.model))
  elif a.command=='artifact':result=artifact(a.run,a.attempt,a.kind,a.file)
  elif a.command=='summarize':
   result=summarize(a.run)
