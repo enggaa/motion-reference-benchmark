@@ -1,9 +1,0 @@
-{
-  "case_id": "D03",
-  "paired_reference_group": "D03-01",
-  "image": "benchmark/images/D03.png",
-  "image_sha256": "d77914758f5f719edee9d5bc3129f19a4caa23fa6e6ea5e9051431cc982cc1bc",
-  "text": "Request (verbatim): 기울어진 몸통 자세를 유지하면서 오른손을 몸 앞에서 한 번 왕복해 흔들어라.\nDuration: 6 s\nDictionary: {\"version\": \"seed-v0.1\", \"actions\": [\"wave_right\", \"wave_left\", \"squat\"], \"semantics\": [\"raise-wave-lower\", \"lower-pelvis-bend-knees-return\"], \"scope\": \"Semantic inventory only. Reference trajectory files must be supplied separately with their own license and provenance.\"}\nReturn the plan.",
-  "system_prompt_sha256": "4c7534831e248ff676c68f5b19748403ab63ef6fa2aa55c9945a27db26ba2760",
-  "schema_sha256": "f8cb97c0a81931ab7ea66d25c3d324d8b8a0292257a7a72fb63f8c8fa5e39c2f"
-}

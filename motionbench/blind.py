@@ -1,4 +1,4 @@
-"""Blinded review packages (docs/ADAPTER_CONTRACT.md, docs/RUBRIC.md). Raters get random item ids, the input image, the request, the scoring
+"""Blinded review packages (docs/PIPELINE.md, docs/RUBRIC.md). Raters get random item ids, the input image, the request, the scoring
 criteria and a metadata-stripped video copy; condition names, plans, gate results and source paths stay in a mapping file kept apart.
 kind='final' packages succeeded final videos; kind='reference' packages each distinct reference (B/C share one initial reference, C may add a repair)."""
 import json,random,shutil,subprocess

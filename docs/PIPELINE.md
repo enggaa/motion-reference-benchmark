@@ -23,11 +23,11 @@
 
 | 단계 | 명령 | 모델 비용 |
 |---|---|---|
-| 슬롯 계획 | `plan --split development --repeats 1 --out runs/dev-002` | 없음 |
+| 슬롯 계획 | `plan --split development --repeats 1 --out runs/dev` | 없음 |
 | ①② | `planner --run R --backend claude-code --model sonnet --pose-fit` | Claude 구독 (그룹당 2회 호출) |
 | ③ | `render-reference --run R --group D01-01 --register` | 없음 (로컬 Blender) |
 | ④ | `verify-reference --run R --group D01-01` | Claude 구독 (그룹당 1–3회 호출) |
-| 최종 영상 | `generate --run R` (dry run) → `--execute --max-usd N` | fal.ai 결제 ([SEEDANCE_SETUP.md](SEEDANCE_SETUP.md)) |
+| 최종 영상 | `generate --run R` (dry run) → `--execute --max-usd N` | fal.ai 결제 |
 | 평가 패키지 | `package-review --run R --out review/pkg --mapping private/map.json` | 없음 |
 | 평가 반영 | `import-ratings --run R --mapping private/map.json --rater A.json --rater B.json` | 없음 |
 | 집계 | `summarize --run R` | 없음 |
@@ -38,7 +38,7 @@
 - 계약 요구별로 검증기 판정과 사람 판정의 원 일치율, Cohen's κ, 혼동표
 - 사람은 fail인데 검증기가 pass한 **놓친 실패** 수
 
-v3과 v4 재검토에서 판정이 흔들렸기 때문에(dev-004 기록), test 전에 이 대조를 calibration 문항에서 거쳐야 합니다.
+검증기 판정이 규칙 개정과 재실행에 따라 흔들렸기 때문에([개발 실행 결과](../results/README.md)), test 전에 이 대조를 calibration 문항에서 거쳐야 합니다.
 
 ## 정보 경계
 

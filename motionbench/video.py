@@ -1,4 +1,4 @@
-"""Final video generation for conditions A/B/C through fal.ai's hosted Seedance 2.0 (docs/ADAPTER_CONTRACT.md).
+"""Final video generation for conditions A/B/C through fal.ai's hosted Seedance 2.0 (docs/PIPELINE.md).
 A: image-to-video, the input image is the start frame. B/C: reference-to-video, the input image is @Image1 and the reference video @Video1;
 in that mode the image is a reference, not a forced first frame, so start continuity is a separate secondary result (docs/PROTOCOL.md).
 Endpoint names, parameters and prices come from fal's model pages checked on 2026-10-29. The network path is unverified until a FAL_KEY exists;
