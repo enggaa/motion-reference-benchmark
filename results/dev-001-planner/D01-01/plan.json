@@ -1,0 +1,1070 @@
+{
+  "initial_pose": {
+    "pose_class": "standing",
+    "observations": [
+      "Standing upright, facing roughly the camera with a slight turn",
+      "Both arms hang down at the sides with slight elbow bend",
+      "Feet flat on floor, shoulder-width apart, right foot slightly toward camera",
+      "Head upright"
+    ],
+    "uncertainties": [
+      "Depth (Y) values are estimated from a single view",
+      "Exact body yaw is unknown",
+      "Slight arm and foot offsets are approximate"
+    ],
+    "joints": [
+      {
+        "joint": "pelvis",
+        "x": 0,
+        "y": 0,
+        "z": 0.9
+      },
+      {
+        "joint": "neck",
+        "x": 0,
+        "y": 0,
+        "z": 1.39
+      },
+      {
+        "joint": "head",
+        "x": 0,
+        "y": 0,
+        "z": 1.6
+      },
+      {
+        "joint": "Lhip",
+        "x": 0.12,
+        "y": 0,
+        "z": 0.9
+      },
+      {
+        "joint": "Lknee",
+        "x": 0.12,
+        "y": 0,
+        "z": 0.47
+      },
+      {
+        "joint": "Lankle",
+        "x": 0.12,
+        "y": 0,
+        "z": 0.05
+      },
+      {
+        "joint": "Lshoulder",
+        "x": 0.23,
+        "y": 0,
+        "z": 1.37
+      },
+      {
+        "joint": "Lelbow",
+        "x": 0.25,
+        "y": 0,
+        "z": 1.1
+      },
+      {
+        "joint": "Lwrist",
+        "x": 0.25,
+        "y": 0,
+        "z": 0.88
+      },
+      {
+        "joint": "Rhip",
+        "x": -0.12,
+        "y": 0,
+        "z": 0.9
+      },
+      {
+        "joint": "Rknee",
+        "x": -0.12,
+        "y": 0,
+        "z": 0.47
+      },
+      {
+        "joint": "Rankle",
+        "x": -0.12,
+        "y": 0,
+        "z": 0.05
+      },
+      {
+        "joint": "Rshoulder",
+        "x": -0.23,
+        "y": 0,
+        "z": 1.37
+      },
+      {
+        "joint": "Relbow",
+        "x": -0.25,
+        "y": 0,
+        "z": 1.1
+      },
+      {
+        "joint": "Rwrist",
+        "x": -0.25,
+        "y": 0,
+        "z": 0.88
+      }
+    ],
+    "contacts": [
+      "Lankle-floor",
+      "Rankle-floor"
+    ]
+  },
+  "actions": [
+    {
+      "id": "a1",
+      "request_quote": "오른손을 어깨 높이로 들어",
+      "side": "right",
+      "repetitions": null,
+      "completion": "Right wrist is at shoulder height (z≈1.37) in front of the body (y≈-0.25)."
+    },
+    {
+      "id": "a2",
+      "request_quote": "몸 앞에서 두 번 왕복해 흔든 뒤",
+      "side": "right",
+      "repetitions": 2,
+      "completion": "Right hand has completed two full side-to-side round trips in front of the body and returns to center."
+    },
+    {
+      "id": "a3",
+      "request_quote": "내려라",
+      "side": "right",
+      "repetitions": null,
+      "completion": "Right arm is back down at the side and held still until the clip ends."
+    }
+  ],
+  "retrieval": [
+    {
+      "entry_id": "wave_right",
+      "used_for": "Semantic guide for the raise-wave-lower sequence. The dictionary has no trajectories, so all keyframes are inferred."
+    }
+  ],
+  "keyframes": [
+    {
+      "time_s": 0,
+      "origin": "observed",
+      "action_id": null,
+      "description": "Initial standing pose, arms down",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.25,
+          "y": 0,
+          "z": 0.88
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    },
+    {
+      "time_s": 1.2,
+      "origin": "inferred",
+      "action_id": "a1",
+      "description": "Right hand raised to shoulder height in front of body, forearm up",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3,
+          "y": -0.15,
+          "z": 1.17
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.3,
+          "y": -0.25,
+          "z": 1.37
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    },
+    {
+      "time_s": 1.7,
+      "origin": "inferred",
+      "action_id": "a2",
+      "description": "Wave outward (character's right), trip 1",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3,
+          "y": -0.15,
+          "z": 1.17
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.42,
+          "y": -0.25,
+          "z": 1.34
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    },
+    {
+      "time_s": 2.15,
+      "origin": "inferred",
+      "action_id": "a2",
+      "description": "Wave inward toward body midline, trip 1 return",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3,
+          "y": -0.15,
+          "z": 1.17
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.18,
+          "y": -0.25,
+          "z": 1.34
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    },
+    {
+      "time_s": 2.6,
+      "origin": "inferred",
+      "action_id": "a2",
+      "description": "Wave outward, trip 2",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3,
+          "y": -0.15,
+          "z": 1.17
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.42,
+          "y": -0.25,
+          "z": 1.34
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    },
+    {
+      "time_s": 3.05,
+      "origin": "inferred",
+      "action_id": "a2",
+      "description": "Wave inward, trip 2 return, second round trip complete",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3,
+          "y": -0.15,
+          "z": 1.17
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.18,
+          "y": -0.25,
+          "z": 1.34
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    },
+    {
+      "time_s": 3.5,
+      "origin": "inferred",
+      "action_id": "a2",
+      "description": "Hand centered in front at shoulder height, wave finished",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3,
+          "y": -0.15,
+          "z": 1.17
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.3,
+          "y": -0.25,
+          "z": 1.37
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    },
+    {
+      "time_s": 4.5,
+      "origin": "inferred",
+      "action_id": "a3",
+      "description": "Right arm lowered to the side",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.25,
+          "y": 0,
+          "z": 0.88
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    },
+    {
+      "time_s": 6,
+      "origin": "inferred",
+      "action_id": "a3",
+      "description": "Hold final standing pose with arm down",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": 0,
+          "z": 1.39
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": 0,
+          "z": 1.6
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": 0,
+          "z": 0.88
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.9
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.47
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.05
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": 0,
+          "z": 1.37
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.25,
+          "y": 0,
+          "z": 1.1
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.25,
+          "y": 0,
+          "z": 0.88
+        }
+      ],
+      "contacts": [
+        "Lankle-floor",
+        "Rankle-floor"
+      ]
+    }
+  ],
+  "assumptions": [
+    "Character faces the camera, so its right arm appears on the image left.",
+    "The dictionary has only semantics, so wave_right is used as a guide and every keyframe is inferred.",
+    "A round trip means outward then inward, and the wave is repeated twice. The sweep is about ±0.12 m around x=-0.30.",
+    "Torso, legs and left arm stay still. Both feet stay planted.",
+    "Image-estimated pose uses a symmetric standing layout with the pelvis at about 0.9 m. Minor asymmetries are ignored.",
+    "The wave hand is held roughly 0.25 m in front of the body (-Y)."
+  ],
+  "unsupported_requirements": []
+}

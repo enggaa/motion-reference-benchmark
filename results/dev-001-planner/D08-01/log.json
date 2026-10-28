@@ -1,0 +1,88 @@
+{
+  "group": "D08-01",
+  "attempts": [
+    "0022",
+    "0023"
+  ],
+  "backend": "claude-code",
+  "requested_model": "sonnet",
+  "created_utc": "2026-10-28T16:54:58.757266+00:00",
+  "tries": [
+    {
+      "latency_s": 25.079007863998413,
+      "returncode": 0,
+      "stderr": "",
+      "cli_version": "2.1.309",
+      "model": "claude-sonnet-5-5",
+      "tools": [
+        "StructuredOutput"
+      ],
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 2755,
+        "cache_read_input_tokens": 5862,
+        "output_tokens": 4182,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2755,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 3372,
+            "cache_read_input_tokens": 3622,
+            "cache_creation_input_tokens": 1373,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1373
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "model_usage": {
+        "claude-sonnet-5-5": {
+          "inputTokens": 4,
+          "outputTokens": 4182,
+          "cacheReadInputTokens": 5862,
+          "cacheCreationInputTokens": 2755,
+          "webSearchRequests": 0,
+          "costUSD": 0.053434199999999994,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 0,
+          "canonicalModel": "claude-sonnet-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "notional_cost_usd": 0.053434199999999994,
+      "num_turns": 4
+    }
+  ],
+  "check": {
+    "errors": [],
+    "warnings": [
+      "keyframe 2: Lshoulder-Lelbow length 0.324 vs initial 0.263",
+      "keyframe 2: Rshoulder-Relbow length 0.324 vs initial 0.257",
+      "keyframe 2: Relbow-Rwrist length 0.242 vs initial 0.202",
+      "keyframe 3: Lshoulder-Lelbow length 0.324 vs initial 0.263",
+      "keyframe 3: Rshoulder-Relbow length 0.324 vs initial 0.257",
+      "keyframe 3: Relbow-Rwrist length 0.242 vs initial 0.202"
+    ]
+  },
+  "ok": true,
+  "request_sha256": "770e4e5c7d6dfad48d3bfdd51f5b4d21dc4a11211b1ad1d166d766061ba03345",
+  "note": "check covers structure and self-consistency only; rendered motion still needs separate review"
+}

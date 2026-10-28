@@ -1,0 +1,9 @@
+{
+  "case_id": "D07",
+  "paired_reference_group": "D07-01",
+  "image": "benchmark/images/D07.png",
+  "image_sha256": "b1310cbbd45ca9bb393308d0f244ccf5d155fdf767f630198b2ff512d46daf83",
+  "text": "Request (verbatim): 양팔을 머리 위로 올려 1초간 유지한 뒤 양팔을 내려라.\nDuration: 6 s\nDictionary: {\"version\": \"seed-v0.1\", \"actions\": [\"wave_right\", \"wave_left\", \"squat\"], \"semantics\": [\"raise-wave-lower\", \"lower-pelvis-bend-knees-return\"], \"scope\": \"Semantic inventory only. Reference trajectory files must be supplied separately with their own license and provenance.\"}\nReturn the plan.",
+  "system_prompt_sha256": "4c7534831e248ff676c68f5b19748403ab63ef6fa2aa55c9945a27db26ba2760",
+  "schema_sha256": "f8cb97c0a81931ab7ea66d25c3d324d8b8a0292257a7a72fb63f8c8fa5e39c2f"
+}

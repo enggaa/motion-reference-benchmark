@@ -1,0 +1,81 @@
+{
+  "group": "D03-01",
+  "attempts": [
+    "0008",
+    "0009"
+  ],
+  "backend": "claude-code",
+  "requested_model": "sonnet",
+  "created_utc": "2026-10-28T16:50:49.642181+00:00",
+  "tries": [
+    {
+      "latency_s": 61.87788510322571,
+      "returncode": 0,
+      "stderr": "",
+      "cli_version": "2.1.309",
+      "model": "claude-sonnet-5-5",
+      "tools": [
+        "StructuredOutput"
+      ],
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 8465,
+        "cache_read_input_tokens": 5867,
+        "output_tokens": 11286,
+        "output_tokens_details": {
+          "thinking_tokens": 1389
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 8465,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 4962,
+            "cache_read_input_tokens": 3627,
+            "cache_creation_input_tokens": 7078,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 7078
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "model_usage": {
+        "claude-sonnet-5-5": {
+          "inputTokens": 4,
+          "outputTokens": 11286,
+          "cacheReadInputTokens": 5867,
+          "cacheCreationInputTokens": 8465,
+          "webSearchRequests": 0,
+          "costUSD": 0.1473147,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 1389,
+          "canonicalModel": "claude-sonnet-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "notional_cost_usd": 0.1473147,
+      "num_turns": 3
+    }
+  ],
+  "check": {
+    "errors": [],
+    "warnings": []
+  },
+  "ok": true,
+  "request_sha256": "9caa444d117b7f5d9d7ff41527aab2df2acee55f6d88809a2cfb4c567089bad4",
+  "note": "check covers structure and self-consistency only; rendered motion still needs separate review"
+}

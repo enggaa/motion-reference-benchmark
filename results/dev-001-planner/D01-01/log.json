@@ -1,0 +1,81 @@
+{
+  "group": "D01-01",
+  "attempts": [
+    "0002",
+    "0003"
+  ],
+  "backend": "claude-code",
+  "requested_model": "sonnet",
+  "created_utc": "2026-10-28T16:46:34.780031+00:00",
+  "tries": [
+    {
+      "latency_s": 66.55647253990173,
+      "returncode": 0,
+      "stderr": "",
+      "cli_version": "2.1.309",
+      "model": "claude-sonnet-5-5",
+      "tools": [
+        "StructuredOutput"
+      ],
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 11395,
+        "cache_read_input_tokens": 3623,
+        "output_tokens": 13523,
+        "output_tokens_details": {
+          "thinking_tokens": 941
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 11395,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 6669,
+            "cache_read_input_tokens": 3623,
+            "cache_creation_input_tokens": 7772,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 7772
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "model_usage": {
+        "claude-sonnet-5-5": {
+          "inputTokens": 4,
+          "outputTokens": 13523,
+          "cacheReadInputTokens": 3623,
+          "cacheCreationInputTokens": 11395,
+          "webSearchRequests": 0,
+          "costUSD": 0.18118030000000002,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 941,
+          "canonicalModel": "claude-sonnet-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "notional_cost_usd": 0.18118030000000002,
+      "num_turns": 3
+    }
+  ],
+  "check": {
+    "errors": [],
+    "warnings": []
+  },
+  "ok": true,
+  "request_sha256": "5a9e8a2b2a3f43c38d32bb2b6b5c987061c6f049edde57161b582d0f087f77c7",
+  "note": "check covers structure and self-consistency only; rendered motion still needs separate review"
+}

@@ -1,0 +1,642 @@
+{
+  "initial_pose": {
+    "pose_class": "crouched",
+    "observations": [
+      "Mannequin in a half-squat: knees deeply bent and pushed forward, pelvis roughly 0.6 m above the floor",
+      "Torso leans slightly forward, head up and facing the camera",
+      "Both feet flat on the floor, shoulder-width apart",
+      "Character's left arm (image right) extends forward and down; right arm (image left) has the elbow bent with the hand held in front of the belly"
+    ],
+    "uncertainties": [
+      "Depth (Y) values are estimated from a single view with unknown camera parameters",
+      "Exact torso yaw is unclear; the body looks turned slightly to the side",
+      "Foot spacing and arm angles are approximate"
+    ],
+    "joints": [
+      {
+        "joint": "pelvis",
+        "x": 0,
+        "y": 0,
+        "z": 0.62
+      },
+      {
+        "joint": "neck",
+        "x": 0,
+        "y": -0.15,
+        "z": 1.085
+      },
+      {
+        "joint": "head",
+        "x": 0,
+        "y": -0.18,
+        "z": 1.29
+      },
+      {
+        "joint": "Lhip",
+        "x": 0.12,
+        "y": 0,
+        "z": 0.62
+      },
+      {
+        "joint": "Lknee",
+        "x": 0.15,
+        "y": -0.36,
+        "z": 0.39
+      },
+      {
+        "joint": "Lankle",
+        "x": 0.15,
+        "y": -0.07,
+        "z": 0.08
+      },
+      {
+        "joint": "Lshoulder",
+        "x": 0.23,
+        "y": -0.15,
+        "z": 1.06
+      },
+      {
+        "joint": "Lelbow",
+        "x": 0.42,
+        "y": -0.3,
+        "z": 0.92
+      },
+      {
+        "joint": "Lwrist",
+        "x": 0.55,
+        "y": -0.4,
+        "z": 0.78
+      },
+      {
+        "joint": "Rhip",
+        "x": -0.12,
+        "y": 0,
+        "z": 0.62
+      },
+      {
+        "joint": "Rknee",
+        "x": -0.15,
+        "y": -0.36,
+        "z": 0.39
+      },
+      {
+        "joint": "Rankle",
+        "x": -0.15,
+        "y": -0.07,
+        "z": 0.08
+      },
+      {
+        "joint": "Rshoulder",
+        "x": -0.23,
+        "y": -0.15,
+        "z": 1.06
+      },
+      {
+        "joint": "Relbow",
+        "x": -0.32,
+        "y": -0.2,
+        "z": 0.8
+      },
+      {
+        "joint": "Rwrist",
+        "x": -0.14,
+        "y": -0.34,
+        "z": 0.82
+      }
+    ],
+    "contacts": [
+      "left foot on floor",
+      "right foot on floor"
+    ]
+  },
+  "actions": [
+    {
+      "id": "stand_up",
+      "request_quote": "현재 낮춘 자세에서 양 무릎을 펴며 일어나 똑바로 선 자세로 마쳐라.",
+      "side": "both",
+      "repetitions": 1,
+      "completion": "Both knees are fully extended, the pelvis is at standing height (about 0.94 m), the torso is upright, and the character stands straight with both feet on the floor."
+    }
+  ],
+  "retrieval": [],
+  "keyframes": [
+    {
+      "time_s": 0,
+      "origin": "observed",
+      "action_id": null,
+      "description": "Initial half-squat as seen in the image",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.62
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": -0.15,
+          "z": 1.085
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": -0.18,
+          "z": 1.29
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.62
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.15,
+          "y": -0.36,
+          "z": 0.39
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": -0.15,
+          "z": 1.06
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.42,
+          "y": -0.3,
+          "z": 0.92
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.55,
+          "y": -0.4,
+          "z": 0.78
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.62
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.15,
+          "y": -0.36,
+          "z": 0.39
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": -0.15,
+          "z": 1.06
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.32,
+          "y": -0.2,
+          "z": 0.8
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.14,
+          "y": -0.34,
+          "z": 0.82
+        }
+      ],
+      "contacts": [
+        "left foot on floor",
+        "right foot on floor"
+      ]
+    },
+    {
+      "time_s": 0.8,
+      "origin": "inferred",
+      "action_id": "stand_up",
+      "description": "Brief hold of the crouch before rising",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": 0,
+          "z": 0.62
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": -0.15,
+          "z": 1.085
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": -0.18,
+          "z": 1.29
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": 0,
+          "z": 0.62
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.15,
+          "y": -0.36,
+          "z": 0.39
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": -0.15,
+          "z": 1.06
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.42,
+          "y": -0.3,
+          "z": 0.92
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.55,
+          "y": -0.4,
+          "z": 0.78
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": 0,
+          "z": 0.62
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.15,
+          "y": -0.36,
+          "z": 0.39
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": -0.15,
+          "z": 1.06
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.32,
+          "y": -0.2,
+          "z": 0.8
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.14,
+          "y": -0.34,
+          "z": 0.82
+        }
+      ],
+      "contacts": [
+        "left foot on floor",
+        "right foot on floor"
+      ]
+    },
+    {
+      "time_s": 2.6,
+      "origin": "inferred",
+      "action_id": "stand_up",
+      "description": "Midway through rising: knees partly extended, torso straightening, arms lowering",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": -0.04,
+          "z": 0.78
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": -0.1,
+          "z": 1.26
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": -0.11,
+          "z": 1.46
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": -0.04,
+          "z": 0.78
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.15,
+          "y": -0.29,
+          "z": 0.43
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": -0.1,
+          "z": 1.22
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.38,
+          "y": -0.2,
+          "z": 1
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.45,
+          "y": -0.28,
+          "z": 0.82
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": -0.04,
+          "z": 0.78
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.15,
+          "y": -0.29,
+          "z": 0.43
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": -0.1,
+          "z": 1.22
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3,
+          "y": -0.14,
+          "z": 0.98
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.2,
+          "y": -0.3,
+          "z": 0.95
+        }
+      ],
+      "contacts": [
+        "left foot on floor",
+        "right foot on floor"
+      ]
+    },
+    {
+      "time_s": 4.4,
+      "origin": "inferred",
+      "action_id": "stand_up",
+      "description": "Fully upright standing, knees extended, arms hanging at the sides",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": -0.07,
+          "z": 0.94
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": -0.07,
+          "z": 1.43
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": -0.07,
+          "z": 1.64
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": -0.07,
+          "z": 0.94
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.15,
+          "y": -0.07,
+          "z": 0.51
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": -0.07,
+          "z": 1.38
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": -0.07,
+          "z": 1.11
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": -0.07,
+          "z": 0.89
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": -0.07,
+          "z": 0.94
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.15,
+          "y": -0.07,
+          "z": 0.51
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": -0.07,
+          "z": 1.38
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.25,
+          "y": -0.07,
+          "z": 1.11
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.25,
+          "y": -0.07,
+          "z": 0.89
+        }
+      ],
+      "contacts": [
+        "left foot on floor",
+        "right foot on floor"
+      ]
+    },
+    {
+      "time_s": 6,
+      "origin": "inferred",
+      "action_id": "stand_up",
+      "description": "Hold the straight standing pose until the end of the clip",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0,
+          "y": -0.07,
+          "z": 0.94
+        },
+        {
+          "joint": "neck",
+          "x": 0,
+          "y": -0.07,
+          "z": 1.43
+        },
+        {
+          "joint": "head",
+          "x": 0,
+          "y": -0.07,
+          "z": 1.64
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.12,
+          "y": -0.07,
+          "z": 0.94
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.15,
+          "y": -0.07,
+          "z": 0.51
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.23,
+          "y": -0.07,
+          "z": 1.38
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": -0.07,
+          "z": 1.11
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.25,
+          "y": -0.07,
+          "z": 0.89
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.12,
+          "y": -0.07,
+          "z": 0.94
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.15,
+          "y": -0.07,
+          "z": 0.51
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.15,
+          "y": -0.07,
+          "z": 0.08
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.23,
+          "y": -0.07,
+          "z": 1.38
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.25,
+          "y": -0.07,
+          "z": 1.11
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.25,
+          "y": -0.07,
+          "z": 0.89
+        }
+      ],
+      "contacts": [
+        "left foot on floor",
+        "right foot on floor"
+      ]
+    }
+  ],
+  "assumptions": [
+    "The dictionary's 'squat' entry (lower-pelvis-bend-knees-return) is the nearest match, but no trajectory is supplied and the request starts from the lowered pose. So the keyframes are inferred and nothing is marked retrieved.",
+    "The arms are not mentioned in the request. I assumed they relax to hang at the sides at the end of the stand, since 'straight standing' implies a neutral pose.",
+    "Both feet stay planted in place. The pelvis shifts about 0.07 m toward the front (-Y) so it sits over the feet at the end.",
+    "The final pelvis height of 0.94 m comes from the given segment lengths (thigh 0.43 + shin 0.43 + ankle height 0.08).",
+    "Timing is 0.8 s of hold, then a rise to 4.4 s, then a 1.6 s hold of the final pose."
+  ],
+  "unsupported_requirements": []
+}

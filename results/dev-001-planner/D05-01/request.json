@@ -1,0 +1,9 @@
+{
+  "case_id": "D05",
+  "paired_reference_group": "D05-01",
+  "image": "benchmark/images/D05.png",
+  "image_sha256": "e4ab656a2d99053e86d8ebda452469341a24b4987c5c08a22284567dddbfa206",
+  "text": "Request (verbatim): 오른손을 한 번 왕복해 흔들고 내린 다음, 왼손을 한 번 왕복해 흔들고 내려라.\nDuration: 8 s\nDictionary: {\"version\": \"seed-v0.1\", \"actions\": [\"wave_right\", \"wave_left\", \"squat\"], \"semantics\": [\"raise-wave-lower\", \"lower-pelvis-bend-knees-return\"], \"scope\": \"Semantic inventory only. Reference trajectory files must be supplied separately with their own license and provenance.\"}\nReturn the plan.",
+  "system_prompt_sha256": "4c7534831e248ff676c68f5b19748403ab63ef6fa2aa55c9945a27db26ba2760",
+  "schema_sha256": "f8cb97c0a81931ab7ea66d25c3d324d8b8a0292257a7a72fb63f8c8fa5e39c2f"
+}

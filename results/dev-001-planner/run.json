@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "split": "development",
+  "repeats": 1,
+  "seed": 20261029,
+  "created_utc": "2026-10-28T16:45:28.070521+00:00",
+  "cases_sha256": "660f947eac78e3276061113286ada5f57a564e7685255fc19ab9d053b9764693",
+  "contracts_sha256": "ec068598f626bb0f41e3c3b48911602b77273a1ae71d3f1addb406b2fe66d4fb",
+  "dictionary_sha256": "5397f2e9dcecb02f8b552b63461a1c1a3e9474c84c1ee385ad2f7130c96858ab",
+  "configuration": {
+    "planner_model": "sonnet",
+    "video_model": null,
+    "numeric_cost_cap": null,
+    "conditioning_modes_confirmed": false,
+    "planner_backend": "claude-code"
+  },
+  "execution_enabled": false,
+  "note": "Planning does not execute models. Reference arms share one initial LLM candidate per replicate; only verified arm may inspect/repair it."
+}
