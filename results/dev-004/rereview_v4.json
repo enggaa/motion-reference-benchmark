@@ -1,0 +1,1052 @@
+{
+  "D01-01/initial": {
+    "verifier": "v4",
+    "verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a standing neutral pose with both arms hanging at the sides and feet apart. This matches the input image. The automatic overlap score is 0.88."
+      },
+      "requirements": [
+        {
+          "id": "r1",
+          "quote": "오른손을 어깨 높이로 들어",
+          "status": "pass",
+          "evidence": "The character's right arm is on the image left in the front view. It is raised to about shoulder height in frames 0.875 to 3.4 s. The summary lists the right wrist near shoulder height from 0.88 to 3.54 s and never above the head. The left arm stays down."
+        },
+        {
+          "id": "r2",
+          "quote": "몸 앞에서 두 번 왕복해 흔든 뒤",
+          "status": "pass",
+          "evidence": "The raised_lateral_cm values show two clear round trips. The first goes from about 5 cm out to 18 cm at 1.58 s and back to 4 cm at 2.0 s. The second goes out to 18 cm at 2.42 s and back to 4 cm at 2.79 s. The turns are outward, inward, outward, inward. The forearm stays in front of the chest in the frames."
+        },
+        {
+          "id": "r3",
+          "quote": "내려라",
+          "status": "pass",
+          "evidence": "The arm is lowered by 4.29 s (frame 6) and is back at the side in frames 5.125 and 6.0 s. The body is still from 4.71 to 6.0 s, so the final lowered state is visible."
+        }
+      ],
+      "verdict": "pass",
+      "repair_instructions": []
+    },
+    "recorded_verdict": {
+      "requirements": [
+        {
+          "id": "r1",
+          "quote": "오른손을 어깨 높이로 들어",
+          "status": "pass",
+          "evidence": "The character's right arm (image left in the front view) is raised with the hand near shoulder height from about 0.88 s to 3.54 s (frames at 0.875, 1.71, 2.58, 3.42). The left arm stays down."
+        },
+        {
+          "id": "r2",
+          "quote": "몸 앞에서 두 번 왕복해 흔든 뒤",
+          "status": "fail",
+          "evidence": "The summary shows only four alternating raised turns (outward 1.58, inward 2.0, outward 2.42, inward 2.79). By the counting rule that is about 1.5 round trips, not two. The 8 frames cannot resolve the swings. In the frames the forearm stays in front of the chest and upper body, which is correct, but the count is short. The hand also stays raised and mostly still from 2.79 to 3.54 s."
+        },
+        {
+          "id": "r3",
+          "quote": "내려라",
+          "status": "pass",
+          "evidence": "The arm is lowered by 4.29 s (frame 5), and the body is fully still with arms down from 4.71 to 6.0 s (frames 6–8)."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a standing pose with both arms hanging at the sides and feet apart, the same as the input image. The overlap score is 0.88."
+      },
+      "repair_instructions": [
+        "Make the right hand wave exactly two full round trips (outward→inward→outward→inward, plus a start-and-end turn so the raised turns total 5, e.g. inward, outward, inward, outward, inward). The current motion has only 4 turns, about 1.5 round trips.",
+        "Keep the right hand at shoulder height in front of the body for the whole wave, with the elbow bent and the forearm swinging left-right (from the character's point of view) with a similar amplitude each time. Fit the swings between about 1.2 s and 3.4 s, evenly spaced at roughly 0.4 s per half-swing.",
+        "Avoid the idle raised hold after the last swing (2.8–3.5 s). Start lowering the right arm right after the second round trip ends, and have it down at the side by about 4.3 s. Keep the left arm still."
+      ],
+      "verdict": "repair"
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4902,
+        "cache_read_input_tokens": 733,
+        "output_tokens": 918,
+        "output_tokens_details": {
+          "thinking_tokens": 319
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4902,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 918,
+            "cache_read_input_tokens": 733,
+            "cache_creation_input_tokens": 4902,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4902
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D01-01/repaired": {
+    "verifier": "v4",
+    "verdict": {
+      "requirements": [
+        {
+          "id": "r1",
+          "quote": "오른손을 어깨 높이로 들어",
+          "status": "pass",
+          "evidence": "The character's right arm (image left in the front view) rises by 0.875 s. In the 1.71 s and 2.58 s frames the hand is at shoulder height. The summary has the right wrist near shoulder height from 0.96 to 3.04 s. The left arm stays down."
+        },
+        {
+          "id": "r2",
+          "quote": "몸 앞에서 두 번 왕복해 흔든 뒤",
+          "status": "pass",
+          "evidence": "The raised_lateral_cm values show two clear round trips: 6 to 41 at 1.58 s, back to 6 at 2.0 s, 41 again at 2.42 s, then back to 6 at 2.75 s. The frames show the forearm crossing in front of the chest at 0.875 s and swinging outward at 1.71 s and 2.58 s. The outward swing is wide, about 41 cm, but it stays at shoulder height."
+        },
+        {
+          "id": "r3",
+          "quote": "내려라",
+          "status": "pass",
+          "evidence": "The arm is lowered by 3.08 s. The 3.42 s frame shows the hand returning to the side. From 4.21 to 6.0 s the whole body is still with both arms down, so the final state is visible."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a standing pose with both arms hanging at the sides and feet apart, like the input image. Overlap score is 0.88."
+      },
+      "repair_instructions": [],
+      "verdict": "pass"
+    },
+    "recorded_verdict": {
+      "requirements": [
+        {
+          "id": "r1",
+          "quote": "오른손을 어깨 높이로 들어",
+          "status": "pass",
+          "evidence": "The character's right arm (image left in the front view) rises to about shoulder height in frames 0.875 s to 3.4 s. The summary shows it near shoulder height from 0.96 s to 3.04 s. The left arm stays down."
+        },
+        {
+          "id": "r2",
+          "quote": "몸 앞에서 두 번 왕복해 흔든 뒤",
+          "status": "fail",
+          "evidence": "The summary has only three raised turns: outward at 1.58 s, inward at 2.0 s and outward at 2.42 s. That is about 1.5 round trips, not two. In the front view the hand also moves far out to the character's right side (frames 1.71 s and 2.58 s) instead of staying in front of the body."
+        },
+        {
+          "id": "r3",
+          "quote": "내려라",
+          "status": "pass",
+          "evidence": "The arm is lowered by about 3.4 s (frame 5). Frames 4.29 s to 6.0 s show both arms down and the body still from 4.21 s."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a standing pose with both arms hanging at the sides. This matches the input image, and the automatic overlap score is 0.88."
+      },
+      "verdict": "repair",
+      "repair_instructions": [
+        "Raise the character's right hand to shoulder height in front of the chest, finishing by about 1.2 s.",
+        "Keep the right hand raised from about 1.2 s to 3.4 s and make exactly two full round trips of side-to-side swings. That needs four alternating raised turns (outward, inward, outward, inward), each about 0.4 s apart. The summary currently has only three turns, outward, inward, outward, which is 1.5 round trips.",
+        "Keep the swings in front of the body with a moderate amplitude. Do not extend the hand far out to the character's right side as in frames 1.71 s and 2.58 s.",
+        "After the second return, lower the right arm to the side by about 3.6 to 4.2 s and hold still until 6 s. Keep the left arm down throughout."
+      ]
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4227,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 1105,
+        "output_tokens_details": {
+          "thinking_tokens": 496
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4227,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1105,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 4227,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4227
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D02-01/initial": {
+    "verifier": "v4",
+    "verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "앉은 자세를 유지하면서",
+          "status": "pass",
+          "evidence": "All 8 frames stay seated on the chair. Pelvis height is 0.542 m at start and end, and the legs and torso do not move."
+        },
+        {
+          "id": "R2",
+          "quote": "왼손을 어깨 높이로 들어",
+          "status": "pass",
+          "evidence": "In the front view the raised arm is on the image right, which is the character's left. At 0.875 s to 3.42 s the arm is held out roughly horizontal at shoulder height. The summary has the left wrist near shoulder height from 0.79 s to 3.79 s. The right hand stays on the lap."
+        },
+        {
+          "id": "R3",
+          "quote": "한 번 왕복해 흔든 뒤",
+          "status": "fail",
+          "evidence": "raised_lateral_cm starts at 31 and rises to 41 at 2.0 s. It then drops to 24 at 2.79 s, below the start, and goes back out to 35 at 3.42 s. That is out, back, then out again, so it is more than one clean round trip, and it reads as roughly 1.5 to 2 swings. The swing is 10 to 17 cm. The frames mostly show the arm held extended and do not show a distinct single wave."
+        },
+        {
+          "id": "R4",
+          "quote": "내려라",
+          "status": "pass",
+          "evidence": "By 4.29 s the arm hangs down beside the thigh. At 5.125 s and 6.0 s it is at rest, and the whole body is still from 4.62 s to 6.0 s."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the character seated on the chair with the right hand resting on the lap and the left hand hanging near the left thigh. This matches the input image. The automatic overlap score of 0.77 is moderate, but the posture and lean are consistent."
+      },
+      "repair_instructions": [
+        "Keep the seated pose and the right hand on the lap unchanged.",
+        "Raise the character's left hand to shoulder height by about 0.8 s and hold it there until the wave ends.",
+        "Make exactly one clear sideways round trip with the left hand: swing outward (away from the body) about 10 to 15 cm, then return to the starting lateral position, roughly between 1.5 s and 3.0 s. Do not go inward past the start position and then swing out a second time.",
+        "After the single round trip, lower the left arm to the thigh by about 4 s and stay still until 6 s."
+      ],
+      "verdict": "repair"
+    },
+    "recorded_verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the character seated on the chair. The right hand rests on the lap and the left arm hangs with the hand near the thigh, as in the input. The overlap score of 0.77 is moderate, probably because the camera angle differs slightly."
+      },
+      "repair_instructions": [],
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "앉은 자세를 유지하면서",
+          "status": "pass",
+          "evidence": "The pelvis height stays at 0.542 m from start to end. The character stays seated with the legs in place in all eight frames in both views."
+        },
+        {
+          "id": "R2",
+          "quote": "왼손을 어깨 높이로 들어",
+          "status": "pass",
+          "evidence": "The raised arm is on the image right in the front view, which is the character's left. At 0.875–3.4 s it extends forward and sideways at shoulder height. The summary lists the left wrist near shoulder height from 0.79 to 3.79 s. The right wrist never rises."
+        },
+        {
+          "id": "R3",
+          "quote": "한 번 왕복해 흔든 뒤",
+          "status": "pass",
+          "evidence": "The raised left-wrist turns are outward at 2.0 s, inward at 2.79 s and outward at 3.42 s. That is one round trip. The small lateral hand shift is visible across frames 2–5."
+        },
+        {
+          "id": "R4",
+          "quote": "내려라",
+          "status": "pass",
+          "evidence": "The left arm is lowered by frame 6 (4.29 s), with the hand near the thigh. It stays down in frames 7 and 8, and the body is still from 4.62 s to the end."
+        }
+      ],
+      "verdict": "pass"
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4295,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 1552,
+        "output_tokens_details": {
+          "thinking_tokens": 646
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4295,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1552,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 4295,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4295
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D03-01/initial": {
+    "verifier": "v4",
+    "verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "기울어진 몸통 자세를 유지하면서",
+          "status": "uncertain",
+          "evidence": "The torso is tilted in frame 0 and looks similar in the later frames from both cameras. The lean cannot be confirmed as unchanged while the arm is raised, because the torso looks slightly more upright in some middle frames."
+        },
+        {
+          "id": "R2",
+          "quote": "오른손을 몸 앞에서",
+          "status": "uncertain",
+          "evidence": "The right hand (image left in the front view) is raised beside and above the shoulder, close to the head and chest, in frames 1-4. It is not clearly held in front of the body. In frames 5-7 it drops out to the side."
+        },
+        {
+          "id": "R3",
+          "quote": "한 번 왕복해 흔들어라",
+          "status": "fail",
+          "evidence": "The summary shows more than one round trip. Lateral offset goes 16 to 4 cm (inward, 1.2 s), then to 15 cm (outward, 2.1 s), then to -4 cm (inward, 3.0 s), then to 20 cm (outward, 4.2 s). That is about two round trips, with swings of roughly 11, 19 and 24 cm. The hand also stays raised from 0.6 s to 4.2 s, so the wave is not one clean cycle. Then the arm lowers and the body is still from 4.7 s."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 has a tilted torso, the character's right arm hanging slightly away from the body, and the left arm down with feet apart. This matches the input. The automatic overlap score is moderate at 0.79."
+      },
+      "repair_instructions": [
+        "Make the character's right hand do exactly one clear round trip. Raise it in front of the chest or shoulder, swing it outward (to the character's right) once, then swing it back inward once to where it started. Do this at about 1.5-3.5 s, with no further swings.",
+        "Remove the extra inward and outward swings seen at about 1.2, 2.1, 3.0 and 4.2 s. Swing the hand only once, with a clear amplitude of about 15 cm or more.",
+        "Keep the right hand in front of the body, at about chest or shoulder height and ahead of the torso, not beside the head or out to the side.",
+        "Keep the torso lean from the first frame unchanged for the whole clip. Do not let the torso straighten while the arm moves.",
+        "After the single wave, lower the right arm back to the side and hold still until the end, so the final state is visible."
+      ],
+      "verdict": "repair"
+    },
+    "recorded_verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "기울어진 몸통 자세를 유지하면서",
+          "status": "pass",
+          "evidence": "In all eight frames of both cameras the torso keeps the same sideways tilt, with the top leaning toward the character's left. The legs stay planted, and the summary shows the whole body still from 4.71 s to the end. The tilt does not straighten or change."
+        },
+        {
+          "id": "R2",
+          "quote": "오른손을 몸 앞에서 한 번 왕복해 흔들어라",
+          "status": "pass",
+          "evidence": "The raised hand is the character's right, on the image left in the front view. The summary gives three raised turns: inward at 1.21 s, outward at 2.08 s, inward at 3.0 s. That is exactly one round trip. The frames show the hand rising to shoulder height at 0.875 s and moving across at 1.7–2.6 s. It then lowers by 4.3 s and stays down through 6.0 s. In the input-camera view the hand is in front of the torso."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 has the same tilted torso with the head leaning to the character's left. The right arm hangs slightly forward and outward and the left arm hangs down. Legs and stance are similar. The overlap score of 0.787 is moderate, and the lean looks a little weaker than in the input image, but the posture is consistent."
+      },
+      "repair_instructions": [],
+      "verdict": "pass"
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4346,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 1460,
+        "output_tokens_details": {
+          "thinking_tokens": 534
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4346,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1460,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 4346,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4346
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D04-01/initial": {
+    "verifier": "v4",
+    "verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the same crouch as the input: knees bent, torso leaning forward, the character's right arm bent in front of the belly and the left arm reaching forward. The overlap score of 0.79 is acceptable."
+      },
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "현재 낮춘 자세에서 양 무릎을 펴며 일어나",
+          "status": "pass",
+          "evidence": "Frames 0-4 (0 to 3.4 s) go from a deep crouch to extended legs in both views, and the front view shows both knees straightening together. Pelvis height rises from 0.598 m to 0.93 m. The ankle targets the renderer could not reach are only a small deficit, and the feet stay planted in the frames."
+        },
+        {
+          "id": "R2",
+          "quote": "똑바로 선 자세로 마쳐라",
+          "status": "pass",
+          "evidence": "Frames 5-7 (4.29, 5.125 and 6.0 s) show an upright stance with straight legs, a vertical torso and arms hanging at the sides. The whole body is still from 4.38 s to 6.0 s, so the final pose is held and visible before the end."
+        }
+      ],
+      "verdict": "pass",
+      "repair_instructions": []
+    },
+    "recorded_verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the same crouched pose as the input: knees bent, torso leaning forward, left arm (image right) extended forward-down and right arm bent across the front. Overlap is 0.79, which is acceptable."
+      },
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "현재 낮춘 자세에서 양 무릎을 펴며 일어나",
+          "status": "pass",
+          "evidence": "Frames 0-3 (0 to 2.58 s) show both knees gradually straightening. Pelvis height rises from 0.598 m to 0.93 m. Both legs extend together in the front view."
+        },
+        {
+          "id": "R2",
+          "quote": "똑바로 선 자세로 마쳐라",
+          "status": "pass",
+          "evidence": "Frames 5-7 (4.29 to 6.0 s) show an upright stance with straight legs, a vertical torso and arms hanging at the sides. The body is still from 4.38 s to the end, so the final state is held and visible."
+        }
+      ],
+      "verdict": "pass",
+      "repair_instructions": []
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 3994,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 799,
+        "output_tokens_details": {
+          "thinking_tokens": 292
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 3994,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 799,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 3994,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 3994
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D05-01/initial": {
+    "verifier": "v4",
+    "verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a standing pose with both arms hanging at the sides and feet apart. This matches the input image, and the overlap score is 0.90."
+      },
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "오른손을 한 번 왕복해 흔들고 내린 다음",
+          "status": "pass",
+          "evidence": "In the front view the raised arm is on the image left, which is the character's right, at 1.125 s and 2.29 s. By the summary, the right wrist is raised from 0.42 s to 2.38 s. Its sideways offset starts near 30 cm, swings inward to about 10 cm at 1.58 s, then returns outward to about 29 cm by 2.38 s. That is one clear round trip; the 6–7 cm drift before it is ignored. The arm is down by 3.42 s, when the left arm is raised and the right hangs at the side."
+        },
+        {
+          "id": "R2",
+          "quote": "왼손을 한 번 왕복해 흔들고 내려라",
+          "status": "pass",
+          "evidence": "At 3.42 s and 4.58 s the left arm (image right in the front view) is raised, and the summary has it raised from 3.29 s to 5.58 s. Its offset starts near 30 cm, goes inward to about 11 cm at 4.75 s, then returns outward to about 33 cm by 5.58 s. That is one round trip. The arm is lowering at 5.71 s and fully down at 6.875 s and 8.0 s. The body is still from 6.04 s, so the final state is visible. The left wave starts after the right arm is down, so the order is correct."
+        }
+      ],
+      "verdict": "pass",
+      "repair_instructions": []
+    },
+    "recorded_verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a standing neutral pose with arms down at the sides, matching the input image. The overlap score is 0.90."
+      },
+      "requirements": [
+        {
+          "id": "r1",
+          "quote": "오른손을 한 번 왕복해 흔들고 내린 다음",
+          "status": "fail",
+          "evidence": "The character's right hand (image left in the front view) is raised in frames 1-3, so the side is correct. The summary shows five raised turns from 0.42 to 2.38 s (outward, inward, outward, inward, outward), which is about two round trips, not one. The arm is lowered by 5.7 s."
+        },
+        {
+          "id": "r2",
+          "quote": "왼손을 한 번 왕복해 흔들고 내려라",
+          "status": "fail",
+          "evidence": "The left hand (image right in the front view) is raised in frames 3-4. The summary shows five raised turns from 3.33 to 5.58 s (outward, inward, outward, inward, outward), which is about two round trips, not one. The arm is lowered and the body is still from 6.04 s."
+        }
+      ],
+      "repair_instructions": [
+        "Right hand, 0.4-2.4 s: do exactly one round trip while raised. Raise the hand, swing it outward (away from the body midline), return it inward once, then lower the arm. Remove the second outward-inward cycle.",
+        "Left hand, 3.3-5.6 s: do exactly one round trip while raised, in the same way: outward, then back inward once. Then lower the arm. Remove the extra cycle.",
+        "Keep the right-then-left order and the neutral final pose with both arms down, held until 8 s."
+      ],
+      "verdict": "repair"
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4634,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 1268,
+        "output_tokens_details": {
+          "thinking_tokens": 616
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4634,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1268,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 4634,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4634
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D05-01/repaired": {
+    "verifier": "v4",
+    "verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the character standing with both arms down at the sides and feet apart, as in the input. The overlap score is 0.90."
+      },
+      "requirements": [
+        {
+          "id": "r1",
+          "quote": "오른손을 한 번 왕복해 흔들고 내린 다음",
+          "status": "pass",
+          "evidence": "The character's right hand is the one on the image left in the front view. It is raised at 1.125 s and 2.29 s, and the arm is lowered by 5.7 s. The right wrist's sideways offset goes 24 → 40 → 24 cm, which is one clear round trip (turns at 0.79, 1.5 and 2.21 s). The first 30 → 24 cm move and the final 24 → 30 cm move are small partial drifts. The arm comes down by 5.7 s, before the left-hand wave starts."
+        },
+        {
+          "id": "r2",
+          "quote": "왼손을 한 번 왕복해 흔들고 내려라",
+          "status": "pass",
+          "evidence": "The left arm, on the image right in the front view, is raised at 3.42 s and 4.58 s. Its sideways offset goes 24 → 39 → 24 cm, with turns at 3.79, 4.5 and 5.21 s. That is one round trip, and it follows the right-hand wave. The arm is lowered by 5.7 s. After 6.04 s the body is still with both arms down, and frames 6 and 7 show this."
+        }
+      ],
+      "repair_instructions": [],
+      "verdict": "pass"
+    },
+    "recorded_verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a standing neutral pose with both arms hanging at the sides and feet apart, the same as the input image. Overlap score is 0.90."
+      },
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "오른손을 한 번 왕복해 흔들고 내린 다음",
+          "status": "fail",
+          "evidence": "The character's right arm (image left in the front view) is raised in frames at 1.125 s and 2.29 s, and it is lowered by 4.58 s. The summary lists five raised turns (outward 0.42, inward 0.79, outward 1.5, inward 2.21, outward 2.58). That is about two round trips, not one. The wave is too long, with the hand raised from 0.42 s to 2.58 s."
+        },
+        {
+          "id": "R2",
+          "quote": "왼손을 한 번 왕복해 흔들고 내려라",
+          "status": "fail",
+          "evidence": "The left arm is raised from 3.42 s to 5.58 s and is lowered by 5.7 s to 6.9 s. The summary lists five raised turns (outward 3.42, inward 3.79, outward 4.5, inward 5.21, outward 5.58), which is about two round trips, not one. The order is correct, with the right hand first and then the left. The body is still from 6.04 s to the end."
+        }
+      ],
+      "repair_instructions": [
+        "Right arm: raise it and wave exactly one round trip, outward then back inward (3 raised turns at most: out, in, out, or in, out, in). Then lower it to the side, within about 0.4 to 2.0 s.",
+        "Left arm: raise it only after the right arm is fully down, and wave exactly one round trip, outward then back. Remove the second back-and-forth, then lower the arm to the side, within about 3.4 to 5.2 s.",
+        "Keep the order (right then left), the neutral standing pose at the start, and the still final pose with both arms down. Use the time saved to hold the lowered arms before the end."
+      ],
+      "verdict": "repair"
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4649,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 1433,
+        "output_tokens_details": {
+          "thinking_tokens": 841
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4649,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1433,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 4649,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4649
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D06-01/initial": {
+    "verifier": "v4",
+    "verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "앉은 자세를 유지하며",
+          "status": "pass",
+          "evidence": "Pelvis height is 0.555 m at start and end, and the character stays seated on the chair in all eight frames."
+        },
+        {
+          "id": "R2",
+          "quote": "왼손을 한 번 왕복해 흔들고 내린 다음",
+          "status": "pass",
+          "evidence": "In the front view the raised arm in frames 1.125 s and 2.29 s is on the image right, which is the character's left. The left wrist goes outward to a peak at 1.5 s (41 cm) and returns to about 10 cm by 2.0 s, which is one round trip. It is lowered by 3.42 s, when the hand is back on the knee."
+        },
+        {
+          "id": "R3",
+          "quote": "오른손을 한 번 왕복해 흔들고 내려라",
+          "status": "pass",
+          "evidence": "The raised arm in frames 4.58 s and 5.71 s is on the image left in the front view, which is the character's right. This is after the left-hand wave. The right wrist goes outward to 46 cm at 5.0 s and returns to about -2 cm by 5.92 s, which is one round trip. The hand is lowered by 6.875 s and the body is still from 6.5 s to 8.0 s."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the same seated pose as the input. The character's right forearm lies across the lap and the left arm hangs at the knee, with the torso and legs in the same positions. The automatic overlap of 0.751 is moderate, but the posture and arm placement match."
+      },
+      "repair_instructions": [],
+      "verdict": "pass"
+    },
+    "recorded_verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "앉은 자세를 유지하며",
+          "status": "pass",
+          "evidence": "Pelvis height is constant at 0.555 m and the character stays on the chair in all 8 frames from both cameras."
+        },
+        {
+          "id": "R2",
+          "quote": "왼손을 한 번 왕복해 흔들고 내린 다음",
+          "status": "uncertain",
+          "evidence": "The left hand (image right in the front view) is raised at 1.125 s and 2.29 s, and it is lowered by 3.4 s. It is out to the side at 1.125 s and back toward the head at 2.29 s. The summary records only one raised turn (outward at 1.5 s), not the inward-outward-inward sequence of a full round trip. So it looks like at most a single out-and-back motion, and a full round trip cannot be confirmed."
+        },
+        {
+          "id": "R3",
+          "quote": "오른손을 한 번 왕복해 흔들고 내려라",
+          "status": "uncertain",
+          "evidence": "The right hand (image left in the front view) is raised and out to the side at 4.58 s, then back near the shoulder at 5.7 s. It is down at 6.875 s and 8.0 s. The summary again records only one raised turn (outward at 5.0 s), so a full round trip is not confirmed. The order is correct: left first, then right."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the seated pose from the input: the right forearm across the lap, the left hand resting near the left knee, and the same torso lean and leg placement. The automatic overlap score is only 0.751, but the pose looks consistent."
+      },
+      "repair_instructions": [
+        "Make the left-hand wave a clearly visible round trip. Raise the left hand to shoulder height or above, swing it outward (character's left), then inward, then outward again, so the raised turns are inward, outward, inward. Do this in about 0.5–2.7 s, then lower the arm to the knee before about 3.4 s.",
+        "Make the right-hand wave the same way: swing the raised right hand outward (character's right), then inward, then outward, with clear raised turns. Do this in about 4.0–6.0 s, then lower it to the lap.",
+        "Keep the seated pose and keep the body still after about 6.5 s."
+      ],
+      "verdict": "repair"
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4407,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 1135,
+        "output_tokens_details": {
+          "thinking_tokens": 493
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4407,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1135,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 4407,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4407
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D06-01/repaired": {
+    "verifier": "v4",
+    "verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "앉은 자세를 유지하며",
+          "status": "pass",
+          "evidence": "Pelvis height is 0.555 m at start and end, and the character stays on the chair in all eight frames."
+        },
+        {
+          "id": "R2",
+          "quote": "왼손을 한 번 왕복해 흔들고 내린 다음",
+          "status": "fail",
+          "evidence": "The left hand (image right in the front view) is raised at 1.125 s and 2.29 s, so the correct hand is used. But left_wrist raised_lateral_cm goes 25 (0.5 s) → 13 (1.0 s) → 40 (1.6 s), which is two outward peaks. That reads as about two swings, not one round trip. The hand is lowered by about 2.6 s."
+        },
+        {
+          "id": "R3",
+          "quote": "오른손을 한 번 왕복해 흔들고 내려라",
+          "status": "fail",
+          "evidence": "The right hand (image left in the front view) is raised at 3.42–5.7 s, so the correct hand and order. But right_wrist raised_lateral_cm goes 25 (4.0 s) → 9 (4.5 s) → 43 (5.1 s), again two outward peaks, so more than one round trip. The arm is lowered by about 6.1 s and the body is still from 6.54 s."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the seated pose from the input: torso upright, both feet on the floor, the character's right hand resting on the thigh and the left hand low by the left knee. The overlap score of 0.751 is moderate, but the posture and arm placement agree."
+      },
+      "repair_instructions": [
+        "Left hand: raise it to shoulder height and make exactly one clear round trip, outward (away from the body, character's left) and back to the start side. Then lower it to the thigh. Remove the second outward swing, which now peaks around 1.6 s.",
+        "Right hand: after the left arm is down, raise it and make exactly one outward-and-back round trip (character's right). Then lower it to the thigh. Remove the second outward swing, which now peaks around 5.1 s.",
+        "Keep the seated pose and the left-then-right order. Hold still at the end with both hands resting."
+      ],
+      "verdict": "repair"
+    },
+    "recorded_verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "앉은 자세를 유지하며",
+          "status": "pass",
+          "evidence": "The character stays seated on the chair in all 8 frames. Pelvis height is unchanged (0.555 at start and end)."
+        },
+        {
+          "id": "R2",
+          "quote": "왼손을 한 번 왕복해 흔들고 내린 다음",
+          "status": "pass",
+          "evidence": "In the front view the hand on the image right (character's left) is raised at 1.125 s and 2.29 s. By 3.4 s it is back down. The summary shows raised turns at 0.58 (outward), 1.0 (inward) and 1.58 (outward), which is one round trip. The arm is near shoulder height from 0.29 to 2.58 s and then lowered."
+        },
+        {
+          "id": "R3",
+          "quote": "오른손을 한 번 왕복해 흔들고 내려라.",
+          "status": "pass",
+          "evidence": "In the front view the hand on the image left (character's right) is raised at 4.58 s and 5.71 s. The summary shows raised turns at 4.0 (outward), 4.5 (inward) and 5.08 (outward), which is one round trip. The hand is raised from 3.5 to 6.08 s. By 6.875 s it is lowered and the body is still from 6.54 s, so the final state is visible. The right hand starts after the left hand is down, so the order is correct."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the character seated with the right hand resting on the lap, the left hand near the left knee and both feet on the floor. This matches the input pose. The silhouette overlap of 0.751 is moderate, but the posture and limb placement agree."
+      },
+      "repair_instructions": [],
+      "verdict": "pass"
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4585,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 1538,
+        "output_tokens_details": {
+          "thinking_tokens": 705
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4585,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1538,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 4585,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4585
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D07-01/initial": {
+    "verifier": "v4",
+    "verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "양팔을 머리 위로 올려",
+          "status": "pass",
+          "evidence": "Both wrists are above the head from 1.17 to 3.83 s. Frames at 1.71, 2.58 and 3.42 s show both hands clearly above head height, and the front view confirms both arms are raised."
+        },
+        {
+          "id": "R2",
+          "quote": "1초간 유지한",
+          "status": "pass",
+          "evidence": "The body is still from 2.04 to 3.0 s, and both wrists stay at about 5 cm lateral offset, which is about 1 s. The 2.58 s frame shows both arms held vertically overhead. Above-head time is longer, 1.17–3.83 s."
+        },
+        {
+          "id": "R3",
+          "quote": "양팔을 내려라",
+          "status": "pass",
+          "evidence": "Both arms leave overhead after 3.83 s. The 4.29 s frame shows them lowering out to the sides, and the 5.125 and 6.0 s frames show them down at the sides. The body is still from 4.62 to 6.0 s, so the final state is visible."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a neutral standing pose with both arms hanging at the sides and the feet together. This matches the input image, and the overlap score is 0.89."
+      },
+      "repair_instructions": [],
+      "verdict": "pass"
+    },
+    "recorded_verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "양팔을 머리 위로 올려",
+          "status": "pass",
+          "evidence": "Both arms rise through a side-out position at 0.875 s to overhead at 1.71 s, 2.58 s and 3.42 s. Both wrists are above head height from 1.17 to 3.83 s."
+        },
+        {
+          "id": "R2",
+          "quote": "1초간 유지한 뒤",
+          "status": "pass",
+          "evidence": "The whole body is still from 2.04 to 3.0 s, which is about 1 s, and both arms are overhead in the 2.58 s frame. The arms are more spread in the V pose at 1.71 s and 3.42 s, so the total time overhead is about 2.7 s. The motionless hold itself is about 1 s."
+        },
+        {
+          "id": "R3",
+          "quote": "양팔을 내려라",
+          "status": "pass",
+          "evidence": "At 4.29 s both arms are coming down and spread out. At 5.125 s and 6.0 s both arms hang at the sides, and the body is still from 4.62 s to the end, so the final state is visible."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows a standing pose with both arms down at the sides and slightly out, feet together. This matches the input image, and the automatic overlap score is 0.89."
+      },
+      "repair_instructions": [],
+      "verdict": "pass"
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4765,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 905,
+        "output_tokens_details": {
+          "thinking_tokens": 361
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4765,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 905,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 4765,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4765
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  },
+  "D08-01/initial": {
+    "verifier": "v4",
+    "verdict": {
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the torso leaning with the head offset to the image right. The character's right arm angles slightly out and the left arm hangs, as in the input. Silhouette overlap is 0.876."
+      },
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "기울어진 몸통을 똑바로 세운 뒤",
+          "status": "pass",
+          "evidence": "The torso leans in frames 0–1 (0–0.9 s). By frame 2 (1.7 s) it is upright, and it stays upright in frames 3–7 in both camera views."
+        },
+        {
+          "id": "R2",
+          "quote": "양손을 각각 허리에 대고 멈춰라",
+          "status": "pass",
+          "evidence": "From frame 5 (4.29 s) both hands rest on the waist, with elbows bent outward. This pose is the same in frames 5, 6 and 7 (5.1 s and 6.0 s). The summary shows the whole body still from 4.17 s to 6.0 s, so the final pose is held."
+        }
+      ],
+      "verdict": "pass",
+      "repair_instructions": []
+    },
+    "recorded_verdict": {
+      "requirements": [
+        {
+          "id": "R1",
+          "quote": "기울어진 몸통을 똑바로 세운 뒤",
+          "status": "pass",
+          "evidence": "Frame 0 (input camera and front) shows the torso leaning/tilted with the head offset. By frames 2-3 (1.71-2.58s) the torso is upright and centered, and it stays upright in frames 4-7."
+        },
+        {
+          "id": "R2",
+          "quote": "양손을 각각 허리에 대고 멈춰라",
+          "status": "pass",
+          "evidence": "From frame 5 (4.29s) both hands rest on the hips with elbows out. Frames 5, 6 and 7 look the same, and the summary says the whole body is still from 4.17 to 6.0s. Hands on waist is visible in the front view in both hands."
+        }
+      ],
+      "first_frame": {
+        "matches_input": true,
+        "notes": "Frame 0 shows the same torso lean and head tilt as the input. The character's right arm (image left in the input view) hangs slightly away from the body and the left arm hangs down, as in the input. The auto-match score is 0.876, which is acceptable."
+      },
+      "verdict": "pass",
+      "repair_instructions": []
+    },
+    "recorded_version": "v3",
+    "usage": [
+      {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 3976,
+        "cache_read_input_tokens": 1325,
+        "output_tokens": 707,
+        "output_tokens_details": {
+          "thinking_tokens": 251
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 3976,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 707,
+            "cache_read_input_tokens": 1325,
+            "cache_creation_input_tokens": 3976,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 3976
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      }
+    ]
+  }
+}
