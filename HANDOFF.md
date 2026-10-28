@@ -59,7 +59,8 @@ python -m motionbench summarize --run runs/dev-001
 - 계획 기반 레퍼런스 렌더러, Seedance 계정/API 연결은 아직 없다. Seedance는 사용자가 계정·크레딧을 준비해야 한다.
 
 - 레퍼런스 렌더러 추가(`motionbench/animate.py`, `motionbench/reference.py`, `tools/render_reference_blender.py`, `render-reference` CLI). development 8건을 MP4로 렌더링했고 결과는 `results/dev-001-reference/README.md`. 뼈 길이는 고정(오차 1e-15 m). 처음의 위치 직선 보간은 팔꿈치가 옆으로 꺾여서 방향 보간(팔·몸통)과 발목 IK(다리)로 바꿨다. **D08은 렌더 첫 프레임이 입력과 반대로 기울어 시작**하고, 손은 허리에서 약 7 cm 떨어진다(계획이 팔을 늘렸기 때문). D01/D03의 몸 앞 흔들기는 카메라에서 일부 가린다. 레퍼런스는 아직 ledger에 등록하지 않았다(`--register`).
-- 첫 렌더 시도 때 상대 경로 버그로 Blender가 `C:uns\dev-001\...`에 프레임 PNG 145장을 썼다(수정됨). 안전 장치 때문에 삭제하지 못했으니 사용자가 직접 지우면 된다.
+- 첫 렌더 시도 때 상대 경로 버그로 Blender가 `C:
+- 첫 렌더 시도 때 상대 경로 버그로 Blender가 `C:\runs\dev-001\...`에 프레임 PNG 145장을 썼다(수정됨). 안전 장치 때문에 삭제하지 못했으니 사용자가 직접 지우면 된다.
 
 다음 후보(사용자 결정 전): (a) 초기 자세 추정 보강(D08 방향 오류, 골반 높이 저평가), (b) 조건 C용 verifier(렌더 프레임과 입력 이미지 비교 포함), (c) 시댄스 계정/API 연결 후 development 24슬롯. Seedance 계정/API는 사용자 준비 필요.
 
