@@ -1,6 +1,7 @@
 import argparse,json,sys
 from pathlib import Path
 from .core import ROOT,validate,make_run,record,summarize,read,save,consensus,sha,artifact,ensure_binding
+from .planner import plan_run,DryRunBackend,ClaudeCodeBackend
 def main():
  p=argparse.ArgumentParser(prog='python -m motionbench');sub=p.add_subparsers(dest='command',required=True)
  sub.add_parser('validate')
@@ -10,10 +11,12 @@ def main():
  c=sub.add_parser('summarize');c.add_argument('--run',required=True);c.add_argument('--out')
  c=sub.add_parser('review-template');c.add_argument('--case',required=True);c.add_argument('--out',required=True)
  c=sub.add_parser('artifact');c.add_argument('--run',required=True);c.add_argument('--attempt',required=True);c.add_argument('--kind',required=True);c.add_argument('--file',required=True)
+ c=sub.add_parser('planner');c.add_argument('--run',required=True);c.add_argument('--backend',choices=['dry-run','claude-code'],default='dry-run');c.add_argument('--model',default='sonnet');c.add_argument('--max-calls',type=int,default=8);c.add_argument('--group');c.add_argument('--allow-test',action='store_true')
  a=p.parse_args()
  if a.command=='validate':result=validate()
  elif a.command=='plan':result=make_run(a.out,a.split,a.repeats,a.seed)
  elif a.command=='record':result=record(a.run,a.attempt,a.status,a.stage,a.output)
+ elif a.command=='planner':result=plan_run(a.run,DryRunBackend() if a.backend=='dry-run' else ClaudeCodeBackend(a.model),a.max_calls,a.group,a.allow_test)
  elif a.command=='artifact':result=artifact(a.run,a.attempt,a.kind,a.file)
  elif a.command=='summarize':
   result=summarize(a.run)
@@ -34,4 +37,4 @@ def main():
  return 1 if a.command=='validate' and not result['valid'] else 0
 if __name__=='__main__':
  try:sys.exit(main())
- except (ValueError,KeyError,StopIteration,FileNotFoundError,FileExistsError) as e:print('ERROR:',str(e),file=sys.stderr);sys.exit(2)
+ except (ValueError,RuntimeError,KeyError,StopIteration,FileNotFoundError,FileExistsError) as e:print('ERROR:',str(e),file=sys.stderr);sys.exit(2)

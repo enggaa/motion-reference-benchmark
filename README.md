@@ -10,7 +10,7 @@
 | B · `llm_reference_r2v` | 같은 입력 + LLM이 만든 최초 레퍼런스 |
 | C · `verified_reference_r2v` | B와 **동일한 최초 레퍼런스**를 검사하고 필요하면 1회 수정 |
 
-현재 저장소는 **벤치마크 문항·입력 이미지·평가 계약·실행 기록·채점 도구**를 제공합니다. LLM 추론기, 자세 추정기, 벤치마크용 리타기팅 연결, 유료 영상 API 어댑터는 구현되어 있지 않습니다. `reference_baseline/`에 과거 로컬 리타기팅 코드를 별도로 보존했지만 호환 장면/동작 파일은 외부에서 준비해야 합니다. 과거의 세 동작 재생기가 미관측 행동 생성에 성공한 것으로 해석하면 안 됩니다.
+현재 저장소는 **벤치마크 문항·입력 이미지·평가 계약·실행 기록·채점 도구**와 **LLM planner 어댑터(초판)**를 제공합니다. 별도 자세 추정기, 벤치마크용 리타기팅 연결, 유료 영상 API 어댑터는 구현되어 있지 않습니다. `reference_baseline/`에 과거 로컬 리타기팅 코드를 별도로 보존했지만 호환 장면/동작 파일은 외부에서 준비해야 합니다. 과거의 세 동작 재생기가 미관측 행동 생성에 성공한 것으로 해석하면 안 됩니다.
 
 ## 구성
 
@@ -51,6 +51,17 @@ python -m motionbench review-template --case D01 --out runs/dev-001/review.json
 python -m motionbench review --run runs/dev-001 --attempt 0002 --file runs/dev-001/review.json
 ```
 
+## LLM planner (경로 A: Claude 구독)
+
+```bash
+python -m motionbench planner --run runs/dev-001                       # dry-run: 요청만 저장, 모델 호출 없음
+python -m motionbench planner --run runs/dev-001 --backend claude-code --model sonnet --max-calls 1
+```
+
+`claude-code` backend는 로그인된 Claude Code CLI(`claude -p`)를 호출하므로 **Claude 구독 사용량에서 차감**되고 API 키 과금은 하지 않습니다(`ANTHROPIC_API_KEY`는 하위 프로세스에서 제거). CLI가 PATH에 없으면 `MOTIONBENCH_CLAUDE_EXE`로 경로를 지정합니다. 사용자 설정·CLAUDE.md·도구는 끄지만(`--safe-mode`, `--tools ""`, 자체 system prompt) Claude Code 래퍼가 끼어 있으므로, 입력을 완전히 통제하는 API 경로(B)는 후속 개선입니다. 동결 전에 backend를 하나로 확정합니다.
+
+B/C의 같은 `paired_reference_group`에 계획 1개를 만들어 두 시도에 같은 `plan` 아티팩트로 등록합니다. 입력은 `generator_inputs.json`과 seed 사전의 의미 목록뿐이며 evaluator 파일은 읽지 않습니다. 전송 오류는 1회 재시도, 구조 검사 실패는 재생성하지 않고 `failed/planning`으로 기록합니다. 구조 검사(관절 15개, 0초 관측 키프레임, 원문 인용, 시간 순서)를 통과해도 **동작이 맞다는 뜻은 아닙니다.** 뼈 길이 변화는 경고로만 남깁니다. test 분할은 `--allow-test` 없이는 거부합니다.
+
 `attempt`와 `case`는 계획된 ledger에서 확인해야 합니다. 예시의 0002가 반드시 R2V 조건이라는 뜻은 아닙니다. 조건 순서는 무작위입니다.
 
 ## 평가 규칙
@@ -68,4 +79,4 @@ python -m motionbench review --run runs/dev-001 --attempt 0002 --file runs/dev-0
 - [어댑터 계약과 누출 방지](docs/ADAPTER_CONTRACT.md)
 - [출처와 재현 범위](docs/PROVENANCE.md)
 
-현재 상태: 입력/문항 검증 가능, 실행 슬롯/기록/채점 가능, **생성 모델 연결 및 실제 비교실험 미실행**. 이 저장소의 벤치마크 단위시험 결과와 외부 모델 성능을 구분합니다.
+현재 상태: 입력/문항 검증 가능, 실행 슬롯/기록/채점 가능, LLM planner 어댑터 구현(dry-run과 고정 응답 시험만 검증), **실제 planner 출력·레퍼런스 렌더러·영상 모델 연결 및 비교실험 미실행**. 이 저장소의 벤치마크 단위시험 결과와 외부 모델 성능을 구분합니다.
