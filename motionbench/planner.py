@@ -17,10 +17,10 @@ PLAN_SCHEMA=_obj({
  'retrieval':{'type':'array','items':_obj({'entry_id':_S,'used_for':_S})},
  'keyframes':{'type':'array','items':_obj({'time_s':_N,'origin':{'type':'string','enum':list(ORIGINS)},'action_id':{'type':['string','null']},'description':_S,'joints':{'type':'array','items':_POINT},'contacts':_SS})},
  'assumptions':_SS,'unsupported_requirements':_SS})
-RIG="""{RIG}"""
+RIG="""Rig: 15 joints pelvis, neck, head, L/R hip, knee, ankle, shoulder, elbow, wrist. L/R are the character's own left/right. Coordinates in metres: character's left +X, character's front -Y, up +Z, floor z=0. Approximate segment lengths: pelvis-neck 0.49, neck-head 0.21, upper arm 0.27, forearm 0.22, thigh 0.43, shin 0.43, shoulder half-width 0.23, hip half-width 0.12."""
 SYSTEM_PROMPT=f"""You are the motion planner between an action/keyframe dictionary and a reference-video renderer.
 Input: one image of a procedural mannequin (fixed camera, exact camera parameters unknown), a verbatim request (usually Korean), the clip duration and a seed dictionary that lists known action ids and semantics only (it contains no trajectories).
-Rig: 15 joints pelvis, neck, head, L/R hip, knee, ankle, shoulder, elbow, wrist. L/R are the character's own left/right. Coordinates in metres: character's left +X, character's front -Y, up +Z, floor z=0. Approximate segment lengths: pelvis-neck 0.49, neck-head 0.21, upper arm 0.27, forearm 0.22, thigh 0.43, shin 0.43, shoulder half-width 0.23, hip half-width 0.12.
+{RIG}
 Rules:
 1. Estimate the initial pose from the image only. Do not reset to T-pose or standing unless the image shows it. Put what you see in observations and anything ambiguous in uncertainties. Give all 15 joints and the visible contacts (feet on floor, pelvis on seat, ...).
 2. Split the request into actions. request_quote must be copied verbatim from the request. Keep left/right exactly as requested, from the character's point of view. completion is an observable end condition.
@@ -50,6 +50,14 @@ def _joints(points,where,errors):
  missing=[j for j in JOINTS if j not in out]
  if missing:errors.append(where+': missing joints '+', '.join(missing))
  return out
+def pose_sanity(pose,pose_class,where,initial=True):
+ """Convention check that needs no ground truth (z is height, floor at 0). dev-002's pose call wrote y as height and would have been drawn lying down."""
+ if not pose:return []
+ errors=[f'{where}: joint below the floor (z<-0.05)'] if min(p[2] for p in pose.values())<-.05 else []
+ if initial and pose_class not in ('lying','other'):
+  if pose['head'][2]<pose['pelvis'][2]+.2:errors.append(f'{where}: head not above pelvis; z must be height')
+  if min(pose['Lankle'][2],pose['Rankle'][2])>.4:errors.append(f'{where}: no foot near the floor at z=0')
+ return errors
 def _lengths(pose):return {(a,b):math.dist(pose[a],pose[b]) for a,b in BONES if a in pose and b in pose}
 def check_plan(plan,packet,dictionary):
  """Structural/self-consistency check only; it does not show the motion is semantically right."""
@@ -59,7 +67,7 @@ def check_plan(plan,packet,dictionary):
  if errors:return {'errors':errors,'warnings':warnings}
  initial=plan['initial_pose']
  if initial.get('pose_class') not in POSE_CLASSES:errors.append('initial_pose: invalid pose_class')
- base=_joints(initial.get('joints'),'initial_pose',errors);ref=_lengths(base)
+ base=_joints(initial.get('joints'),'initial_pose',errors);ref=_lengths(base);errors+=pose_sanity(base,initial.get('pose_class'),'initial_pose')
  ids=set()
  for a in plan['actions']:
   ids.add(a.get('id'))
@@ -79,7 +87,7 @@ def check_plan(plan,packet,dictionary):
  for i,f in enumerate(frames):
   if f.get('origin') not in ORIGINS:errors.append(f'keyframe {i}: invalid origin')
   if f.get('action_id') is not None and f['action_id'] not in ids:errors.append(f'keyframe {i}: unknown action_id')
-  pose=_joints(f.get('joints'),f'keyframe {i}',errors)
+  pose=_joints(f.get('joints'),f'keyframe {i}',errors);errors+=pose_sanity(pose,None,f'keyframe {i}',initial=False)
   if i==0 and base and pose and any(math.dist(base[j],pose[j])>1e-6 for j in JOINTS if j in base and j in pose):errors.append('keyframe 0: differs from initial_pose')
   for bone,length in _lengths(pose).items():
    if bone in ref and ref[bone]>0 and abs(length-ref[bone])/ref[bone]>BONE_TOLERANCE:warnings.append(f'keyframe {i}: {bone[0]}-{bone[1]} length {length:.3f} vs initial {ref[bone]:.3f}')
@@ -169,10 +177,12 @@ def plan_run(run,backend,max_calls=8,group=None,pose_fit=None,root=ROOT):
    from .posefit import POSE_PROMPT,POSE_SCHEMA,fit
    response,t=_call(backend,{'image':request['image'],'text':'Estimate the starting pose.','system_prompt':POSE_PROMPT,'schema':POSE_SCHEMA});tries+=[dict(x,stage='initial_pose') for x in t]
    pose=response.get('plan');errors=[]
-   _joints(pose.get('joints') if isinstance(pose,dict) else None,'initial_pose',errors)
+   errors+=pose_sanity(_joints(pose.get('joints') if isinstance(pose,dict) else None,'initial_pose',errors),pose.get('pose_class') if isinstance(pose,dict) else None,'initial_pose')
    if errors or 'transport_error' in response:stage='initial_pose';check={'errors':['initial pose: '+str(response.get('transport_error') or '; '.join(errors))],'warnings':[]}
    else:
+    from .posefit import FIT_MIN
     fixed,fitlog=fit(request['image'],pose,pose_fit,workdir=folder/'posefit');save(folder/'initial_pose.json',{'llm':pose,'fitted':fixed,'fit':fitlog});extra['pose_fit']=fitlog
+    if fitlog['score_end']<FIT_MIN:stage='initial_pose';fixed=None;check={'errors':[f"initial pose: fitted overlap {fitlog['score_end']} below {FIT_MIN}; the estimate does not match the pictured body"],'warnings':[]}
   if stage=='planning':
    if fixed:request=dict(request,text=request['text']+'\nInitial pose, already fitted to the image. Copy it exactly as initial_pose and as the joints of keyframe 0:\n'+json.dumps(fixed,ensure_ascii=False))
    response,t=_call(backend,request);tries+=[dict(x,stage='planning') for x in t];plan=response.get('plan')

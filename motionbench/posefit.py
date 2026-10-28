@@ -18,6 +18,8 @@ STEPS={'lean_side':8,'lean_front':8,'scale':.04,'shift_x':.03,'shift_y':.03,'Lar
 # Score cost per unit of change, so a move must buy visible overlap. Front-back moves (lean_front, arm_front, shift_y) cost double: the input
 # view barely sees depth, and unpenalised fits swung arms 63-75 degrees fore-aft for small overlap gains while 3D error grew (dev-001 D03, D04).
 PENALTY={'lean_side':.0004,'lean_front':.0008,'scale':.1,'shift_x':.1,'shift_y':.2,'Larm_side':.0004,'Rarm_side':.0004,'Larm_front':.0008,'Rarm_front':.0008,'Lelbow':.0004,'Relbow':.0004}
+# Fits that end below this overlap do not describe the pictured body (dev-001 fits ended at 0.75-0.89; dev-002's axis-swapped poses at 0.03-0.06).
+FIT_MIN=.5
 def penalty(params):return sum(PENALTY[k]*abs(v) for k,v in params.items())
 def _rot(p,c,axis,deg):
  """Rodrigues rotation of point p about the axis through c."""

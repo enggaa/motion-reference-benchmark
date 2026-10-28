@@ -56,6 +56,22 @@ class PoseFitTests(unittest.TestCase):
    run=Path(d)/'r';make_run(run,'development',1)
    with mock.patch.object(posefit,'fit',fake_fit):plan_run(run,PoseBackend(),max_calls=1,pose_fit='blender')
    with self.assertRaises(ValueError):plan_run(run,PoseBackend(),max_calls=1)
+ def test_low_fit_overlap_is_initial_pose_failure(self):
+  with tempfile.TemporaryDirectory() as d:
+   run=Path(d)/'r';make_run(run,'development',1);backend=PoseBackend()
+   low=lambda image,pose,blender,workdir=None:(dict(pose,joints=points(POSE)),{'score_start':.01,'score_end':.03})
+   with mock.patch.object(posefit,'fit',low):result=plan_run(run,backend,max_calls=1,pose_fit='blender')
+   self.assertEqual(result['groups'][0]['status'],'failed');self.assertEqual(len(backend.calls),1)
+   rows=[r for r in read(run/'ledger.json') if r['case_id']=='D01' and r['arm']!='direct_i2v'];self.assertTrue(all(r['failure_stage']=='initial_pose' for r in rows))
+ def test_axis_swapped_pose_rejected_before_fitting(self):
+  with tempfile.TemporaryDirectory() as d:
+   run=Path(d)/'r';make_run(run,'development',1);backend=PoseBackend()
+   swapped={j:(x,z,y) for j,(x,y,z) in POSE.items()}
+   backend.call=lambda request,b=backend:(b.calls.append(request),{'plan':{'pose_class':'standing','observations':[],'uncertainties':[],'joints':points(swapped),'contacts':[]},'stdout':''})[1]
+   with mock.patch.object(posefit,'fit',fake_fit) as f:result=plan_run(run,backend,max_calls=1,pose_fit='blender')
+   self.assertEqual(result['groups'][0]['status'],'failed');self.assertIn('z must be height',result['groups'][0]['errors'][0])
+ def test_pose_prompt_carries_the_rig(self):
+  self.assertIn('up +Z',posefit.POSE_PROMPT);self.assertNotIn('{RIG}',posefit.POSE_PROMPT)
 class FitSearchTests(unittest.TestCase):
  """fit() against a fake renderer whose "image" is a parameter vector: overlap falls with distance from a hidden target pose."""
  def run_fit(self,target,iterations=6):
