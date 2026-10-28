@@ -87,7 +87,9 @@ Blender(`MOTIONBENCH_BLENDER` 또는 기본 설치 경로)와 ffmpeg가 필요�
 - [중간보고서](docs/MIDTERM_REPORT.ko.md)
 - [실험 프로토콜](docs/PROTOCOL.md)
 - [채점 기준](docs/RUBRIC.md)
+- [생성 파이프라인과 정보 경계](docs/PIPELINE.md)
 - [어댑터 계약과 누출 방지](docs/ADAPTER_CONTRACT.md)
+- [시댄스(fal.ai) 연결 안내와 비용](docs/SEEDANCE_SETUP.md)
 - [출처와 재현 범위](docs/PROVENANCE.md)
 
 현재 상태: 입력/문항 검증 가능, 실행 슬롯/기록/채점 가능, LLM planner 어댑터 구현(dry-run과 고정 응답 시험만 검증), **실제 planner 출력·레퍼런스 렌더러·영상 모델 연결 및 비교실험 미실행**. 이 저장소의 벤치마크 단위시험 결과와 외부 모델 성능을 구분합니다.
