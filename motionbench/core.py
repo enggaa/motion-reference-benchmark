@@ -87,6 +87,15 @@ def consensus(review,required):
   if set(checks)!=set(required) or any(v not in ('pass','fail','uncertain') for v in checks.values()):raise ValueError('Incomplete adjudication')
  else:checks=outcomes[0]
  return 'fail' if 'fail' in checks.values() else 'uncertain' if 'uncertain' in checks.values() else 'pass'
+def required_ids(case_id,root=ROOT):
+ contract=next(c for c in read(Path(root)/'benchmark/evaluator/contracts.json') if c['case_id']==case_id);return [r['id'] for r in contract['requirements']+contract['shared_requirements']]
+def review_attempt(run,attempt,review,root=ROOT):
+ ensure_binding(run,root)
+ ledger=Path(run)/'ledger.json';rows=read(ledger);row=next(r for r in rows if r['attempt_id']==attempt)
+ if row['status']!='succeeded':raise ValueError('Only succeeded outputs receive perceptual review')
+ if row.get('review'):raise ValueError('Review already recorded; do not overwrite')
+ if sha(row['outputs']['final']['path'])!=row['outputs']['final']['sha256']:raise ValueError('Output changed after registration')
+ verdict=consensus(review,required_ids(row['case_id'],root));row['review']=review;save(ledger,rows);return {'attempt_id':attempt,'verdict':verdict}
 def artifact(run,attempt,kind,path):
  ensure_binding(run)
  if kind not in ('plan','reference_initial','reference_repaired','gate_decision','execution_log'):raise ValueError('Unsupported artifact kind')
