@@ -17,7 +17,8 @@
   - `planner`: Claude 구독 경로(`claude -p`), 기본 모델 sonnet, `--pose-fit` 변형.
   - `posefit`: 실루엣·피부색 겹침을 최대화하는 초기 자세 맞춤. 앞뒤 변화에 벌점을 주고, 겹침 0.5 미만이면 `initial_pose` 실패.
   - `render-reference`: 뼈 길이 고정 FK/IK, 입력 카메라와 정면 MP4, 8장 격자, 렌더 골격 동작 요약.
-  - `verify-reference`: 조건 C 게이트(검토 → 1회 수정 → 재검토, 검증기 v3).
+  - `verify-reference`: 조건 C 게이트(검토 → 1회 수정 → 재검토, 검증기 v4).
+  - `agreement`: 검증기 판정과 레퍼런스 사람 평가의 일치율, κ, 놓친 실패.
   - `pipeline`: 위 단계를 run 전체에 한 번에 실행.
 - **평가 도구**: `package-review`와 `import-ratings`로 익명 평가 패키지를 만들고 결과를 반영합니다.
 - **영상 모델**: `generate`는 fal.ai Seedance 2.0 어댑터입니다. dry-run, 비용 추정, 상한까지만 검증했고, 실제 호출 경로는 키가 없어 미검증입니다. 안내는 [docs/SEEDANCE_SETUP.md](docs/SEEDANCE_SETUP.md)에 있습니다.
@@ -27,8 +28,9 @@
   - dev-001-posefit: 맞춤 사후 평가
   - dev-002: 버그 기록
   - dev-003: 맞춤 파이프라인 첫 실행
-  - dev-004: 일관된 재실행, 진행 중
-- **시험과 CI**: 로컬 단위시험 81개 통과(ffmpeg가 필요한 시험은 ffmpeg가 없으면 건너뜀). `.github/workflows/ci.yml`.
+  - dev-004: v3 일관 실행과 v4 재검토
+  - dev-005: 계획 규칙 6 + v4
+- **시험과 CI**: 로컬 단위시험 88개 통과(ffmpeg가 필요한 시험은 ffmpeg가 없으면 건너뜀). `.github/workflows/ci.yml`.
 
 ## 3. 아직 없는 것 — 결과를 만들어 말하지 말 것
 
@@ -76,15 +78,21 @@ python -m motionbench summarize --run runs/dev-005
   - v1: 8장 격자로는 왕복 횟수를 셀 수 없었습니다.
   - v2: 팔을 들고 내릴 때의 좌우 이동까지 흔들기로 셌습니다.
   - 그래서 게이트 결과는 개발 기록으로만 남깁니다. → `results/dev-003`
-- **dev-004**: 같은 코드로 8건 전체를 일관되게 다시 돌리는 중입니다(파이프라인 v3).
+- **dev-004** (v3 일관 실행): 게이트 통과 6, blocked 2(D01, D05). 그런데 v3에 준 왕복 산식 (전환점−1)/2는 손이 어디서 출발했는지를 무시했습니다. 그 결과 D01의 2왕복을 1.5로 읽었으므로 이 blocked는 거짓 판정일 가능성이 큽니다. "계획이 반복 횟수를 틀린다"는 결론은 철회했습니다. 같은 렌더를 v4로 오프라인 재검토하니 판정이 11개 중 8개 바뀌었고, v4를 반복해도 9/11만 일치했습니다. → `results/dev-004`
+- **dev-005** (계획 규칙 6 + 검증기 v4): 흔들기 궤적이 요청한 왕복 수와 숫자로 맞고, 8건 모두 최초 레퍼런스로 통과했습니다. 레퍼런스가 깨끗해진 것인지 검증기가 관대한 것인지는 사람 평가로만 가를 수 있습니다. → `results/dev-005`
+- **사람 평가 준비 완료**: `Desktop/project/review_dev005_refs/rate.html`(레퍼런스 8항목, 익명). 대응표는 `runs/dev-005/private/reference_mapping.json`에 있으며 평가자에게 주지 않습니다.
 - **주의 — `C:\runs`**: 상대 경로 버그로 Blender가 여기에 PNG(약 61MB)를 썼습니다. 지금은 쓰이지 않으니 사용자가 아무 때나 지우면 됩니다. 안전 장치 때문에 에이전트는 지우지 못했습니다.
 
 ## 6. 다음 순서
 
-1. dev-004 결과를 정리합니다. 게이트의 판정이 화면과 맞는지 사람이 대조합니다. `package-review --kind reference`로 레퍼런스 단계 평가 패키지를 만들 수 있습니다.
-2. 사용자가 fal.ai 계정을 만들고 크레딧을 넣은 뒤 `FAL_KEY`를 설정합니다. 그다음 `generate --execute --max-usd 20`으로 development 24슬롯 기능 시험을 합니다(480p 상한 추정 약 $18). 실제 비용, data URI 수용 여부, 출력 크기를 확인하고 문서를 고칩니다.
-3. development 결과로 수정한 뒤 `freeze-pipeline`으로 동결합니다. calibration으로 평가자를 연습시키고, test 108슬롯을 실행합니다(480p 상한 약 $82). 같은 버전의 test 결과를 보고 재튜닝하지 않습니다.
-4. 후보 개선: API 키 경로(B), 다리 관절까지 넣은 자세 맞춤, 왕복 계획의 정확도(D01은 1.5왕복), 레퍼런스 사람 평가.
+1. **사람 평가로 검증기를 보정합니다.** 평가자 2명이 `review_dev005_refs/rate.html`로 dev-005 레퍼런스를 각자 판정합니다. 그다음 `import-ratings`와 `agreement --run runs/dev-005`를 실행하면 검증기 v4의 일치율, κ, 놓친 실패가 나옵니다. 사람 판정 없이는 v3/v4 중 어느 쪽이 맞는지 정할 수 없습니다.
+2. **시댄스 기능 시험**: fal.ai 계정, 크레딧, `FAL_KEY`를 준비한 뒤 `generate --run runs/dev-005 --execute --max-usd 20`으로 development 24슬롯을 실행합니다(480p 상한 추정 약 $18). 실제 비용, data URI 수용 여부, 출력 크기를 확인해 문서를 고칩니다.
+3. **동결과 본 평가**: development 결과로 수정한 뒤 `freeze-pipeline`으로 동결하고, calibration으로 평가자를 연습시킨 다음 test 108슬롯을 실행합니다(480p 약 $82). 같은 버전의 test 결과를 보고 재튜닝하지 않습니다.
+4. **후보 개선**:
+   - D08처럼 기울기 각도를 작게 잡는 문제(맞춤에서 좌우와 앞뒤를 분리)
+   - 다리 관절 맞춤
+   - 경로 B(API 키)의 실제 호출 검증
+   - 실사 이미지용 자세 추정
 
 ## 7. 중간보고에서 말할 수 있는 것
 

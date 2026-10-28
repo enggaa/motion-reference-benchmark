@@ -7,7 +7,7 @@
   "calibration_cases": 4,
   "test_cases": 12,
   "test_coverage_cells": 12,
-  "unit_tests_passed_locally": 81,
+  "unit_tests_passed_locally": 88,
   "model_generation_calls": 0,
   "human_ratings_collected": 0,
   "performance_claim": null,
@@ -25,14 +25,16 @@
     "silhouette initial-pose fitting with fore-aft penalty and fit floor",
     "pose convention checks",
     "reference renderer: fixed-length FK/IK, Blender mannequin MP4 in input and front views, grids, rendered-skeleton motion summary",
-    "condition C gate: review, one repair, re-review (verifier v3)",
+    "condition C gate: review, one repair, re-review (verifier v4)",
     "pipeline command",
     "blinded review packages and rating import",
     "secondary-metric aggregation",
     "case and action-family bootstrap intervals",
     "fal.ai Seedance 2.0 adapter: dry run, cost estimate, cap (network path unverified)",
     "test-split pipeline freeze",
-    "midterm report draft"
+    "midterm report draft",
+    "verifier-vs-human agreement report",
+    "offline rating page in review packages"
   ],
   "not_implemented": [
     "final video generation runs (no provider account yet)",
