@@ -1,15 +1,18 @@
-"""Convert docs/MIDTERM_REPORT.ko.md to a submission .docx (A4, Malgun Gothic; needs python-docx). Usage: python tools/report_to_docx.py docs/MIDTERM_REPORT.ko.md out.docx"""
-import re, sys
+"""Convert docs/MIDTERM_REPORT.ko.md to a submission .docx (A4, Malgun Gothic; needs python-docx).
+Usage: python tools/report_to_docx.py docs/MIDTERM_REPORT.ko.md out.docx [cover.json]
+cover.json (optional, kept out of the repository) adds a cover page: {"학교":..., "학과":..., "학번":..., "성명":..., "지도교수":..., "제출일":...}"""
+import json, re, sys
 from pathlib import Path
 from docx import Document
 from docx.enum.section import WD_SECTION
 from docx.enum.table import WD_TABLE_ALIGNMENT
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK, WD_LINE_SPACING
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
 SRC, OUT = Path(sys.argv[1]), Path(sys.argv[2])
+COVER = json.loads(Path(sys.argv[3]).read_text(encoding='utf-8')) if len(sys.argv) > 3 else None
 FONT = '맑은 고딕'
 TEXT_W = 16.0  # cm, A4 minus 2.5 cm margins
 
@@ -106,7 +109,34 @@ def add_bullet(text, level):
     p.paragraph_format.space_after = Pt(2)
     add_inline(p, text)
 
+def add_cover(lines, cover):
+    """Cover page from the report's own title line plus the student details; the body then starts at the summary."""
+    sec.different_first_page_header_footer = True
+    title = next(l for l in lines if '제목(가제)' in l).split(':', 1)[1].strip(' *')
+    repo = next((l.split(':', 1)[1].strip() for l in lines if '코드 및 데이터' in l), None)
+    def centered(text, size, bold=False, before=0, after=0):
+        p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before, p.paragraph_format.space_after = Pt(before), Pt(after)
+        p.paragraph_format.line_spacing = 1.3
+        r = p.add_run(text); r.bold = bold or None; set_font(r, size)
+    centered('졸업논문 중간보고서', 16, True, before=80, after=36)
+    centered(title, 19, True, after=6)
+    centered('(가제)', 11, after=100)
+    rows = [(k, cover.get(k, '')) for k in ('학교', '학과', '학번', '성명', '지도교수', '제출일') if cover.get(k)]
+    t = doc.add_table(rows=len(rows), cols=2); t.alignment = WD_TABLE_ALIGNMENT.CENTER; t.autofit = False
+    for ri, (k, v) in enumerate(rows):
+        for ci, (text, width, align) in enumerate(((k, 3.2, WD_ALIGN_PARAGRAPH.DISTRIBUTE), (v, 6.3, WD_ALIGN_PARAGRAPH.LEFT))):
+            cell = t.cell(ri, ci); cell.width = Cm(width)
+            p = cell.paragraphs[0]; p.alignment = align; p.paragraph_format.space_after = Pt(6)
+            r = p.add_run(text); set_font(r, 12, ci == 0)
+    if repo:
+        centered('코드 및 데이터: ' + repo, 9.5, before=60)
+    doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+
 lines = SRC.read_text(encoding='utf-8').splitlines()
+if COVER:
+    add_cover(lines, COVER)
+    lines = lines[next(k for k, l in enumerate(lines) if l.startswith('## ')):]
 i = 0; table = []; in_refs = False
 while i < len(lines):
     line = lines[i]; stripped = line.strip()
