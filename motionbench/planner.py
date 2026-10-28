@@ -139,6 +139,38 @@ class ClaudeCodeBackend:
    try:plan=json.loads(result.get('result') or '')
    except ValueError:plan=None
   out['plan']=plan;return out
+class AnthropicAPIBackend:
+ """Route B: the Messages API through the official SDK (pip install anthropic; credentials from ANTHROPIC_API_KEY or `ant auth login`).
+ The request carries exactly our system prompt, images, text and JSON schema (structured outputs), with no Claude Code wrapper; billed per token.
+ The server-side refusal fallback is deliberately left off: a frozen run must keep one model, so a refusal is recorded as a failure instead of
+ silently switching models. Untested against the live API until a key exists."""
+ name='anthropic-api'
+ MODELS={'sonnet':'claude-sonnet-5-5','opus':'claude-opus-5-5','haiku':'claude-haiku-5-5'}
+ # USD per million input/output tokens from the claude-api skill's model table (cached 2026-10-06); cache pricing ignored, so this is an estimate.
+ PRICES={'claude-sonnet-5-5':(2,10),'claude-opus-5-5':(4,20),'claude-haiku-5-5':(.1,.5)}
+ def __init__(self,model='sonnet',client=None,max_tokens=32000):
+  import anthropic
+  self.anthropic=anthropic;self.model=self.MODELS.get(model,model);self.max_tokens=max_tokens;self.client=client or anthropic.Anthropic()
+ def call(self,request):
+  images=[{'type':'image','source':{'type':'base64','media_type':'image/png','data':base64.b64encode(Path(i).read_bytes()).decode()}} for i in (request['images'] if 'images' in request else [request['image']])]
+  started=time.time();a=self.anthropic
+  try:
+   with self.client.messages.stream(model=self.model,max_tokens=self.max_tokens,system=request.get('system_prompt',SYSTEM_PROMPT),messages=[{'role':'user','content':images+[{'type':'text','text':request['text']}]}],
+    output_config={'format':{'type':'json_schema','schema':request.get('schema',PLAN_SCHEMA)}}) as stream:message=stream.get_final_message()
+  except (a.APIConnectionError,a.RateLimitError) as e:return {'transport_error':f'{type(e).__name__}: {e}'[:500],'latency_s':time.time()-started,'stdout':''}
+  except a.APIStatusError as e:
+   if e.status_code>=500:return {'transport_error':f'{type(e).__name__}: {e}'[:500],'latency_s':time.time()-started,'stdout':''}
+   return {'error':f'{type(e).__name__}: {e}'[:500],'latency_s':time.time()-started,'stdout':''}
+  usage=message.usage.to_dict();price=self.PRICES.get(message.model)
+  out={'latency_s':time.time()-started,'model':message.model,'usage':usage,'request_id':getattr(message,'_request_id',None),'stop_reason':message.stop_reason,'stdout':'',
+   'estimated_usd':round(usage.get('input_tokens',0)/1e6*price[0]+usage.get('output_tokens',0)/1e6*price[1],5) if price else None}
+  if message.stop_reason=='refusal':out['refusal']=str(getattr(message,'stop_details',None));out['plan']=None;return out
+  text=next((b.text for b in message.content if b.type=='text'),'')
+  try:out['plan']=json.loads(text)
+  except ValueError:out['plan']=None
+  return out
+def make_backend(name,model):
+ return {'dry-run':lambda:DryRunBackend(),'claude-code':lambda:ClaudeCodeBackend(model),'anthropic-api':lambda:AnthropicAPIBackend(model)}[name]()
 def _call(backend,request):
  tries=[]
  for _ in range(2):
