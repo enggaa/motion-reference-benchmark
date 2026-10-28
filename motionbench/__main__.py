@@ -5,6 +5,7 @@ from .planner import plan_run,DryRunBackend,ClaudeCodeBackend
 from .reference import render_group,find_blender
 from .verify import verify_group
 from .blind import package,import_ratings
+from .video import generate_run
 def main():
  p=argparse.ArgumentParser(prog='python -m motionbench');sub=p.add_subparsers(dest='command',required=True)
  sub.add_parser('validate')
@@ -19,6 +20,7 @@ def main():
  c=sub.add_parser('verify-reference');c.add_argument('--run',required=True);c.add_argument('--group',required=True);c.add_argument('--model',default='sonnet')
  c=sub.add_parser('package-review');c.add_argument('--run',required=True);c.add_argument('--out',required=True);c.add_argument('--mapping',required=True);c.add_argument('--kind',choices=['final','reference'],default='final');c.add_argument('--seed',type=int)
  c=sub.add_parser('import-ratings');c.add_argument('--run',required=True);c.add_argument('--mapping',required=True);c.add_argument('--rater',action='append',required=True);c.add_argument('--adjudication')
+ c=sub.add_parser('generate');c.add_argument('--run',required=True);c.add_argument('--resolution',choices=['480p','720p'],default='480p');c.add_argument('--execute',action='store_true');c.add_argument('--max-usd',type=float);c.add_argument('--attempt',action='append')
  a=p.parse_args()
  if a.command=='validate':result=validate()
  elif a.command=='plan':result=make_run(a.out,a.split,a.repeats,a.seed)
@@ -28,6 +30,7 @@ def main():
  elif a.command=='verify-reference':result=verify_group(a.run,a.group,ClaudeCodeBackend(a.model))
  elif a.command=='package-review':result=package(a.run,a.out,a.mapping,a.kind,a.seed)
  elif a.command=='import-ratings':result=import_ratings(a.run,a.mapping,a.rater,a.adjudication)
+ elif a.command=='generate':result=generate_run(a.run,resolution=a.resolution,execute=a.execute,max_usd=a.max_usd,attempts=a.attempt)
  elif a.command=='artifact':result=artifact(a.run,a.attempt,a.kind,a.file)
  elif a.command=='summarize':
   result=summarize(a.run,draws=a.bootstrap)

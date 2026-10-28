@@ -15,6 +15,10 @@ Give all 15 joints, the pose class, observations, uncertainties and visible cont
 UPPER=('neck','head','Lshoulder','Rshoulder')
 # Parameter -> initial step. Angles in degrees, scale as a ratio, shifts in metres.
 STEPS={'lean_side':8,'lean_front':8,'scale':.04,'shift_x':.03,'shift_y':.03,'Larm_side':12,'Rarm_side':12,'Larm_front':12,'Rarm_front':12,'Lelbow':15,'Relbow':15}
+# Score cost per unit of change, so a move must buy visible overlap. Front-back moves (lean_front, arm_front, shift_y) cost double: the input
+# view barely sees depth, and unpenalised fits swung arms 63-75 degrees fore-aft for small overlap gains while 3D error grew (dev-001 D03, D04).
+PENALTY={'lean_side':.0004,'lean_front':.0008,'scale':.1,'shift_x':.1,'shift_y':.2,'Larm_side':.0004,'Rarm_side':.0004,'Larm_front':.0008,'Rarm_front':.0008,'Lelbow':.0004,'Relbow':.0004}
+def penalty(params):return sum(PENALTY[k]*abs(v) for k,v in params.items())
 def _rot(p,c,axis,deg):
  """Rodrigues rotation of point p about the axis through c."""
  a=math.radians(deg);k=[x/math.sqrt(sum(y*y for y in axis)) for x in axis];v=[p[i]-c[i] for i in range(3)]
@@ -69,24 +73,24 @@ def fit(image,pose,blender,iterations=6,workdir=None):
  errors=[];base=_joints(pose.get('joints'),'pose',errors)
  if errors:raise ValueError('; '.join(errors))
  target=masks(image);chair=is_seated(pose);params=dict.fromkeys(STEPS,0.0)
- best=score(target,render_batch([base],chair,blender)[0]);history=[round(best,4)]
+ start=score(target,render_batch([base],chair,blender)[0]);best=start;raw=start;history=[round(best,4)]
  for stage in STAGES:
   steps={k:STEPS[k] for k in stage}
   for _ in range(iterations):
    # Single and double steps: the score is not monotone along a limb swing (D08's right arm dips at 12 degrees and peaks at 24).
    moves=[(name,sign*k*steps[name]) for name in stage for sign in (-1,1) for k in (1,2)]
    candidates=[dict(params,**{name:params[name]+delta}) for name,delta in moves]
-   scores=[score(target,m) for m in render_batch([transform(base,c) for c in candidates],chair,blender)]
+   raws=[score(target,m) for m in render_batch([transform(base,c) for c in candidates],chair,blender)];scores=[r-penalty(c) for r,c in zip(raws,candidates)]
    better={}
    for (name,delta),s in zip(moves,scores):
     if s>best and s>better.get(name,(0,0))[1]:better[name]=(delta,s)
    if not better:
     steps={k:v/2 for k,v in steps.items()};history.append(round(best,4));continue
    single=max(range(len(scores)),key=scores.__getitem__);combo=dict(params,**{n:params[n]+d for n,(d,_) in better.items()})
-   combo_score=score(target,render_batch([transform(base,combo)],chair,blender)[0]) if len(better)>1 else -1
-   params,best=(combo,combo_score) if combo_score>scores[single] else (candidates[single],scores[single]);history.append(round(best,4))
+   combo_raw=score(target,render_batch([transform(base,combo)],chair,blender)[0]) if len(better)>1 else -1;combo_score=combo_raw-penalty(combo)
+   params,best,raw=(combo,combo_score,combo_raw) if combo_score>scores[single] else (candidates[single],scores[single],raws[single]);history.append(round(best,4))
  fitted=transform(base,params)
  if workdir:render_batch([base,fitted],chair,blender,keep=workdir)
  out=dict(pose,joints=[{'joint':j,'x':round(fitted[j][0],4),'y':round(fitted[j][1],4),'z':round(fitted[j][2],4)} for j in JOINTS])
  out['observations']=list(pose.get('observations',[]))+['Joint positions adjusted by silhouette fitting against the input image (render-and-compare).']
- return out,{'score_start':history[0],'score_end':round(best,4),'score_history':history,'params':{k:round(v,4) for k,v in params.items() if v},'note':'Score is the mean of silhouette IoU and skin (head/hands) IoU between the input and our render of the pose; it is not a joint error.'}
+ return out,{'score_start':round(start,4),'score_end':round(raw,4),'objective_history':history,'penalty':round(penalty(params),4),'params':{k:round(v,4) for k,v in params.items() if v},'note':'Score is the mean of silhouette IoU and skin (head/hands) IoU between the input and our render of the pose; it is not a joint error. The search maximises score minus penalty.'}
