@@ -87,12 +87,17 @@ class DryRunBackend:
  """Writes the request that would be sent; calls no model."""
  name='dry-run';model=None
  def call(self,request):return None
+def desktop_cli():
+ """Newest CLI bundled with the Claude desktop app on Windows (%APPDATA%/Claude/claude-code/<version>/<build>/claude.exe)."""
+ base=Path(os.environ.get('APPDATA',''))/'Claude/claude-code'
+ found=[(tuple(int(x) for x in p.parent.parent.name.split('.') if x.isdigit()),p) for p in base.glob('*/*/claude.exe')] if base.is_dir() else []
+ return str(max(found)[1]) if found else None
 class ClaudeCodeBackend:
  """Route A: headless Claude Code on the user's subscription. Customizations and tools are off, but Claude Code still wraps the request."""
  name='claude-code'
  def __init__(self,model='sonnet',exe=None,timeout=600):
   self.model=model;self.timeout=timeout
-  self.exe=exe or os.environ.get('MOTIONBENCH_CLAUDE_EXE') or shutil.which('claude')
+  self.exe=exe or os.environ.get('MOTIONBENCH_CLAUDE_EXE') or shutil.which('claude') or desktop_cli()
   if not self.exe:raise RuntimeError('claude CLI not found; install it or set MOTIONBENCH_CLAUDE_EXE')
  def command(self):
   return [self.exe,'-p','--input-format','stream-json','--output-format','stream-json','--verbose','--safe-mode','--tools','','--system-prompt',SYSTEM_PROMPT,'--json-schema',json.dumps(PLAN_SCHEMA),'--model',self.model,'--no-session-persistence']

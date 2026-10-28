@@ -58,7 +58,7 @@ python -m motionbench planner --run runs/dev-001                       # dry-run
 python -m motionbench planner --run runs/dev-001 --backend claude-code --model sonnet --max-calls 1
 ```
 
-`claude-code` backend는 로그인된 Claude Code CLI(`claude -p`)를 호출하므로 **Claude 구독 사용량에서 차감**되고 API 키 과금은 하지 않습니다(`ANTHROPIC_API_KEY`는 하위 프로세스에서 제거). CLI가 PATH에 없으면 `MOTIONBENCH_CLAUDE_EXE`로 경로를 지정합니다. 사용자 설정·CLAUDE.md·도구는 끄지만(`--safe-mode`, `--tools ""`, 자체 system prompt) Claude Code 래퍼가 끼어 있으므로, 입력을 완전히 통제하는 API 경로(B)는 후속 개선입니다. 동결 전에 backend를 하나로 확정합니다.
+`claude-code` backend는 로그인된 Claude Code CLI(`claude -p`)를 호출하므로 **Claude 구독 사용량에서 차감**되고 API 키 과금은 하지 않습니다(`ANTHROPIC_API_KEY`는 하위 프로세스에서 제거). CLI가 PATH에 없으면 Windows 데스크톱 앱에 번들된 최신 CLI를 찾고, 그래도 없으면 `MOTIONBENCH_CLAUDE_EXE`로 경로를 지정합니다. 처음 한 번 `claude auth login`으로 구독 계정에 로그인해야 합니다. 사용자 설정·CLAUDE.md·도구는 끄지만(`--safe-mode`, `--tools ""`, 자체 system prompt) Claude Code 래퍼가 끼어 있으므로, 입력을 완전히 통제하는 API 경로(B)는 후속 개선입니다. 동결 전에 backend를 하나로 확정합니다.
 
 B/C의 같은 `paired_reference_group`에 계획 1개를 만들어 두 시도에 같은 `plan` 아티팩트로 등록합니다. 입력은 `generator_inputs.json`과 seed 사전의 의미 목록뿐이며 evaluator 파일은 읽지 않습니다. 전송 오류는 1회 재시도, 구조 검사 실패는 재생성하지 않고 `failed/planning`으로 기록합니다. 구조 검사(관절 15개, 0초 관측 키프레임, 원문 인용, 시간 순서)를 통과해도 **동작이 맞다는 뜻은 아닙니다.** 뼈 길이 변화는 경고로만 남깁니다. test 분할은 `--allow-test` 없이는 거부합니다.
 
