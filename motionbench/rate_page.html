@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 평가</title>
+<style>
+:root{--bg:#f6f6f4;--card:#fff;--ink:#1d1d1b;--muted:#666;--line:#ddd;--pass:#2e7d32;--fail:#c62828;--unc:#8d6e00}
+@media (prefers-color-scheme:dark){:root{--bg:#161616;--card:#222;--ink:#eee;--muted:#aaa;--line:#3a3a3a}}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,sans-serif}
+header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;z-index:1}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:20px}
+.media{display:flex;gap:12px;flex-wrap:wrap}.media img,.media video{height:384px;max-width:100%;border-radius:6px;background:#000}
+.req{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.req span{flex:1;min-width:220px}.opts label{margin-left:10px;white-space:nowrap}
+.done{color:var(--pass)}.todo{color:var(--fail)}small{color:var(--muted)}
+button{font:inherit;padding:6px 14px;border-radius:6px;border:1px solid var(--line);background:var(--ink);color:var(--card);cursor:pointer}
+input[type=text],textarea{font:inherit;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+textarea{width:100%;box-sizing:border-box}
+</style></head><body>
+<header><strong>레퍼런스 평가</strong><label>평가자 ID <input type="text" id="rater" size="10"></label><span id="progress"></span><button id="save">평가 파일 저장</button>
+<small>영상만 보고 판정하세요. 볼 수 없으면 uncertain. 다른 평가자와 상의하지 마세요.</small></header>
+<main id="items"></main>
+<script>
+const DATA=__ITEMS__;const SEC=DATA.secondary_scales;const KEY='rate:'+DATA.items.map(i=>i.item_id).join(',');
+let state={};try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}progress()}
+function radio(name,values,cur,on){return values.map(v=>`<label><input type="radio" name="${name}" value="${v}" ${cur===v?'checked':''}> ${v}</label>`).join('')}
+function render(){const root=document.getElementById('items');root.innerHTML='';
+ DATA.items.forEach((it,n)=>{const s=state[it.item_id]=state[it.item_id]||{requirements:{},secondary:{},notes:''};const el=document.createElement('section');el.className='item';
+  el.innerHTML=`<h3>${n+1}. 항목 ${it.item_id}</h3><p><b>요청:</b> ${it.request}</p><div class="media"><img src="${it.input_image}" alt="입력 이미지"><video src="${it.video}" controls loop muted playsinline></video></div>
+  <p><small>${it.ambiguity_policy} / ${it.completion_policy}</small></p>`+
+  it.requirements.map(r=>`<div class="req"><span><b>${r.id}</b> ${r.criterion}</span><span class="opts">${radio(it.item_id+'|r|'+r.id,['pass','fail','uncertain'],s.requirements[r.id])}</span></div>`).join('')+
+  Object.keys(SEC).map(k=>`<div class="req"><span><b>${k}</b> <small>${SEC[k]}</small></span><span class="opts">${radio(it.item_id+'|s|'+k,k==='naturalness'?['1','2','3','4','5']:['pass','fail','uncertain'],s.secondary[k]==null?null:String(s.secondary[k]))}</span></div>`).join('')+
+  `<div class="req"><textarea rows="2" placeholder="메모(선택)" data-id="${it.item_id}">${s.notes||''}</textarea></div>`;root.appendChild(el)});
+ root.querySelectorAll('input[type=radio]').forEach(i=>i.onchange=()=>{const [id,kind,key]=i.name.split('|');const s=state[id];if(kind==='r')s.requirements[key]=i.value;else s.secondary[key]=key==='naturalness'?Number(i.value):i.value;persist()});
+ root.querySelectorAll('textarea').forEach(t=>t.oninput=()=>{state[t.dataset.id].notes=t.value;persist()});progress()}
+function progress(){let total=0,done=0;DATA.items.forEach(it=>it.requirements.forEach(r=>{total++;if((state[it.item_id]||{requirements:{}}).requirements[r.id])done++}));
+ const p=document.getElementById('progress');p.textContent=`요구 판정 ${done}/${total}`;p.className=done===total?'done':'todo'}
+document.getElementById('save').onclick=()=>{const rater=document.getElementById('rater').value.trim();if(!rater){alert('평가자 ID를 입력하세요');return}
+ const out={rater_id:rater,items:{}};DATA.items.forEach(it=>{const s=state[it.item_id];const req={};it.requirements.forEach(r=>req[r.id]=s.requirements[r.id]||null);const sec={};Object.keys(SEC).forEach(k=>sec[k]=s.secondary[k]==null?null:s.secondary[k]);out.items[it.item_id]={requirements:req,secondary:sec,notes:s.notes||null}});
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,1)],{type:'application/json'}));a.download=`ratings_${rater}.json`;a.click()};
+render();
+</script></body></html>

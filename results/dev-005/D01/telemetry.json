@@ -1,0 +1,250 @@
+{
+  "fps": 24,
+  "frames": 145,
+  "segment_lengths_m": {
+    "pelvis-neck": 0.5014,
+    "neck-head": 0.2157,
+    "neck-Lshoulder": 0.2387,
+    "neck-Rshoulder": 0.2387,
+    "pelvis-Lhip": 0.1227,
+    "pelvis-Rhip": 0.1227,
+    "Lshoulder-Lelbow": 0.2755,
+    "Rshoulder-Relbow": 0.2697,
+    "Lhip-Lknee": 0.4409,
+    "Rhip-Rknee": 0.4428,
+    "Lelbow-Lwrist": 0.2273,
+    "Relbow-Rwrist": 0.2334,
+    "Lknee-Lankle": 0.4511,
+    "Rknee-Rankle": 0.4514
+  },
+  "max_segment_length_error_m": 2.220446049250313e-16,
+  "unreachable_targets": {},
+  "max_keyframe_error_m": {
+    "Rwrist": 0.0257
+  },
+  "first_frame_shift_m": 0.0,
+  "props": {
+    "chair": false
+  },
+  "note": "Lengths fixed to keyframe 0 of the plan; arms/torso interpolate segment directions, legs reach interpolated ankles. Unreachable targets are clamped, not stretched.",
+  "grid_times_s": [
+    0.0,
+    0.875,
+    1.7083,
+    2.5833,
+    3.4167,
+    4.2917,
+    5.125,
+    6.0
+  ],
+  "motion_summary": {
+    "right_wrist": {
+      "lateral_turns": [
+        {
+          "t": 0.71,
+          "toward": "outward",
+          "while_raised": true
+        },
+        {
+          "t": 1.71,
+          "toward": "inward",
+          "while_raised": true
+        },
+        {
+          "t": 2.29,
+          "toward": "outward",
+          "while_raised": true
+        },
+        {
+          "t": 2.92,
+          "toward": "inward",
+          "while_raised": true
+        },
+        {
+          "t": 3.79,
+          "toward": "outward",
+          "while_raised": true
+        }
+      ],
+      "raised_lateral_cm": [
+        [
+          0.75,
+          25
+        ],
+        [
+          0.83,
+          24
+        ],
+        [
+          0.92,
+          24
+        ],
+        [
+          1.0,
+          24
+        ],
+        [
+          1.08,
+          23
+        ],
+        [
+          1.17,
+          21
+        ],
+        [
+          1.25,
+          16
+        ],
+        [
+          1.33,
+          9
+        ],
+        [
+          1.42,
+          1
+        ],
+        [
+          1.5,
+          -5
+        ],
+        [
+          1.58,
+          -8
+        ],
+        [
+          1.67,
+          -9
+        ],
+        [
+          1.75,
+          -9
+        ],
+        [
+          1.83,
+          -7
+        ],
+        [
+          1.92,
+          -1
+        ],
+        [
+          2.0,
+          7
+        ],
+        [
+          2.08,
+          16
+        ],
+        [
+          2.17,
+          21
+        ],
+        [
+          2.25,
+          24
+        ],
+        [
+          2.33,
+          24
+        ],
+        [
+          2.42,
+          22
+        ],
+        [
+          2.5,
+          18
+        ],
+        [
+          2.58,
+          9
+        ],
+        [
+          2.67,
+          0
+        ],
+        [
+          2.75,
+          -6
+        ],
+        [
+          2.83,
+          -9
+        ],
+        [
+          2.92,
+          -9
+        ],
+        [
+          3.0,
+          -8
+        ],
+        [
+          3.08,
+          -4
+        ],
+        [
+          3.17,
+          4
+        ],
+        [
+          3.25,
+          13
+        ],
+        [
+          3.33,
+          20
+        ],
+        [
+          3.42,
+          23
+        ],
+        [
+          3.5,
+          24
+        ],
+        [
+          3.58,
+          24
+        ],
+        [
+          3.67,
+          24
+        ],
+        [
+          3.75,
+          25
+        ]
+      ],
+      "near_or_above_shoulder_s": [
+        [
+          0.71,
+          3.79
+        ]
+      ],
+      "above_head_s": []
+    },
+    "left_wrist": {
+      "lateral_turns": [],
+      "raised_lateral_cm": [],
+      "near_or_above_shoulder_s": [],
+      "above_head_s": []
+    },
+    "whole_body_still_s": [
+      [
+        4.54,
+        6.0
+      ]
+    ],
+    "pelvis_height_m": {
+      "start": 0.971,
+      "end": 0.971
+    }
+  },
+  "first_frame_match": 0.9144,
+  "plan_sha256": "27abad46b4e64865391442a1262c3c1f4485154268c78c20a9a256c4e9a593fc",
+  "video_sha256": "7132cdaf0acd2b6f456e5f77243c71cf8a028b4e17f837133ebd0094e9700c13",
+  "front_video_sha256": "c600961f8d82fc16643b34c25b326884cce8ceac0675cea0dcddbbebe02b4ebc",
+  "blender": "Blender 4.2",
+  "group": "D01-01"
+}

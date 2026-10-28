@@ -1,7 +1,7 @@
 """Blinded review packages (docs/ADAPTER_CONTRACT.md, docs/RUBRIC.md). Raters get random item ids, the input image, the request, the scoring
 criteria and a metadata-stripped video copy; condition names, plans, gate results and source paths stay in a mapping file kept apart.
 kind='final' packages succeeded final videos; kind='reference' packages each distinct reference (B/C share one initial reference, C may add a repair)."""
-import random,shutil,subprocess
+import json,random,shutil,subprocess
 from pathlib import Path
 from .core import ROOT,read,save,sha,ensure_binding,consensus,required_ids,review_attempt
 SECONDARY={'naturalness':'1-5 (RUBRIC: 1 large abnormal bends or jumps, 3 recognisable but awkward, 5 nothing unnatural)','appearance_preserved':'pass/fail/uncertain','start_continuity':'pass/fail/uncertain','no_temporal_artifacts':'pass/fail/uncertain'}
@@ -10,7 +10,7 @@ README="""평가 안내 (조건 비공개)
 각 항목은 입력 이미지, 원문 요청, 영상 1개입니다. 영상이 어떤 방법으로 만들어졌는지는 알려 주지 않습니다.
 items.json의 각 요구(requirements)를 pass / fail / uncertain으로 판정하세요. 가림이나 구도 때문에 판단할 수 없으면 uncertain이며, 잘 됐을 것이라고 추정하지 않습니다.
 부 결과(secondary)는 요구 판정과 별개로 기록합니다. naturalness는 1-5 정수, 나머지는 pass / fail / uncertain입니다.
-ratings_template.json을 복사해 rater_id에 본인 식별자를 적고 채운 뒤 제출하세요. 다른 평가자와 상의하지 마세요.
+rate.html을 브라우저로 열어 판정한 뒤 '평가 파일 저장'으로 ratings_<ID>.json을 받아 제출하세요(또는 ratings_template.json을 직접 채워도 됩니다). 다른 평가자와 상의하지 마세요.
 판정 기준: docs/RUBRIC.md 와 같은 앵커를 사용합니다.
 """
 def _strip_copy(src,dst):
@@ -47,6 +47,9 @@ def package(run,out,mapping_out,kind='final',seed=None,root=ROOT):
   mapping[item]={'attempts':attempts,'case_id':case_id,'source':str(src),'sha256':digest,'packaged_sha256':sha(out/'videos'/f'{item}.mp4')}
  listing.sort(key=lambda x:x['item_id'])
  save(out/'items.json',{'kind':kind,'secondary_scales':SECONDARY,'items':listing});save(out/'ratings_template.json',{'rater_id':None,'items':template});(out/'README.txt').write_text(README,encoding='utf-8')
+ # A browser page over the same items; it writes a ratings file in the template's shape, so import-ratings needs nothing else.
+ page=Path(__file__).with_name('rate_page.html').read_text(encoding='utf-8')
+ (out/'rate.html').write_text(page.replace('__ITEMS__',json.dumps({'secondary_scales':SECONDARY,'items':listing},ensure_ascii=False).replace('</','<\\/')),encoding='utf-8')
  mapping_out.parent.mkdir(parents=True,exist_ok=True);save(mapping_out,{'kind':kind,'run':str(Path(run).resolve()),'seed':seed,'items':mapping,'note':'Keep away from raters until all ratings are in.'})
  return {'kind':kind,'items':len(listing),'package':str(out),'mapping':str(mapping_out)}
 def _check_secondary(values):

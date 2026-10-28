@@ -1,0 +1,102 @@
+{
+  "verifier_version": "v4",
+  "group": "D05-01",
+  "attempt": "0015",
+  "backend": "claude-code",
+  "model": "sonnet",
+  "created_utc": "2026-10-28T18:42:02.396887+00:00",
+  "steps": [
+    {
+      "step": "review_initial",
+      "verdict": {
+        "first_frame": {
+          "matches_input": true,
+          "notes": "Frame 0 shows a standing pose with both arms down at the sides and feet together, the same as the input image. The overlap score is 0.885."
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "quote": "오른손을 한 번 왕복해 흔들고 내린 다음",
+            "status": "pass",
+            "evidence": "The character's right hand is on the image left in the front view. It is raised at 1.125 s with the forearm up, and it is out to the side at 2.29 s. The summary shows one outward swing, peaking at 44 cm at 1.42 s and returning to about 12 cm by 1.92 s. That is one round trip. The hand is lowered by 2.38 s, and in the 4.58 s frame the right arm hangs at the side."
+          },
+          {
+            "id": "R2",
+            "quote": "왼손을 한 번 왕복해 흔들고 내려라",
+            "status": "pass",
+            "evidence": "The left hand is raised at 3.42 s and held up at 4.58 s. The summary shows one outward swing, peaking at 44 cm at 4.42 s and returning to about 11 cm by 5.0 s. That is one round trip. The hand is lowered by 5.38 s. The frames at 5.71, 6.88 and 8.0 s show both arms down and the body still from 5.83 s to 8.0 s. This happens after the right-hand wave, so the order is correct."
+          }
+        ],
+        "repair_instructions": [],
+        "verdict": "pass"
+      },
+      "tries": [
+        {
+          "latency_s": 8.903768539428711,
+          "returncode": 0,
+          "stderr": "",
+          "cli_version": "2.1.309",
+          "model": "claude-sonnet-5-5",
+          "tools": [
+            "StructuredOutput"
+          ],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 4456,
+            "cache_read_input_tokens": 1325,
+            "output_tokens": 1000,
+            "output_tokens_details": {
+              "thinking_tokens": 421
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 4456,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 1000,
+                "cache_read_input_tokens": 1325,
+                "cache_creation_input_tokens": 4456,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 4456
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "model_usage": {
+            "claude-sonnet-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 1000,
+              "cacheReadInputTokens": 1325,
+              "cacheCreationInputTokens": 4456,
+              "webSearchRequests": 0,
+              "costUSD": 0.0279605,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 421,
+              "canonicalModel": "claude-sonnet-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "notional_cost_usd": 0.0279605,
+          "num_turns": 2
+        }
+      ]
+    }
+  ],
+  "decision": "pass",
+  "reference_for_final": "initial",
+  "note": "Gate result only; final-video human review is separate and may still fail."
+}

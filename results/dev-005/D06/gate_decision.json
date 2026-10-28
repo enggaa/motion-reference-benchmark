@@ -1,0 +1,114 @@
+{
+  "verifier_version": "v4",
+  "group": "D06-01",
+  "attempt": "0016",
+  "backend": "claude-code",
+  "model": "sonnet",
+  "created_utc": "2026-10-28T18:42:33.398231+00:00",
+  "steps": [
+    {
+      "step": "review_initial",
+      "verdict": {
+        "first_frame": {
+          "matches_input": true,
+          "notes": "Seated on the chair. The character's right hand rests on the thigh and the left arm hangs at the side, as in the input. Overlap score is 0.81."
+        },
+        "requirements": [
+          {
+            "id": "r1",
+            "quote": "앉은 자세를 유지하며",
+            "status": "pass",
+            "evidence": "The pelvis height stays at 0.542 m from start to end, and the character stays on the chair in all eight frames."
+          },
+          {
+            "id": "r2",
+            "quote": "왼손을 한 번 왕복해 흔들고",
+            "status": "pass",
+            "evidence": "The front view shows the character's left arm, on the image right, raised in frames 1–2 (1.1 s and 2.3 s). The left wrist is raised from about 0.4 s to 2.6 s. It swings out to about 48 cm at 1.5 s, which is the only outward turn, then returns to about 5 cm by 2.1 s. That is one round trip."
+          },
+          {
+            "id": "r3",
+            "quote": "내린 다음",
+            "status": "pass",
+            "evidence": "By frame 3 (3.4 s) the left arm hangs at the side. The left wrist stops being raised at about 2.6 s, before the right hand starts."
+          },
+          {
+            "id": "r4",
+            "quote": "오른손을 한 번 왕복해 흔들고 내려라.",
+            "status": "pass",
+            "evidence": "The character's right arm, on the front view's image left, is raised in frames 4–6 (3.4 s to 5.7 s). It swings out to about 49 cm at 4.58 s, the only outward turn, and returns to about 4 cm by 5.2 s. That is one round trip. By frames 7–8 the arm is lowered, and the body is still from 6.2 s to 8.0 s."
+          }
+        ],
+        "verdict": "pass",
+        "repair_instructions": []
+      },
+      "tries": [
+        {
+          "latency_s": 12.950833082199097,
+          "returncode": 0,
+          "stderr": "",
+          "cli_version": "2.1.309",
+          "model": "claude-sonnet-5-5",
+          "tools": [
+            "StructuredOutput"
+          ],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 4499,
+            "cache_read_input_tokens": 1325,
+            "output_tokens": 1355,
+            "output_tokens_details": {
+              "thinking_tokens": 672
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 4499,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 1355,
+                "cache_read_input_tokens": 1325,
+                "cache_creation_input_tokens": 4499,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 4499
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "model_usage": {
+            "claude-sonnet-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 1355,
+              "cacheReadInputTokens": 1325,
+              "cacheCreationInputTokens": 4499,
+              "webSearchRequests": 0,
+              "costUSD": 0.0316825,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 672,
+              "canonicalModel": "claude-sonnet-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "notional_cost_usd": 0.0316825,
+          "num_turns": 2
+        }
+      ]
+    }
+  ],
+  "decision": "pass",
+  "reference_for_final": "initial",
+  "note": "Gate result only; final-video human review is separate and may still fail."
+}

@@ -1,0 +1,186 @@
+{
+  "group": "D06-01",
+  "attempts": [
+    "0016",
+    "0017"
+  ],
+  "backend": "claude-code",
+  "requested_model": "sonnet",
+  "variant": "posefit-v1",
+  "created_utc": "2026-10-28T18:36:48.608269+00:00",
+  "tries": [
+    {
+      "latency_s": 6.75261926651001,
+      "returncode": 0,
+      "stderr": "",
+      "cli_version": "2.1.309",
+      "model": "claude-sonnet-5-5",
+      "tools": [
+        "StructuredOutput"
+      ],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 357,
+        "cache_read_input_tokens": 1936,
+        "output_tokens": 794,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 357,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 794,
+            "cache_read_input_tokens": 1936,
+            "cache_creation_input_tokens": 357,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 357
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "model_usage": {
+        "claude-sonnet-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 794,
+          "cacheReadInputTokens": 1936,
+          "cacheCreationInputTokens": 357,
+          "webSearchRequests": 0,
+          "costUSD": 0.0095656,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 0,
+          "canonicalModel": "claude-sonnet-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "notional_cost_usd": 0.0095656,
+      "num_turns": 2,
+      "stage": "initial_pose"
+    },
+    {
+      "latency_s": 42.990869998931885,
+      "returncode": 0,
+      "stderr": "",
+      "cli_version": "2.1.309",
+      "model": "claude-sonnet-5-5",
+      "tools": [
+        "StructuredOutput"
+      ],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2271,
+        "cache_read_input_tokens": 2337,
+        "output_tokens": 8387,
+        "output_tokens_details": {
+          "thinking_tokens": 926
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2271,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 8387,
+            "cache_read_input_tokens": 2337,
+            "cache_creation_input_tokens": 2271,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2271
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "model_usage": {
+        "claude-sonnet-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 8387,
+          "cacheReadInputTokens": 2337,
+          "cacheCreationInputTokens": 2271,
+          "webSearchRequests": 0,
+          "costUSD": 0.0931917,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 926,
+          "canonicalModel": "claude-sonnet-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "notional_cost_usd": 0.0931917,
+      "num_turns": 2,
+      "stage": "planning"
+    }
+  ],
+  "check": {
+    "errors": [],
+    "warnings": [
+      "keyframe 6: Relbow-Rwrist length 0.210 vs initial 0.254",
+      "keyframe 7: Relbow-Rwrist length 0.215 vs initial 0.254"
+    ]
+  },
+  "ok": true,
+  "failure_stage": null,
+  "request_sha256": "5cf396c4d516b457655297b652b1641e8fb607418513cffcee24c81c9a9dc79d",
+  "pose_fit": {
+    "score_start": 0.3738,
+    "score_end": 0.8106,
+    "objective_history": [
+      0.3738,
+      0.5554,
+      0.6888,
+      0.6888,
+      0.7083,
+      0.7083,
+      0.7246,
+      0.7406,
+      0.7406,
+      0.7406,
+      0.7473,
+      0.7518,
+      0.7518,
+      0.7522,
+      0.762,
+      0.762,
+      0.762,
+      0.7637,
+      0.7637
+    ],
+    "penalty": 0.0469,
+    "params": {
+      "scale": 0.13,
+      "shift_y": 0.0075,
+      "Larm_side": 3.0,
+      "Rarm_side": 3.0,
+      "Rarm_front": -15.0,
+      "Lelbow": -45.0
+    },
+    "note": "Score is the mean of silhouette IoU and skin (head/hands) IoU between the input and our render of the pose; it is not a joint error. The search maximises score minus penalty."
+  },
+  "keyframe0_drift_m": 0.0,
+  "note": "check covers structure and self-consistency only; rendered motion still needs separate review"
+}

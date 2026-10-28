@@ -1,0 +1,108 @@
+{
+  "verifier_version": "v4",
+  "group": "D07-01",
+  "attempt": "0021",
+  "backend": "claude-code",
+  "model": "sonnet",
+  "created_utc": "2026-10-28T18:43:03.725087+00:00",
+  "steps": [
+    {
+      "step": "review_initial",
+      "verdict": {
+        "first_frame": {
+          "matches_input": true,
+          "notes": "Frame 0 shows a standing pose with both arms hanging at the sides and feet together, as in the input image. The overlap score of 0.82 is acceptable."
+        },
+        "requirements": [
+          {
+            "id": "r1",
+            "quote": "양팔을 머리 위로 올려",
+            "status": "pass",
+            "evidence": "Both arms swing out to the side at 0.875 s, then rise above the head. They are in a V at 1.71 s and vertical at 2.58 s. The summary has both wrists above head height from 1.38 s to 3.62 s."
+          },
+          {
+            "id": "r2",
+            "quote": "1초간 유지한 뒤",
+            "status": "pass",
+            "evidence": "Both arms are held straight overhead with lateral offset about 1 cm from 2.0 s to 3.08 s, and the whole body is still from 2.04 s to 3.0 s. That is about 1 s. The 2.58 s frame shows the vertical hold."
+          },
+          {
+            "id": "r3",
+            "quote": "양팔을 내려라",
+            "status": "pass",
+            "evidence": "The arms open back out to a V at 3.42 s and to a lateral position at 4.29 s. They are at the sides by 5.125 s and stay there to 6.0 s, so the final lowered state is visible. The body is still from 5.04 s to 6.0 s."
+          }
+        ],
+        "verdict": "pass",
+        "repair_instructions": []
+      },
+      "tries": [
+        {
+          "latency_s": 8.019102096557617,
+          "returncode": 0,
+          "stderr": "",
+          "cli_version": "2.1.309",
+          "model": "claude-sonnet-5-5",
+          "tools": [
+            "StructuredOutput"
+          ],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 4767,
+            "cache_read_input_tokens": 1325,
+            "output_tokens": 873,
+            "output_tokens_details": {
+              "thinking_tokens": 323
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 4767,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 873,
+                "cache_read_input_tokens": 1325,
+                "cache_creation_input_tokens": 4767,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 4767
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "model_usage": {
+            "claude-sonnet-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 873,
+              "cacheReadInputTokens": 1325,
+              "cacheCreationInputTokens": 4767,
+              "webSearchRequests": 0,
+              "costUSD": 0.0279345,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 323,
+              "canonicalModel": "claude-sonnet-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "notional_cost_usd": 0.0279345,
+          "num_turns": 2
+        }
+      ]
+    }
+  ],
+  "decision": "pass",
+  "reference_for_final": "initial",
+  "note": "Gate result only; final-video human review is separate and may still fail."
+}

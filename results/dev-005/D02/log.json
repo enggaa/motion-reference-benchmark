@@ -1,0 +1,185 @@
+{
+  "group": "D02-01",
+  "attempts": [
+    "0004",
+    "0005"
+  ],
+  "backend": "claude-code",
+  "requested_model": "sonnet",
+  "variant": "posefit-v1",
+  "created_utc": "2026-10-28T18:29:35.864178+00:00",
+  "tries": [
+    {
+      "latency_s": 7.584053993225098,
+      "returncode": 0,
+      "stderr": "",
+      "cli_version": "2.1.309",
+      "model": "claude-sonnet-5-5",
+      "tools": [
+        "StructuredOutput"
+      ],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 358,
+        "cache_read_input_tokens": 1936,
+        "output_tokens": 891,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 358,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 891,
+            "cache_read_input_tokens": 1936,
+            "cache_creation_input_tokens": 358,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 358
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "model_usage": {
+        "claude-sonnet-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 891,
+          "cacheReadInputTokens": 1936,
+          "cacheCreationInputTokens": 358,
+          "webSearchRequests": 0,
+          "costUSD": 0.0105396,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 0,
+          "canonicalModel": "claude-sonnet-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "notional_cost_usd": 0.0105396,
+      "num_turns": 2,
+      "stage": "initial_pose"
+    },
+    {
+      "latency_s": 35.6854612827301,
+      "returncode": 0,
+      "stderr": "",
+      "cli_version": "2.1.309",
+      "model": "claude-sonnet-5-5",
+      "tools": [
+        "StructuredOutput"
+      ],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2351,
+        "cache_read_input_tokens": 2337,
+        "output_tokens": 6392,
+        "output_tokens_details": {
+          "thinking_tokens": 1161
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2351,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 6392,
+            "cache_read_input_tokens": 2337,
+            "cache_creation_input_tokens": 2351,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2351
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "model_usage": {
+        "claude-sonnet-5-5": {
+          "inputTokens": 2,
+          "outputTokens": 6392,
+          "cacheReadInputTokens": 2337,
+          "cacheCreationInputTokens": 2351,
+          "webSearchRequests": 0,
+          "costUSD": 0.07356170000000001,
+          "contextWindow": 1000000,
+          "maxOutputTokens": 128000,
+          "thinkingTokens": 1161,
+          "canonicalModel": "claude-sonnet-5-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      },
+      "notional_cost_usd": 0.07356170000000001,
+      "num_turns": 2,
+      "stage": "planning"
+    }
+  ],
+  "check": {
+    "errors": [],
+    "warnings": []
+  },
+  "ok": true,
+  "failure_stage": null,
+  "request_sha256": "3ca2fd87809aaf091c8f5a5c462dd3d40615dfd72dcf3fb7a26dc6205a7a6e37",
+  "pose_fit": {
+    "score_start": 0.334,
+    "score_end": 0.7928,
+    "objective_history": [
+      0.334,
+      0.5365,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7147,
+      0.7147,
+      0.7147,
+      0.7162,
+      0.7189,
+      0.7227,
+      0.7264,
+      0.7264,
+      0.7375,
+      0.7506,
+      0.7506,
+      0.7537,
+      0.7537
+    ],
+    "penalty": 0.0391,
+    "params": {
+      "lean_front": 8.0,
+      "scale": 0.125,
+      "shift_x": 0.0338,
+      "Larm_side": 12.0,
+      "Rarm_side": -9.0,
+      "Larm_front": -3.0,
+      "Lelbow": 7.5,
+      "Relbow": -7.5
+    },
+    "note": "Score is the mean of silhouette IoU and skin (head/hands) IoU between the input and our render of the pose; it is not a joint error. The search maximises score minus penalty."
+  },
+  "keyframe0_drift_m": 0.0,
+  "note": "check covers structure and self-consistency only; rendered motion still needs separate review"
+}
