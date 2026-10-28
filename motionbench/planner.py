@@ -88,10 +88,12 @@ class DryRunBackend:
  name='dry-run';model=None
  def call(self,request):return None
 def desktop_cli():
- """Newest CLI bundled with the Claude desktop app on Windows (%APPDATA%/Claude/claude-code/<version>/<build>/claude.exe)."""
- base=Path(os.environ.get('APPDATA',''))/'Claude/claude-code'
- found=[(tuple(int(x) for x in p.parent.parent.name.split('.') if x.isdigit()),p) for p in base.glob('*/*/claude.exe')] if base.is_dir() else []
- return str(max(found)[1]) if found else None
+ """Newest CLI bundled with the Claude desktop app on Windows (<Roaming>/Claude/claude-code/<version>/<build>/claude.exe).
+ The MSIX install keeps Roaming under %LOCALAPPDATA%/Packages/Claude_*/LocalCache, which shells outside the app see."""
+ local=Path(os.environ.get('LOCALAPPDATA',''))
+ bases=[Path(os.environ.get('APPDATA',''))]+(list(local.glob('Packages/Claude_*/LocalCache/Roaming')) if local.is_dir() else [])
+ found=[(tuple(int(x) for x in p.parent.parent.name.split('.') if x.isdigit()),str(p)) for b in bases for p in (b/'Claude/claude-code').glob('*/*/claude.exe')]
+ return max(found)[1] if found else None
 class ClaudeCodeBackend:
  """Route A: headless Claude Code on the user's subscription. Customizations and tools are off, but Claude Code still wraps the request."""
  name='claude-code'
