@@ -102,8 +102,10 @@ def motion_summary(frames,fps):
  for s,side in (('R','right'),('L','left')):
   lateral=[J(f,s+'wrist')[0]-J(f,s+'shoulder')[0] for f in frames];height=[J(f,s+'wrist')[2]-J(f,s+'shoulder')[2] for f in frames]
   outward=-1 if s=='R' else 1
-  turns=[{'t':round(t,2),'toward':'outward' if (kind=='max')==(outward>0) else 'inward'} for t,v,kind in turning_points(times,lateral,.04)]
-  out[side+'_wrist']={'lateral_turns':turns,'near_or_above_shoulder_s':_spans(times,[h>-.12 for h in height],.2),'above_head_s':_spans(times,[J(f,s+'wrist')[2]>J(f,'head')[2] for f in frames],.2)}
+  raised=[h>-.12 for h in height];at=lambda t:raised[min(range(len(times)),key=lambda i:abs(times[i]-t))]
+  # Turns made while the hand rises or drops belong to raising/lowering; dev-003's reviewer counted them as wave swings.
+  turns=[{'t':round(t,2),'toward':'outward' if (kind=='max')==(outward>0) else 'inward','while_raised':at(t)} for t,v,kind in turning_points(times,lateral,.04)]
+  out[side+'_wrist']={'lateral_turns':turns,'near_or_above_shoulder_s':_spans(times,raised,.2),'above_head_s':_spans(times,[J(f,s+'wrist')[2]>J(f,'head')[2] for f in frames],.2)}
  speed=[0.0]+[max(math.dist(a['joints'][j],b['joints'][j]) for j in JOINTS)*fps for a,b in zip(frames,frames[1:])]
  out['whole_body_still_s']=_spans(times,[v<.05 for v in speed],.5)
  out['pelvis_height_m']={'start':round(J(frames[0],'pelvis')[2],3),'end':round(J(frames[-1],'pelvis')[2],3)}
