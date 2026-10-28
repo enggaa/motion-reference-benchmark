@@ -17,7 +17,8 @@ PLAN_SCHEMA=_obj({
  'retrieval':{'type':'array','items':_obj({'entry_id':_S,'used_for':_S})},
  'keyframes':{'type':'array','items':_obj({'time_s':_N,'origin':{'type':'string','enum':list(ORIGINS)},'action_id':{'type':['string','null']},'description':_S,'joints':{'type':'array','items':_POINT},'contacts':_SS})},
  'assumptions':_SS,'unsupported_requirements':_SS})
-SYSTEM_PROMPT="""You are the motion planner between an action/keyframe dictionary and a reference-video renderer.
+RIG="""{RIG}"""
+SYSTEM_PROMPT=f"""You are the motion planner between an action/keyframe dictionary and a reference-video renderer.
 Input: one image of a procedural mannequin (fixed camera, exact camera parameters unknown), a verbatim request (usually Korean), the clip duration and a seed dictionary that lists known action ids and semantics only (it contains no trajectories).
 Rig: 15 joints pelvis, neck, head, L/R hip, knee, ankle, shoulder, elbow, wrist. L/R are the character's own left/right. Coordinates in metres: character's left +X, character's front -Y, up +Z, floor z=0. Approximate segment lengths: pelvis-neck 0.49, neck-head 0.21, upper arm 0.27, forearm 0.22, thigh 0.43, shin 0.43, shoulder half-width 0.23, hip half-width 0.12.
 Rules:
@@ -101,17 +102,18 @@ class ClaudeCodeBackend:
   self.model=model;self.timeout=timeout
   self.exe=exe or os.environ.get('MOTIONBENCH_CLAUDE_EXE') or shutil.which('claude') or desktop_cli()
   if not self.exe:raise RuntimeError('claude CLI not found; install it or set MOTIONBENCH_CLAUDE_EXE')
- def command(self):
-  return [self.exe,'-p','--input-format','stream-json','--output-format','stream-json','--verbose','--safe-mode','--tools','','--system-prompt',SYSTEM_PROMPT,'--json-schema',json.dumps(PLAN_SCHEMA),'--model',self.model,'--no-session-persistence']
+ def command(self,system=SYSTEM_PROMPT,schema=PLAN_SCHEMA):
+  return [self.exe,'-p','--input-format','stream-json','--output-format','stream-json','--verbose','--safe-mode','--tools','','--system-prompt',system,'--json-schema',json.dumps(schema),'--model',self.model,'--no-session-persistence']
  def env(self):
   # Drop host-session and API-key variables so the call bills the CLI's own subscription login, never an API key.
   return {k:v for k,v in os.environ.items() if not k.startswith('CLAUDE') and k not in ('ANTHROPIC_API_KEY','ANTHROPIC_AUTH_TOKEN','ANTHROPIC_BASE_URL')}
  def call(self,request):
-  image=base64.b64encode(Path(request['image']).read_bytes()).decode()
-  message={'type':'user','message':{'role':'user','content':[{'type':'image','source':{'type':'base64','media_type':'image/png','data':image}},{'type':'text','text':request['text']}]}}
+  # A request may carry its own system prompt, schema and several images (pose refinement); the planner request uses the defaults.
+  images=[{'type':'image','source':{'type':'base64','media_type':'image/png','data':base64.b64encode(Path(i).read_bytes()).decode()}} for i in (request['images'] if 'images' in request else [request['image']])]
+  message={'type':'user','message':{'role':'user','content':images+[{'type':'text','text':request['text']}]}}
   started=time.time()
   with tempfile.TemporaryDirectory() as cwd:
-   try:p=subprocess.run(self.command(),input=json.dumps(message)+'\n',capture_output=True,text=True,encoding='utf-8',cwd=cwd,env=self.env(),timeout=self.timeout)
+   try:p=subprocess.run(self.command(request.get('system_prompt',SYSTEM_PROMPT),request.get('schema',PLAN_SCHEMA)),input=json.dumps(message)+'\n',capture_output=True,text=True,encoding='utf-8',cwd=cwd,env=self.env(),timeout=self.timeout)
    except subprocess.TimeoutExpired:return {'transport_error':'timeout','latency_s':time.time()-started,'stdout':''}
   init=result=None
   for line in p.stdout.splitlines():
@@ -129,14 +131,24 @@ class ClaudeCodeBackend:
    try:plan=json.loads(result.get('result') or '')
    except ValueError:plan=None
   out['plan']=plan;return out
-def plan_run(run,backend,max_calls=8,group=None,allow_test=False,root=ROOT):
+def _call(backend,request):
+ tries=[]
+ for _ in range(2):
+  response=backend.call(request);tries.append(response)
+  if 'transport_error' not in response:break
+ return response,tries
+def plan_run(run,backend,max_calls=8,group=None,allow_test=False,pose_fit=None,root=ROOT):
+ """pose_fit: a Blender executable. When given, the initial pose comes from its own LLM call refined by silhouette fitting (motionbench.posefit)
+ and the planner receives it fixed; otherwise one call estimates the pose and plans together. A call means one planned group, whatever the stages."""
  ensure_binding(run,root);run=Path(run);meta=read(run/'run.json')
  if meta['split']=='test' and not allow_test:raise ValueError('Planner on test split requires a frozen pipeline; pass allow_test explicitly')
  dry=isinstance(backend,DryRunBackend)
  if not dry:
-  config=meta['configuration'];wanted={'planner_backend':backend.name,'planner_model':backend.model}
+  config=meta['configuration'];wanted={'planner_backend':backend.name,'planner_model':backend.model,'planner_variant':'posefit-v1' if pose_fit else 'single-call-v1'}
   for k,v in wanted.items():
-   if config.get(k) not in (None,v):raise ValueError(f'Run already uses {k}={config[k]}; plan a new run instead of mixing')
+   # dev-001 predates planner_variant; an unset variant on a run that already has plans means single-call-v1.
+   current=config.get(k) or ('single-call-v1' if k=='planner_variant' and config.get('planner_model') else None)
+   if current not in (None,v):raise ValueError(f'Run already uses {k}={current}; plan a new run instead of mixing')
   config.update(wanted);save(run/'run.json',meta)
  packets=[p for p in read(run/'generator_inputs.json') if p['paired_reference_group']];rows={r['attempt_id']:r for r in read(run/'ledger.json')}
  groups={}
@@ -150,19 +162,32 @@ def plan_run(run,backend,max_calls=8,group=None,allow_test=False,root=ROOT):
   folder=run/'plans'/gid;folder.mkdir(parents=True,exist_ok=True)
   request=build_request(members[0],root);save(folder/'request.json',{k:v for k,v in request.items() if k!='dictionary'})
   if dry:done.append({'group':gid,'status':'request_only'});continue
-  calls+=1;tries=[]
-  for _ in range(2):
-   response=backend.call(request);tries.append(response)
-   if 'transport_error' not in response:break
+  calls+=1;tries=[];stage='planning';fixed=None;extra={}
+  if pose_fit:
+   from .posefit import POSE_PROMPT,POSE_SCHEMA,fit
+   response,t=_call(backend,{'image':request['image'],'text':'Estimate the starting pose.','system_prompt':POSE_PROMPT,'schema':POSE_SCHEMA});tries+=[dict(x,stage='initial_pose') for x in t]
+   pose=response.get('plan');errors=[]
+   _joints(pose.get('joints') if isinstance(pose,dict) else None,'initial_pose',errors)
+   if errors or 'transport_error' in response:stage='initial_pose';check={'errors':['initial pose: '+str(response.get('transport_error') or '; '.join(errors))],'warnings':[]}
+   else:
+    fixed,fitlog=fit(request['image'],pose,pose_fit,workdir=folder/'posefit');save(folder/'initial_pose.json',{'llm':pose,'fitted':fixed,'fit':fitlog});extra['pose_fit']=fitlog
+  if stage=='planning':
+   if fixed:request=dict(request,text=request['text']+'\nInitial pose, already fitted to the image. Copy it exactly as initial_pose and as the joints of keyframe 0:\n'+json.dumps(fixed,ensure_ascii=False))
+   response,t=_call(backend,request);tries+=[dict(x,stage='planning') for x in t];plan=response.get('plan')
+   if fixed and isinstance(plan,dict) and plan.get('keyframes'):
+    # The fitted pose is authoritative; record how far the planner's own copy drifted before overwriting it.
+    drift=[];given=_joints(fixed['joints'],'fixed',[]);copied=_joints(plan['keyframes'][0].get('joints'),'copy',drift)
+    extra['keyframe0_drift_m']=round(max(math.dist(given[j],copied[j]) for j in copied),4) if copied else None
+    plan['initial_pose']=fixed;plan['keyframes'][0]['joints']=fixed['joints']
+   check=check_plan(plan,members[0],request['dictionary']) if isinstance(plan,dict) else {'errors':['no plan: '+str(response.get('transport_error') or 'unparseable output')],'warnings':[]}
   (folder/'response.jsonl').write_text('\n'.join(t.get('stdout','') for t in tries),encoding='utf-8')
-  check=check_plan(response['plan'],members[0],request['dictionary']) if isinstance(response.get('plan'),dict) else {'errors':['no plan: '+str(response.get('transport_error') or 'unparseable output')],'warnings':[]}
   ok=not check['errors']
-  log={'group':gid,'attempts':attempts,'backend':backend.name,'requested_model':backend.model,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'tries':[{k:v for k,v in t.items() if k not in ('stdout','plan')} for t in tries],'check':check,'ok':ok,'request_sha256':sha(folder/'request.json'),'note':'check covers structure and self-consistency only; rendered motion still needs separate review'}
+  log={'group':gid,'attempts':attempts,'backend':backend.name,'requested_model':backend.model,'variant':'posefit-v1' if pose_fit else 'single-call-v1','created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'tries':[{k:v for k,v in t.items() if k not in ('stdout','plan')} for t in tries],'check':check,'ok':ok,'failure_stage':None if ok else stage,'request_sha256':sha(folder/'request.json'),**extra,'note':'check covers structure and self-consistency only; rendered motion still needs separate review'}
   save(folder/'log.json',log)
-  if ok:save(folder/'plan.json',response['plan'])
+  if ok:save(folder/'plan.json',plan)
   for a in attempts:
    artifact(run,a,'execution_log',folder/'log.json')
    if ok:artifact(run,a,'plan',folder/'plan.json')
-   else:record(run,a,'failed','planning',root=root)
+   else:record(run,a,'failed',stage,root=root)
   done.append({'group':gid,'status':'planned' if ok else 'failed','errors':check['errors'],'warnings':len(check['warnings'])})
  return {'backend':backend.name,'model':backend.model,'calls':calls,'groups':done}
