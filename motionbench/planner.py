@@ -26,7 +26,8 @@ Rules:
 2. Split the request into actions. request_quote must be copied verbatim from the request. Keep left/right exactly as requested, from the character's point of view. completion is an observable end condition.
 3. keyframes: the first one is at time_s 0 with origin "observed" and the same joints as initial_pose. Every keyframe lists all 15 joints. Times increase and stay within [0, duration]. Hold the final state visibly before the clip ends. Preserve segment lengths and contacts the request does not ask to change.
 4. origin is "retrieved" only when the keyframe follows a dictionary entry listed in retrieval, otherwise "inferred". Actions outside the dictionary are allowed: infer them and say so in assumptions.
-5. List requirements you cannot satisfy in unsupported_requirements instead of silently dropping them. Do not claim certainty you do not have."""
+5. List requirements you cannot satisfy in unsupported_requirements instead of silently dropping them. Do not claim certainty you do not have.
+6. For repeated motions such as waves, make each repetition one clear swing out to one extreme and back to the other, all at the same height. After the last swing, go straight into the next action (for example lowering the arm). Do not add a return to a middle position in between: an extra sideways move like that reads as another half repetition."""
 def _guard_packet(packet,root=ROOT):
  extra=set(packet)-PACKET_KEYS
  if extra:raise ValueError('Generator packet carries non-generator fields: '+', '.join(sorted(extra)))
