@@ -77,3 +77,34 @@ def animate(plan,duration_s,fps=24):
   'props':{'chair':plan['initial_pose']['pose_class']=='seated' or 'chair' in contacts or 'seat' in contacts},
   'note':'Lengths fixed to keyframe 0 of the plan; arms/torso interpolate segment directions, legs reach interpolated ankles. Unreachable targets are clamped, not stretched.'}
  return frames,telemetry
+def turning_points(times,values,threshold):
+ """Zigzag extremes: a turn counts only after the value comes back by at least threshold, so hand jitter is not a repetition."""
+ out=[];trend=0;cand=0
+ for i,v in enumerate(values):
+  if trend==0:
+   if abs(v-values[0])>=threshold:trend=1 if v>values[0] else -1;cand=i
+  elif trend*(v-values[cand])>0:cand=i
+  elif trend*(values[cand]-v)>=threshold:out.append((times[cand],values[cand],'max' if trend>0 else 'min'));trend=-trend;cand=i
+ return out
+def _spans(times,flags,min_len):
+ spans=[];start=None
+ for t,f in zip(times+[None],flags+[False]):
+  if f and start is None:start=t
+  if not f and start is not None:
+   end=prev
+   if end-start>=min_len:spans.append([round(start,2),round(end,2)])
+   start=None
+  prev=t
+ return spans
+def motion_summary(frames,fps):
+ """Measured on the rendered skeleton (not the plan) so a reviewer can count repetitions and timings that a few sampled frames cannot resolve."""
+ times=[f['t'] for f in frames];J=lambda f,k:f['joints'][k];out={}
+ for s,side in (('R','right'),('L','left')):
+  lateral=[J(f,s+'wrist')[0]-J(f,s+'shoulder')[0] for f in frames];height=[J(f,s+'wrist')[2]-J(f,s+'shoulder')[2] for f in frames]
+  outward=-1 if s=='R' else 1
+  turns=[{'t':round(t,2),'toward':'outward' if (kind=='max')==(outward>0) else 'inward'} for t,v,kind in turning_points(times,lateral,.04)]
+  out[side+'_wrist']={'lateral_turns':turns,'near_or_above_shoulder_s':_spans(times,[h>-.12 for h in height],.2),'above_head_s':_spans(times,[J(f,s+'wrist')[2]>J(f,'head')[2] for f in frames],.2)}
+ speed=[0.0]+[max(math.dist(a['joints'][j],b['joints'][j]) for j in JOINTS)*fps for a,b in zip(frames,frames[1:])]
+ out['whole_body_still_s']=_spans(times,[v<.05 for v in speed],.5)
+ out['pelvis_height_m']={'start':round(J(frames[0],'pelvis')[2],3),'end':round(J(frames[-1],'pelvis')[2],3)}
+ return out

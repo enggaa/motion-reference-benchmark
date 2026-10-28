@@ -11,8 +11,10 @@ VERDICT_SCHEMA={'type':'object','additionalProperties':False,'required':['requir
  'requirements':{'type':'array','items':{'type':'object','additionalProperties':False,'required':['id','quote','status','evidence'],'properties':{'id':_S,'quote':_S,'status':{'type':'string','enum':['pass','fail','uncertain']},'evidence':_S}}},
  'first_frame':{'type':'object','additionalProperties':False,'required':['matches_input','notes'],'properties':{'matches_input':{'type':'boolean'},'notes':_S}},
  'verdict':{'type':'string','enum':['pass','repair']},'repair_instructions':{'type':'array','items':_S}}}
+VERIFIER_VERSION='v2'
 VERIFY_PROMPT="""You review a reference motion video before it is given to a video model, which will copy its motion onto the input image.
 Image 1 is the input. Image 2 shows eight frames of the reference from the input camera, row by row, at the listed times. Image 3 shows the same eight frames from a front camera, where the character's right side is on the image left.
+The text also gives a motion summary measured on the rendered skeleton at every frame: hand turning points (outward means away from the body midline), when each hand is near shoulder height or above the head, and when the whole body is still. Eight frames cannot resolve fast repetitions, so count repetitions and check timings with the summary, and use the frames for posture, side and contact.
 1. Split the request into its explicit requirements and copy each quote verbatim from the request.
 2. Judge each requirement from the frames only: pass, fail or uncertain, with the frames that show it as evidence. A requirement passes only when you can see it. Count repetitions, check left and right from the character's point of view, check that held states are held and that the final state is visible before the end.
 3. Judge whether frame 0 matches the input image: posture, lean direction, arm and leg placement.
@@ -22,7 +24,8 @@ def review(backend,image,request_text,duration_s,folder):
  telemetry=read(Path(folder)/'telemetry.json')
  text=(f"Request (verbatim): {request_text}\nDuration: {duration_s} s\nGrid times (s): {telemetry['grid_times_s']}\n"
   f"Automatic first-frame match with the input (silhouette and skin overlap, 1 = identical): {telemetry['first_frame_match']}\n"
-  f"Targets the renderer could not reach: {json.dumps(telemetry['unreachable_targets'])}\nReturn your review.")
+  f"Targets the renderer could not reach: {json.dumps(telemetry['unreachable_targets'])}\n"
+  f"Motion summary (seconds, rendered skeleton): {json.dumps(telemetry.get('motion_summary'))}\nReturn your review.")
  response,tries=_call(backend,{'images':[image]+_images(folder),'text':text,'system_prompt':VERIFY_PROMPT,'schema':VERDICT_SCHEMA})
  verdict=response.get('plan')
  ok=isinstance(verdict,dict) and verdict.get('verdict') in ('pass','repair')
@@ -40,7 +43,7 @@ def verify_group(run,group,backend,blender=None,root=ROOT):
  if not (folder/'reference.mp4').is_file():raise ValueError('Render the initial reference first')
  for p in packets:
   if 'reference_initial' not in rows[p['attempt_id']]['outputs']:artifact(run,p['attempt_id'],'reference_initial',folder/'reference.mp4')
- log={'group':group,'attempt':c,'backend':backend.name,'model':backend.model,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'steps':[]}
+ log={'verifier_version':VERIFIER_VERSION,'group':group,'attempt':c,'backend':backend.name,'model':backend.model,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'steps':[]}
  first,tries=review(backend,packet['image'],packet['request'],packet['duration_s'],folder);log['steps'].append({'step':'review_initial','verdict':first,'tries':tries})
  decision='blocked';reference_used=None
  if first and first['verdict']=='pass':decision,reference_used='pass','initial'

@@ -2,7 +2,7 @@
 import glob,json,os,shutil,subprocess
 from pathlib import Path
 from .core import ROOT,read,save,sha,artifact,ensure_binding
-from .animate import animate
+from .animate import animate,motion_summary
 GRID=8
 def find_blender():
  found=os.environ.get('MOTIONBENCH_BLENDER') or shutil.which('blender') or next(iter(sorted(glob.glob('C:/Program Files/Blender Foundation/Blender */blender.exe'),reverse=True)),None)
@@ -14,7 +14,7 @@ def render_plan(plan,duration_s,image,out,blender=None,fps=24,root=ROOT):
  from .posefit import masks,score
  out=Path(out).resolve();out.mkdir(parents=True,exist_ok=True);blender=blender or find_blender()
  frames,telemetry=animate(plan,duration_s,fps);save(out/'frames.json',{'props':telemetry['props'],'frames':frames})
- picks=[round(k*(len(frames)-1)/(GRID-1)) for k in range(GRID)];telemetry['grid_times_s']=[frames[i]['t'] for i in picks]
+ picks=[round(k*(len(frames)-1)/(GRID-1)) for k in range(GRID)];telemetry['grid_times_s']=[frames[i]['t'] for i in picks];telemetry['motion_summary']=motion_summary(frames,fps)
  for view,name in (('input','reference.mp4'),('front','reference_front.mp4')):
   frames_dir=out/f'frames_{view}'
   if frames_dir.exists():shutil.rmtree(frames_dir)

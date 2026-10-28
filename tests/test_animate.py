@@ -35,4 +35,15 @@ class AnimateTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    run=Path(d)/'r';make_run(run,'development',1)
    with self.assertRaises(ValueError):render_group(run,'D01-01',blender='unused')
+ def test_turning_points_ignore_jitter(self):
+  from motionbench.animate import turning_points
+  times=[i/10 for i in range(21)];wave=[.1*math.sin(2*math.pi*t)+.005*((-1)**i) for i,t in enumerate(times)]
+  turns=turning_points(times,wave,.04);self.assertEqual([k for _,_,k in turns],['max','min','max','min']);self.assertEqual(turning_points(times,[.005*((-1)**i) for i in range(41)],.04),[])
+ def test_motion_summary_counts_rendered_waves(self):
+  from motionbench.animate import motion_summary
+  plan=valid_plan('오른손을 흔들어라');raised=dict(POSE,Relbow=(-.45,-.05,1.40),Rwrist=(-.50,-.10,1.62));inward=dict(raised,Rwrist=(-.30,-.10,1.60))
+  plan['keyframes']=[plan['keyframes'][0]]+[{'time_s':t,'origin':'inferred','action_id':'a1','description':'','joints':points(p),'contacts':[]} for t,p in [(1,raised),(1.5,inward),(2,raised),(2.5,inward),(3,raised),(4.5,POSE)]]
+  frames,_=animate(plan,6,24);m=motion_summary(frames,24)
+  self.assertGreaterEqual(len(m['right_wrist']['lateral_turns']),4);self.assertEqual(m['left_wrist']['lateral_turns'],[])
+  self.assertTrue(m['right_wrist']['near_or_above_shoulder_s']);self.assertEqual(m['whole_body_still_s'][-1][1],6.0)
 if __name__=='__main__':unittest.main()
