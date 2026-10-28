@@ -7,7 +7,7 @@
   "calibration_cases": 4,
   "test_cases": 12,
   "test_coverage_cells": 12,
-  "unit_tests_passed_locally": 28,
+  "unit_tests_passed_locally": 35,
   "model_generation_calls": 0,
   "human_ratings_collected": 0,
   "performance_claim": null,
@@ -22,17 +22,17 @@
     "two-rater consensus",
     "case-averaged scoring",
     "midterm report draft",
-    "LLM planner adapter (claude-code subscription backend + dry-run; real planner output not yet collected)"
+    "LLM planner adapter (claude-code subscription backend + dry-run; real planner output not yet collected)",
+    "reference renderer: fixed-length FK/IK animation + Blender mannequin MP4 (8 development references rendered, not yet registered or reviewed)"
   ],
   "not_implemented": [
     "pose-estimator adapter",
-    "retargeting adapter",
     "video-model API adapter",
     "automatic blinded video packaging",
     "secondary-metric aggregation",
     "clustered uncertainty estimates",
     "Anthropic API planner backend (route B)",
-    "reference renderer from plans"
+    "verifier for condition C"
   ],
   "release_scope": "private personal repository prototype for research midterm reporting"
 }

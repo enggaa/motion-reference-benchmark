@@ -64,6 +64,15 @@ B/C의 같은 `paired_reference_group`에 계획 1개를 만들어 두 시도에
 
 계획 확인용 그림: `python tools/plan_preview.py runs/dev-001/plans/D01-01` → 입력 이미지 옆에 키프레임별 정면/측면 막대 인형 SVG. 렌더러나 IK가 아니라 눈으로 보는 점검 도구입니다. 개발 분할에서 초기 자세를 평가 정답과 비교: `python tools/initial_pose_error.py runs/dev-001` (evaluator를 읽으므로 생성에 사용 금지). 첫 실제 결과: [results/dev-001-planner](results/dev-001-planner/README.md).
 
+## 레퍼런스 렌더러 (계획 → MP4)
+
+```bash
+python -m motionbench render-reference --run runs/dev-001 --group D01-01             # runs/dev-001/references/D01-01/
+python -m motionbench render-reference --run runs/dev-001 --group D01-01 --register  # B/C 두 시도에 reference_initial 등록
+```
+
+Blender(`MOTIONBENCH_BLENDER` 또는 기본 설치 경로)와 ffmpeg가 필요합니다. 동작 계산(`motionbench/animate.py`)은 표준 라이브러리만 쓰며, 뼈 길이를 계획 0초 기준으로 고정합니다. 몸통·팔은 뼈 방향을 보간하고 다리는 발목 IK로 디딘 발을 유지합니다. 닿지 못하는 목표는 늘리지 않고 `telemetry.json`에 기록합니다. 그리기(`tools/render_reference_blender.py`)는 입력 이미지와 같은 마네킹과 카메라를 씁니다. `first_frame_vs_input.png`로 첫 프레임과 입력 이미지를 나란히 확인합니다. 첫 결과: [results/dev-001-reference](results/dev-001-reference/README.md).
+
 `attempt`와 `case`는 계획된 ledger에서 확인해야 합니다. 예시의 0002가 반드시 R2V 조건이라는 뜻은 아닙니다. 조건 순서는 무작위입니다.
 
 ## 평가 규칙

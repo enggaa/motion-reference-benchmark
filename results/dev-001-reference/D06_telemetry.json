@@ -1,0 +1,37 @@
+{
+  "fps": 24,
+  "frames": 193,
+  "segment_lengths_m": {
+    "pelvis-neck": 0.49,
+    "neck-head": 0.211,
+    "neck-Lshoulder": 0.2335,
+    "neck-Rshoulder": 0.2335,
+    "pelvis-Lhip": 0.12,
+    "pelvis-Rhip": 0.12,
+    "Lshoulder-Lelbow": 0.2724,
+    "Rshoulder-Relbow": 0.255,
+    "Lhip-Lknee": 0.4205,
+    "Rhip-Rknee": 0.4005,
+    "Lelbow-Lwrist": 0.2173,
+    "Relbow-Rwrist": 0.2565,
+    "Lknee-Lankle": 0.4329,
+    "Rknee-Rankle": 0.4405
+  },
+  "max_segment_length_error_m": 1.6653345369377348e-16,
+  "unreachable_targets": {},
+  "max_keyframe_error_m": {
+    "Lwrist": 0.0459,
+    "Lelbow": 0.0362,
+    "Rwrist": 0.0352,
+    "Relbow": 0.0187
+  },
+  "first_frame_shift_m": 0.0,
+  "props": {
+    "chair": true
+  },
+  "note": "Lengths fixed to keyframe 0 of the plan; arms/torso interpolate segment directions, legs reach interpolated ankles. Unreachable targets are clamped, not stretched.",
+  "group": "D06-01",
+  "plan_sha256": "d456e49e8879a89d5fb11d009a2e8e2842653d95ae50e6597e3e7e39a0e5b7a0",
+  "video_sha256": "eb550906c054b29c1e7476c21344342c30994af550f0acbfd3ce345420eb2311",
+  "blender": "Blender 4.2"
+}
