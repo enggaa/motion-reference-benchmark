@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "date_kst": "2026-10-29",
+  "benchmark_cases": 24,
+  "input_images": 24,
+  "development_cases": 8,
+  "calibration_cases": 4,
+  "test_cases": 12,
+  "test_coverage_cells": 12,
+  "unit_tests_passed_locally": 16,
+  "model_generation_calls": 0,
+  "human_ratings_collected": 0,
+  "performance_claim": null,
+  "implemented": ["authored input cases", "procedural images", "evaluator contracts", "hash validation", "paired initial-reference registration", "run planning", "failure logging", "two-rater consensus", "case-averaged scoring", "midterm report draft"],
+  "not_implemented": ["LLM planner adapter", "pose-estimator adapter", "retargeting adapter", "video-model API adapter", "automatic blinded video packaging", "secondary-metric aggregation", "clustered uncertainty estimates"],
+  "release_scope": "private personal repository prototype for research midterm reporting"
+}

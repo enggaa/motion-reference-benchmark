@@ -1,0 +1,1232 @@
+[
+  {
+    "case_id": "D01",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "어깨 높이",
+        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "몸 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "두 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "D02",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "앉은 자세를 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "어깨 높이",
+        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "D03",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "기울어진 몸통 자세를 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 기울어진 몸통 자세를 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "몸 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "D04",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "현재 낮춘 자세",
+        "criterion": "영상에서 다음 명시 요구를 충족: 현재 낮춘 자세",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "양 무릎을 펴며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양 무릎을 펴며",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "일어나",
+        "criterion": "영상에서 다음 명시 요구를 충족: 일어나",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "똑바로 선 자세",
+        "criterion": "영상에서 다음 명시 요구를 충족: 똑바로 선 자세",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "D05",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "내린 다음",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내린 다음",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "D06",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "앉은 자세를 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "내린 다음",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내린 다음",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "D07",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "양팔",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양팔",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "머리 위",
+        "criterion": "영상에서 다음 명시 요구를 충족: 머리 위",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "1초간 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 1초간 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "양팔을 내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "D08",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "몸통을 똑바로",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸통을 똑바로",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "세운 뒤",
+        "criterion": "영상에서 다음 명시 요구를 충족: 세운 뒤",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "양손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양손",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "각각 허리에",
+        "criterion": "영상에서 다음 명시 요구를 충족: 각각 허리에",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "멈춰라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 멈춰라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "C01",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "몸 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "C02",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "낮춘 자세",
+        "criterion": "영상에서 다음 명시 요구를 충족: 낮춘 자세",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "일어나",
+        "criterion": "영상에서 다음 명시 요구를 충족: 일어나",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "양 무릎을 편",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양 무릎을 편",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "멈춰라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 멈춰라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "C03",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "앉은 자세를 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "고개만",
+        "criterion": "영상에서 다음 명시 요구를 충족: 고개만",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "자신의 오른쪽",
+        "criterion": "영상에서 다음 명시 요구를 충족: 자신의 오른쪽",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "1초 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 1초 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "정면",
+        "criterion": "영상에서 다음 명시 요구를 충족: 정면",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "C04",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "몸통의 기울기를 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸통의 기울기를 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "두 손바닥",
+        "criterion": "영상에서 다음 명시 요구를 충족: 두 손바닥",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "가슴 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 가슴 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "맞대고",
+        "criterion": "영상에서 다음 명시 요구를 충족: 맞대고",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "멈춰라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 멈춰라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T01",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "선 자세에서",
+        "criterion": "영상에서 다음 명시 요구를 충족: 선 자세에서",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "몸 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "어깨 높이",
+        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "세 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 세 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T02",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "앉은 자세를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "몸 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "어깨 높이",
+        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "세 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 세 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T03",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "몸통의 기울기를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸통의 기울기를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "몸 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "어깨 높이",
+        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "세 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 세 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T04",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "낮춘 자세를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 낮춘 자세를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "몸 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "어깨 높이",
+        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "세 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 세 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T05",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "선 자세에서",
+        "criterion": "영상에서 다음 명시 요구를 충족: 선 자세에서",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "완전히 내린 다음",
+        "criterion": "영상에서 다음 명시 요구를 충족: 완전히 내린 다음",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "두 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R7",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T06",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "앉은 자세를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "완전히 내린 다음",
+        "criterion": "영상에서 다음 명시 요구를 충족: 완전히 내린 다음",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "두 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R7",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T07",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "몸통의 기울기를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸통의 기울기를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "완전히 내린 다음",
+        "criterion": "영상에서 다음 명시 요구를 충족: 완전히 내린 다음",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "두 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R7",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T08",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "낮춘 자세를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 낮춘 자세를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "오른손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "한 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "완전히 내린 다음",
+        "criterion": "영상에서 다음 명시 요구를 충족: 완전히 내린 다음",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "왼손",
+        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "두 번 왕복",
+        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
+        "mandatory": true
+      },
+      {
+        "id": "R7",
+        "quote": "내려라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T09",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "선 자세에서",
+        "criterion": "영상에서 다음 명시 요구를 충족: 선 자세에서",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "양팔을 몸 옆",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 몸 옆",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "상체를 앞으로 숙여",
+        "criterion": "영상에서 다음 명시 요구를 충족: 상체를 앞으로 숙여",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "1초 멈춘",
+        "criterion": "영상에서 다음 명시 요구를 충족: 1초 멈춘",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "처음의 몸통 자세",
+        "criterion": "영상에서 다음 명시 요구를 충족: 처음의 몸통 자세",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T10",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "앉은 자세를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "양팔을 몸 옆",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 몸 옆",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "상체를 앞으로 숙여",
+        "criterion": "영상에서 다음 명시 요구를 충족: 상체를 앞으로 숙여",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "1초 멈춘",
+        "criterion": "영상에서 다음 명시 요구를 충족: 1초 멈춘",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "처음의 몸통 자세",
+        "criterion": "영상에서 다음 명시 요구를 충족: 처음의 몸통 자세",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T11",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "몸통의 기울기를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 몸통의 기울기를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "양팔을 가슴 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 가슴 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "교차",
+        "criterion": "영상에서 다음 명시 요구를 충족: 교차",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "오른쪽 팔뚝이 위",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른쪽 팔뚝이 위",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "1초 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 1초 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "양팔을 풀어라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 풀어라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  },
+  {
+    "case_id": "T12",
+    "requirements": [
+      {
+        "id": "R1",
+        "quote": "낮춘 자세를 유지하며",
+        "criterion": "영상에서 다음 명시 요구를 충족: 낮춘 자세를 유지하며",
+        "mandatory": true
+      },
+      {
+        "id": "R2",
+        "quote": "양팔을 가슴 앞",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 가슴 앞",
+        "mandatory": true
+      },
+      {
+        "id": "R3",
+        "quote": "교차",
+        "criterion": "영상에서 다음 명시 요구를 충족: 교차",
+        "mandatory": true
+      },
+      {
+        "id": "R4",
+        "quote": "오른쪽 팔뚝이 위",
+        "criterion": "영상에서 다음 명시 요구를 충족: 오른쪽 팔뚝이 위",
+        "mandatory": true
+      },
+      {
+        "id": "R5",
+        "quote": "1초 유지",
+        "criterion": "영상에서 다음 명시 요구를 충족: 1초 유지",
+        "mandatory": true
+      },
+      {
+        "id": "R6",
+        "quote": "양팔을 풀어라",
+        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 풀어라",
+        "mandatory": true
+      }
+    ],
+    "shared_requirements": [
+      {
+        "id": "S1",
+        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
+        "mandatory": true
+      },
+      {
+        "id": "S2",
+        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
+        "mandatory": true
+      }
+    ],
+    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
+    "completion_policy": "The required terminal state must be visible before the clip ends."
+  }
+]
