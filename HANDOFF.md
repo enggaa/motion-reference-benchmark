@@ -8,27 +8,36 @@
 
 잘못된 레퍼런스가 최종 영상에 추가 오류를 유발할 수 있으므로 직접 I2V, 최초 LLM 레퍼런스 R2V, 검증·수정 레퍼런스 R2V를 실제로 비교하면서 개발하기로 했다. 이번 요청 범위는 **벤치마크 초판 + 개인 GitHub 업로드 + 졸업논문 중간보고 준비**였다.
 
-## 2. 저장소에 실제로 있는 것
+## 2. 저장소에 실제로 있는 것 (2026-10-29 밤 기준)
 
-- 24개 문항과 실제 PNG 입력: 개발 8 / 채점 연습 4 / 평가 12.
-- 평가 문항의 3개 사전 관계 × 4개 초기 자세 커버리지.
-- 요구별 평가 계약, 평가 전용 초기 관절 좌표, 해시 동결 파일.
-- Python 표준 라이브러리 기반 실행 슬롯 계획/실패 기록/아티팩트 결합/두 평가자 합의/점수 계산.
-- 같은 반복의 B/C 최초 레퍼런스 해시가 다르면 등록 거부.
-- 로컬 단위시험 28개 통과(기존 16 + planner 12). 모델 출력 없이 24개 개발 슬롯을 계획했을 때 점수는 null임을 실제 확인.
-- 중간보고 초안, 상세 프로토콜, 채점 기준, 원천자료 기록.
-- `.github/workflows/ci.yml`의 검증 CI.
-- `reference_baseline/`에 과거 Blender 리타기팅/실제 뼈 좌표 추출 코드의 이식본. 외부 입력과 캐릭터 장면이 필요하며 본 벤치마크 생성 어댑터로 연결되어 있지는 않음.
+- **벤치마크**: 24문항(개발 8 / 채점 연습 4 / 평가 12)과 PNG 입력, 평가 계약, 평가 전용 초기 관절 좌표, 해시 동결.
+- **실행 기록과 채점**: 슬롯 계획, 실패 위치 기록, 아티팩트 해시 결합, 두 평가자 합의.
+  - 부 지표 집계와 사례·행동군 단위 부트스트랩 95% 구간(`summarize --bootstrap`).
+- **생성 파이프라인**(개발판): 단계와 정보 경계는 [docs/PIPELINE.md](docs/PIPELINE.md)를 봅니다.
+  - `planner`: Claude 구독 경로(`claude -p`), 기본 모델 sonnet, `--pose-fit` 변형.
+  - `posefit`: 실루엣·피부색 겹침을 최대화하는 초기 자세 맞춤. 앞뒤 변화에 벌점을 주고, 겹침 0.5 미만이면 `initial_pose` 실패.
+  - `render-reference`: 뼈 길이 고정 FK/IK, 입력 카메라와 정면 MP4, 8장 격자, 렌더 골격 동작 요약.
+  - `verify-reference`: 조건 C 게이트(검토 → 1회 수정 → 재검토, 검증기 v3).
+  - `pipeline`: 위 단계를 run 전체에 한 번에 실행.
+- **평가 도구**: `package-review`와 `import-ratings`로 익명 평가 패키지를 만들고 결과를 반영합니다.
+- **영상 모델**: `generate`는 fal.ai Seedance 2.0 어댑터입니다. dry-run, 비용 추정, 상한까지만 검증했고, 실제 호출 경로는 키가 없어 미검증입니다. 안내는 [docs/SEEDANCE_SETUP.md](docs/SEEDANCE_SETUP.md)에 있습니다.
+- **test 동결**: `freeze-pipeline`. test 분할의 계획·게이트·생성은 동결된 지문과 일치할 때만 실행됩니다.
+- **실행 기록**: `results/`
+  - dev-001: 1회 호출 계획과 렌더
+  - dev-001-posefit: 맞춤 사후 평가
+  - dev-002: 버그 기록
+  - dev-003: 맞춤 파이프라인 첫 실행
+  - dev-004: 일관된 재실행, 진행 중
+- **시험과 CI**: 로컬 단위시험 81개 통과(ffmpeg가 필요한 시험은 ffmpeg가 없으면 건너뜀). `.github/workflows/ci.yml`.
 
 ## 3. 아직 없는 것 — 결과를 만들어 말하지 말 것
 
-- LLM verifier 호출 어댑터. planner 어댑터는 있으나 실제 모델 출력은 아직 0건.
-- 이미지에서 초기 자세를 추정하는 어댑터.
-- 미관측 행동을 실제 생성·검증한 결과.
-- 본 benchmark 입력 마네킹을 움직이는 완성된 레퍼런스 생성 어댑터.
-- 실제 I2V/R2V 제공자 어댑터·호출 결과·사람 평가.
-- 학습/파인튜닝 성과, 방법 우월성, 확증 통계.
-- 자동 비식별 평가 영상 패키징과 부 지표 집계/군집 신뢰구간.
+- 최종 영상(I2V/R2V)은 아직 한 번도 호출하지 않았습니다. 시댄스 계정·결제·키가 없습니다.
+- 사람 평가는 0건입니다. 레퍼런스 단계의 사람 평가도 없습니다.
+- calibration과 test 분할은 실행하지 않았습니다. 동결도 아직 하지 않았습니다.
+- API 키 경로(B)의 planner backend는 없습니다.
+- 학습·파인튜닝 성과, 방법 우월성, 확증 통계는 없습니다.
+- 실사 이미지에 대한 자세 추정은 없습니다. 실루엣 맞춤은 같은 마네킹·카메라라는 가정에 기댑니다.
 
 ## 4. 중요한 이전 실패와 확인된 근거
 
@@ -45,34 +54,37 @@
 ```bash
 python -m motionbench validate
 python -m unittest discover -s tests -v
-python -m motionbench plan --split development --repeats 1 --out runs/dev-001
-python -m motionbench summarize --run runs/dev-001
+python -m motionbench plan --split development --repeats 1 --out runs/dev-005
+python -m motionbench pipeline --run runs/dev-005 --model sonnet      # Claude 구독 사용량만 씀
+python -m motionbench generate --run runs/dev-005                     # 시댄스 dry run: 요청과 예상 비용만
+python -m motionbench summarize --run runs/dev-005
 ```
 
-정상 상태: 24개 문항/이미지 검증 통과, 28개 단위시험 통과, 계획된 24개 슬롯 모두 pending, 세 조건의 primary score null. 이 명령들은 모델을 호출하지 않고 비용이 발생하지 않는다.
+- 앞의 두 명령과 `plan`, `summarize`는 모델을 호출하지 않습니다.
+- `pipeline`은 그룹마다 Claude를 3–5회 호출합니다. 8건에 약 40분 걸립니다.
+- Blender(기본 설치 경로 또는 `MOTIONBENCH_BLENDER`)와 ffmpeg가 필요합니다.
+- Claude CLI가 PATH에 없으면 데스크톱 앱 번들(MSIX 경로 포함)을 자동으로 찾습니다. 로그인은 2026-10-29에 완료했습니다.
 
 ## 6a. 진행 기록 (2026-10-29)
 
-- `motionbench/planner.py`와 `python -m motionbench planner` 추가. 경로 A: 로그인된 Claude Code CLI(`claude -p`, `--safe-mode --tools "" --json-schema`)를 구독 사용량으로 호출한다. 비용 최소화가 사용자 방침이라 기본 모델은 `sonnet`. API 키 경로(B)는 후속 개선이며 test 동결 전에 하나로 확정한다.
-- 첫 실제 planner 호출: D01(development) 1건, `claude-sonnet-5-5`, 구조 검사 오류/경고 0, 출력 토큰 약 13.5k, 66초, CLI 표기 명목 비용 $0.18(구독 사용량이며 별도 과금 아님). 9개 키프레임(들기→좌우 2회 왕복→내리기→유지)을 `tools/plan_preview.py`로 눈으로 확인했다. 초기 자세는 서기로 맞게 분류했지만 관절 높이를 6–10cm 낮게 추정했다(평가 정답과 개발 측에서만 비교). 독립 평가나 영상 결과는 아니다. 이어서 development 8건 전부 호출(각 1회, 재시도·선별 없음): 구조 검사 8/8 통과, 명목 합계 약 $0.98. 결과와 해석은 `results/dev-001-planner/README.md`. 핵심: 초기 자세 분류 7/8, **D08은 기울기 방향을 반대로 추정하고 standing으로 분류**했는데도 구조 검사는 통과했다. D08은 팔을 25% 늘려 허리에 닿게 했다(경고). 평가 측 비교 도구 `tools/initial_pose_error.py`는 evaluator를 읽으므로 생성에 쓰지 않는다.
-- Windows 데스크톱 앱(MSIX) 번들 CLI의 실제 경로는 `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\claude-code\<버전>\...\claude.exe`다. 독립 CLI 로그인은 2026-10-29에 완료했다.
-- 계획 기반 레퍼런스 렌더러, Seedance 계정/API 연결은 아직 없다. Seedance는 사용자가 계정·크레딧을 준비해야 한다.
+- **dev-001** (1회 호출 계획): 8건 모두 구조 검사를 통과했습니다. 그러나 D08은 기울기 방향을 반대로 추정했습니다. 렌더러를 붙이자 이 오류가 첫 프레임에 그대로 보였습니다. → `results/dev-001-planner`, `results/dev-001-reference`
+- **초기 자세 맞춤**:
+  - LLM 스스로 고치게 한 방식은 D08을 더 나쁘게 만들어 폐기했습니다.
+  - 수치 맞춤은 벌점을 넣은 뒤 8건 모두에서 오차가 줄었습니다. → `results/dev-001-posefit`
+- **dev-002**: 리팩터링 버그로 자세 프롬프트에 리그 설명이 빠졌고, 그 결과 y를 높이로 쓴 자세가 나왔습니다. 4건에서 중단하고 기록으로 남겼습니다. 이후 관례 검사와 맞춤 하한을 추가했습니다. → `results/dev-002-axis-bug`
+- **dev-003** (맞춤 파이프라인): 초기 자세 평균 오차가 0.113 → 0.068 m, 최대 오차가 0.250 → 0.142 m로 줄었고 D08 기울기도 맞았습니다. 검증기는 실행 중에 v1 → v2 → v3로 고쳤습니다.
+  - v1: 8장 격자로는 왕복 횟수를 셀 수 없었습니다.
+  - v2: 팔을 들고 내릴 때의 좌우 이동까지 흔들기로 셌습니다.
+  - 그래서 게이트 결과는 개발 기록으로만 남깁니다. → `results/dev-003`
+- **dev-004**: 같은 코드로 8건 전체를 일관되게 다시 돌리는 중입니다(파이프라인 v3).
+- **주의 — `C:uns`**: 상대 경로 버그로 Blender가 여기에 PNG(약 61MB)를 썼습니다. 지금은 쓰이지 않으니 사용자가 아무 때나 지우면 됩니다. 안전 장치 때문에 에이전트는 지우지 못했습니다.
 
-- 레퍼런스 렌더러 추가(`motionbench/animate.py`, `motionbench/reference.py`, `tools/render_reference_blender.py`, `render-reference` CLI). development 8건을 MP4로 렌더링했고 결과는 `results/dev-001-reference/README.md`. 뼈 길이는 고정(오차 1e-15 m). 처음의 위치 직선 보간은 팔꿈치가 옆으로 꺾여서 방향 보간(팔·몸통)과 발목 IK(다리)로 바꿨다. **D08은 렌더 첫 프레임이 입력과 반대로 기울어 시작**하고, 손은 허리에서 약 7 cm 떨어진다(계획이 팔을 늘렸기 때문). D01/D03의 몸 앞 흔들기는 카메라에서 일부 가린다. 레퍼런스는 아직 ledger에 등록하지 않았다(`--register`).
-- 첫 렌더 시도 때 상대 경로 버그로 Blender가 `C:
-- 첫 렌더 시도 때 상대 경로 버그로 Blender가 `C:\runs\dev-001\...`에 프레임 PNG 145장을 썼다(수정됨). 안전 장치 때문에 삭제하지 못했으니 사용자가 직접 지우면 된다.
+## 6. 다음 순서
 
-다음 후보(사용자 결정 전): (a) 초기 자세 추정 보강(D08 방향 오류, 골반 높이 저평가), (b) 조건 C용 verifier(렌더 프레임과 입력 이미지 비교 포함), (c) 시댄스 계정/API 연결 후 development 24슬롯. Seedance 계정/API는 사용자 준비 필요.
-
-## 6. 다음 구현 순서
-
-1. 모델/비용 상한을 실행 환경에 맞춰 정하고 planner 어댑터를 구현한다. API 키는 환경변수로만 읽고 저장소에 넣지 않는다. 우선 development 입력만 사용한다.
-2. 초기 자세 추정→관측/불확실 기록→행동 계약→사전 근거/추론 키프레임 계획을 연결한다. 평가 정답 좌표를 생성 입력으로 주면 oracle 조건이므로 기본 조건과 분리한다.
-3. 절차적 마네킹의 joints/limbs renderer를 재사용해 움직이는 레퍼런스를 만들거나 라이선스가 확인된 리그를 붙인다. 현재 `render_inputs.py`는 정지 입력용이지 완성된 animation solver가 아니다.
-4. 계획된 자세와 **실제 출력된 관절/영상**을 따로 검증한다. 최초 레퍼런스를 B/C에 공유하고 C만 1회 수정한다. 실패를 누락하지 않는다.
-5. 익명 평가 패키징과 reference-stage 평가 기록을 보강한다. 초기 포즈/계획/리그/최종 모델의 실패 위치를 근거로 구분한다.
-6. 실제 영상 모델 API 연결 후 development 24슬롯 기능 시험. 같은 이미지/요청/모델/길이를 유지하고 mode 차이·비용을 기록한다.
-7. 개발 수정 종료 후 코드/사전/모델/예산/평가 절차를 동결하고 calibration을 거쳐 test 108슬롯을 실행한다. 같은 버전의 test 결과를 보고 재튜닝하지 않는다.
+1. dev-004 결과를 정리합니다. 게이트의 판정이 화면과 맞는지 사람이 대조합니다. `package-review --kind reference`로 레퍼런스 단계 평가 패키지를 만들 수 있습니다.
+2. 사용자가 fal.ai 계정을 만들고 크레딧을 넣은 뒤 `FAL_KEY`를 설정합니다. 그다음 `generate --execute --max-usd 20`으로 development 24슬롯 기능 시험을 합니다(480p 상한 추정 약 $18). 실제 비용, data URI 수용 여부, 출력 크기를 확인하고 문서를 고칩니다.
+3. development 결과로 수정한 뒤 `freeze-pipeline`으로 동결합니다. calibration으로 평가자를 연습시키고, test 108슬롯을 실행합니다(480p 상한 약 $82). 같은 버전의 test 결과를 보고 재튜닝하지 않습니다.
+4. 후보 개선: API 키 경로(B), 다리 관절까지 넣은 자세 맞춤, 왕복 계획의 정확도(D01은 1.5왕복), 레퍼런스 사람 평가.
 
 ## 7. 중간보고에서 말할 수 있는 것
 
