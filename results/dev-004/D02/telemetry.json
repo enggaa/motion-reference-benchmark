@@ -1,0 +1,90 @@
+{
+  "fps": 24,
+  "frames": 145,
+  "segment_lengths_m": {
+    "pelvis-neck": 0.5537,
+    "neck-head": 0.2285,
+    "neck-Lshoulder": 0.2637,
+    "neck-Rshoulder": 0.2638,
+    "pelvis-Lhip": 0.1355,
+    "pelvis-Rhip": 0.1356,
+    "Lshoulder-Lelbow": 0.2988,
+    "Rshoulder-Relbow": 0.2988,
+    "Lhip-Lknee": 0.4762,
+    "Rhip-Rknee": 0.4538,
+    "Lelbow-Lwrist": 0.2343,
+    "Relbow-Rwrist": 0.2923,
+    "Lknee-Lankle": 0.4876,
+    "Rknee-Rankle": 0.4673
+  },
+  "max_segment_length_error_m": 1.1102230246251565e-16,
+  "unreachable_targets": {},
+  "max_keyframe_error_m": {
+    "Lwrist": 0.0475,
+    "Lelbow": 0.0314
+  },
+  "first_frame_shift_m": 0.0,
+  "props": {
+    "chair": true
+  },
+  "note": "Lengths fixed to keyframe 0 of the plan; arms/torso interpolate segment directions, legs reach interpolated ankles. Unreachable targets are clamped, not stretched.",
+  "grid_times_s": [
+    0.0,
+    0.875,
+    1.7083,
+    2.5833,
+    3.4167,
+    4.2917,
+    5.125,
+    6.0
+  ],
+  "motion_summary": {
+    "right_wrist": {
+      "lateral_turns": [],
+      "near_or_above_shoulder_s": [],
+      "above_head_s": []
+    },
+    "left_wrist": {
+      "lateral_turns": [
+        {
+          "t": 2.0,
+          "toward": "outward",
+          "while_raised": true
+        },
+        {
+          "t": 2.79,
+          "toward": "inward",
+          "while_raised": true
+        },
+        {
+          "t": 3.42,
+          "toward": "outward",
+          "while_raised": true
+        }
+      ],
+      "near_or_above_shoulder_s": [
+        [
+          0.79,
+          3.79
+        ]
+      ],
+      "above_head_s": []
+    },
+    "whole_body_still_s": [
+      [
+        4.62,
+        6.0
+      ]
+    ],
+    "pelvis_height_m": {
+      "start": 0.542,
+      "end": 0.542
+    }
+  },
+  "first_frame_match": 0.7721,
+  "plan_sha256": "a00350787b85af03025cd85c436922988ade516dfcf1b85f8d432e8c3bb823d1",
+  "video_sha256": "e60f75b046d6fce86427de70af4c5670daf4eb21f5a567815822577bfd609363",
+  "front_video_sha256": "d007c633d5f4eca859670d8fe3d24ff0d562b295b555d1cf17229ab05e5311fb",
+  "blender": "Blender 4.2",
+  "group": "D02-01"
+}

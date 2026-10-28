@@ -1,0 +1,102 @@
+{
+  "verifier_version": "v3",
+  "group": "D04-01",
+  "attempt": "0010",
+  "backend": "claude-code",
+  "model": "sonnet",
+  "created_utc": "2026-10-28T18:15:36.408716+00:00",
+  "steps": [
+    {
+      "step": "review_initial",
+      "verdict": {
+        "first_frame": {
+          "matches_input": true,
+          "notes": "Frame 0 shows the same crouched pose as the input: knees bent, torso leaning forward, left arm (image right) extended forward-down and right arm bent across the front. Overlap is 0.79, which is acceptable."
+        },
+        "requirements": [
+          {
+            "id": "R1",
+            "quote": "현재 낮춘 자세에서 양 무릎을 펴며 일어나",
+            "status": "pass",
+            "evidence": "Frames 0-3 (0 to 2.58 s) show both knees gradually straightening. Pelvis height rises from 0.598 m to 0.93 m. Both legs extend together in the front view."
+          },
+          {
+            "id": "R2",
+            "quote": "똑바로 선 자세로 마쳐라",
+            "status": "pass",
+            "evidence": "Frames 5-7 (4.29 to 6.0 s) show an upright stance with straight legs, a vertical torso and arms hanging at the sides. The body is still from 4.38 s to the end, so the final state is held and visible."
+          }
+        ],
+        "verdict": "pass",
+        "repair_instructions": []
+      },
+      "tries": [
+        {
+          "latency_s": 5.747408151626587,
+          "returncode": 0,
+          "stderr": "",
+          "cli_version": "2.1.309",
+          "model": "claude-sonnet-5-5",
+          "tools": [
+            "StructuredOutput"
+          ],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3970,
+            "cache_read_input_tokens": 1274,
+            "output_tokens": 448,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3970,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 448,
+                "cache_read_input_tokens": 1274,
+                "cache_creation_input_tokens": 3970,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 3970
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "model_usage": {
+            "claude-sonnet-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 448,
+              "cacheReadInputTokens": 1274,
+              "cacheCreationInputTokens": 3970,
+              "webSearchRequests": 0,
+              "costUSD": 0.020491399999999996,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 0,
+              "canonicalModel": "claude-sonnet-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "notional_cost_usd": 0.020491399999999996,
+          "num_turns": 2
+        }
+      ]
+    }
+  ],
+  "decision": "pass",
+  "reference_for_final": "initial",
+  "note": "Gate result only; final-video human review is separate and may still fail."
+}

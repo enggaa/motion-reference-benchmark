@@ -1,0 +1,102 @@
+{
+  "verifier_version": "v3",
+  "group": "D08-01",
+  "attempt": "0022",
+  "backend": "claude-code",
+  "model": "sonnet",
+  "created_utc": "2026-10-28T18:20:13.298985+00:00",
+  "steps": [
+    {
+      "step": "review_initial",
+      "verdict": {
+        "requirements": [
+          {
+            "id": "R1",
+            "quote": "기울어진 몸통을 똑바로 세운 뒤",
+            "status": "pass",
+            "evidence": "Frame 0 (input camera and front) shows the torso leaning/tilted with the head offset. By frames 2-3 (1.71-2.58s) the torso is upright and centered, and it stays upright in frames 4-7."
+          },
+          {
+            "id": "R2",
+            "quote": "양손을 각각 허리에 대고 멈춰라",
+            "status": "pass",
+            "evidence": "From frame 5 (4.29s) both hands rest on the hips with elbows out. Frames 5, 6 and 7 look the same, and the summary says the whole body is still from 4.17 to 6.0s. Hands on waist is visible in the front view in both hands."
+          }
+        ],
+        "first_frame": {
+          "matches_input": true,
+          "notes": "Frame 0 shows the same torso lean and head tilt as the input. The character's right arm (image left in the input view) hangs slightly away from the body and the left arm hangs down, as in the input. The auto-match score is 0.876, which is acceptable."
+        },
+        "verdict": "pass",
+        "repair_instructions": []
+      },
+      "tries": [
+        {
+          "latency_s": 5.312756299972534,
+          "returncode": 0,
+          "stderr": "",
+          "cli_version": "2.1.309",
+          "model": "claude-sonnet-5-5",
+          "tools": [
+            "StructuredOutput"
+          ],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3951,
+            "cache_read_input_tokens": 1274,
+            "output_tokens": 473,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3951,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 473,
+                "cache_read_input_tokens": 1274,
+                "cache_creation_input_tokens": 3951,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 3951
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "model_usage": {
+            "claude-sonnet-5-5": {
+              "inputTokens": 2,
+              "outputTokens": 473,
+              "cacheReadInputTokens": 1274,
+              "cacheCreationInputTokens": 3951,
+              "webSearchRequests": 0,
+              "costUSD": 0.020665399999999997,
+              "contextWindow": 1000000,
+              "maxOutputTokens": 128000,
+              "thinkingTokens": 0,
+              "canonicalModel": "claude-sonnet-5-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "notional_cost_usd": 0.020665399999999997,
+          "num_turns": 2
+        }
+      ]
+    }
+  ],
+  "decision": "pass",
+  "reference_for_final": "initial",
+  "note": "Gate result only; final-video human review is separate and may still fail."
+}

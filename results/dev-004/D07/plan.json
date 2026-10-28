@@ -1,0 +1,862 @@
+{
+  "actions": [
+    {
+      "id": "raise_both_arms",
+      "request_quote": "양팔을 머리 위로 올려",
+      "side": "both",
+      "repetitions": null,
+      "completion": "Both wrists are above the head (about z 1.93 m), arms nearly vertical."
+    },
+    {
+      "id": "hold_arms_up",
+      "request_quote": "1초간 유지한 뒤",
+      "side": "both",
+      "repetitions": null,
+      "completion": "Arms stay overhead without moving for 1.0 s (t=2.0 to 3.0)."
+    },
+    {
+      "id": "lower_both_arms",
+      "request_quote": "양팔을 내려라.",
+      "side": "both",
+      "repetitions": null,
+      "completion": "Both arms hang at the sides, hands near the thighs, and stay there until the end of the clip."
+    }
+  ],
+  "assumptions": [
+    "No dictionary entry matches raising both arms overhead (wave_right/wave_left are single-arm). All keyframes are inferred and retrieval is empty.",
+    "The timing is my choice: raise 0.5-2.0 s, hold 2.0-3.0 s, lower 3.0-4.5 s, final rest to 6 s.",
+    "Legs, pelvis, torso and head stay at their initial values. Only the arms move.",
+    "The arms go up through the sides and front, so the mid-raise pose is half-raised.",
+    "The overhead pose is nearly vertical, with a slight outward spread of the arms.",
+    "The final arm pose is the same as the initial pose."
+  ],
+  "initial_pose": {
+    "pose_class": "standing",
+    "observations": [
+      "Upright standing mannequin, body turned slightly toward the viewer's left (character's right side toward the camera-left).",
+      "Arms hang down at the sides with slight elbow bends, hands near the thighs.",
+      "Legs nearly straight, feet roughly shoulder-width apart, the character's right foot slightly forward of the left.",
+      "Torso is nearly vertical with a very slight lean.",
+      "Joint positions adjusted by silhouette fitting against the input image (render-and-compare)."
+    ],
+    "uncertainties": [
+      "Depth (Y) values are estimated from perspective only.",
+      "Exact body yaw is uncertain.",
+      "Elbow bend directions are ambiguous."
+    ],
+    "joints": [
+      {
+        "joint": "pelvis",
+        "x": -0.0148,
+        "y": 0.0012,
+        "z": 0.9785
+      },
+      {
+        "joint": "neck",
+        "x": -0.0148,
+        "y": -0.0194,
+        "z": 1.4832
+      },
+      {
+        "joint": "head",
+        "x": -0.0148,
+        "y": -0.04,
+        "z": 1.6995
+      },
+      {
+        "joint": "Lhip",
+        "x": 0.1087,
+        "y": 0.0012,
+        "z": 0.9579
+      },
+      {
+        "joint": "Lknee",
+        "x": 0.1191,
+        "y": -0.0194,
+        "z": 0.515
+      },
+      {
+        "joint": "Lankle",
+        "x": 0.1294,
+        "y": 0.0012,
+        "z": 0.0721
+      },
+      {
+        "joint": "Lshoulder",
+        "x": 0.222,
+        "y": -0.0194,
+        "z": 1.442
+      },
+      {
+        "joint": "Lelbow",
+        "x": 0.2941,
+        "y": -0.0715,
+        "z": 1.1791
+      },
+      {
+        "joint": "Lwrist",
+        "x": 0.3059,
+        "y": -0.1481,
+        "z": 0.9707
+      },
+      {
+        "joint": "Rhip",
+        "x": -0.1385,
+        "y": 0.0012,
+        "z": 0.9579
+      },
+      {
+        "joint": "Rknee",
+        "x": -0.1591,
+        "y": -0.0503,
+        "z": 0.515
+      },
+      {
+        "joint": "Rankle",
+        "x": -0.1694,
+        "y": -0.0812,
+        "z": 0.0721
+      },
+      {
+        "joint": "Rshoulder",
+        "x": -0.2518,
+        "y": -0.0194,
+        "z": 1.442
+      },
+      {
+        "joint": "Relbow",
+        "x": -0.3172,
+        "y": -0.0122,
+        "z": 1.1766
+      },
+      {
+        "joint": "Rwrist",
+        "x": -0.3244,
+        "y": -0.0369,
+        "z": 0.9555
+      }
+    ],
+    "contacts": [
+      "Left foot on floor",
+      "Right foot on floor"
+    ]
+  },
+  "keyframes": [
+    {
+      "time_s": 0,
+      "origin": "observed",
+      "action_id": null,
+      "description": "Initial standing pose, arms down.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": -0.0148,
+          "y": 0.0012,
+          "z": 0.9785
+        },
+        {
+          "joint": "neck",
+          "x": -0.0148,
+          "y": -0.0194,
+          "z": 1.4832
+        },
+        {
+          "joint": "head",
+          "x": -0.0148,
+          "y": -0.04,
+          "z": 1.6995
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.1087,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1191,
+          "y": -0.0194,
+          "z": 0.515
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.1294,
+          "y": 0.0012,
+          "z": 0.0721
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.222,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.2941,
+          "y": -0.0715,
+          "z": 1.1791
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.3059,
+          "y": -0.1481,
+          "z": 0.9707
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1385,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.1591,
+          "y": -0.0503,
+          "z": 0.515
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.1694,
+          "y": -0.0812,
+          "z": 0.0721
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2518,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3172,
+          "y": -0.0122,
+          "z": 1.1766
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.3244,
+          "y": -0.0369,
+          "z": 0.9555
+        }
+      ],
+      "contacts": [
+        "Left foot on floor",
+        "Right foot on floor"
+      ]
+    },
+    {
+      "time_s": 1.2,
+      "origin": "inferred",
+      "action_id": "raise_both_arms",
+      "description": "Arms half-raised, elbows near shoulder height, hands above.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": -0.0148,
+          "y": 0.0012,
+          "z": 0.9785
+        },
+        {
+          "joint": "neck",
+          "x": -0.0148,
+          "y": -0.0194,
+          "z": 1.4832
+        },
+        {
+          "joint": "head",
+          "x": -0.0148,
+          "y": -0.04,
+          "z": 1.6995
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.1087,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1191,
+          "y": -0.0194,
+          "z": 0.515
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.1294,
+          "y": 0.0012,
+          "z": 0.0721
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.222,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.45,
+          "y": -0.05,
+          "z": 1.55
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.6,
+          "y": -0.05,
+          "z": 1.7
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1385,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.1591,
+          "y": -0.0503,
+          "z": 0.515
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.1694,
+          "y": -0.0812,
+          "z": 0.0721
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2518,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.48,
+          "y": -0.05,
+          "z": 1.55
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.63,
+          "y": -0.05,
+          "z": 1.7
+        }
+      ],
+      "contacts": [
+        "Left foot on floor",
+        "Right foot on floor"
+      ]
+    },
+    {
+      "time_s": 2,
+      "origin": "inferred",
+      "action_id": "raise_both_arms",
+      "description": "Arms fully overhead.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": -0.0148,
+          "y": 0.0012,
+          "z": 0.9785
+        },
+        {
+          "joint": "neck",
+          "x": -0.0148,
+          "y": -0.0194,
+          "z": 1.4832
+        },
+        {
+          "joint": "head",
+          "x": -0.0148,
+          "y": -0.04,
+          "z": 1.6995
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.1087,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1191,
+          "y": -0.0194,
+          "z": 0.515
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.1294,
+          "y": 0.0012,
+          "z": 0.0721
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.222,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": -0.03,
+          "z": 1.71
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.27,
+          "y": -0.03,
+          "z": 1.93
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1385,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.1591,
+          "y": -0.0503,
+          "z": 0.515
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.1694,
+          "y": -0.0812,
+          "z": 0.0721
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2518,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.28,
+          "y": -0.03,
+          "z": 1.71
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.3,
+          "y": -0.03,
+          "z": 1.93
+        }
+      ],
+      "contacts": [
+        "Left foot on floor",
+        "Right foot on floor"
+      ]
+    },
+    {
+      "time_s": 3,
+      "origin": "inferred",
+      "action_id": "hold_arms_up",
+      "description": "End of the 1 s hold, arms still overhead.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": -0.0148,
+          "y": 0.0012,
+          "z": 0.9785
+        },
+        {
+          "joint": "neck",
+          "x": -0.0148,
+          "y": -0.0194,
+          "z": 1.4832
+        },
+        {
+          "joint": "head",
+          "x": -0.0148,
+          "y": -0.04,
+          "z": 1.6995
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.1087,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1191,
+          "y": -0.0194,
+          "z": 0.515
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.1294,
+          "y": 0.0012,
+          "z": 0.0721
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.222,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.25,
+          "y": -0.03,
+          "z": 1.71
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.27,
+          "y": -0.03,
+          "z": 1.93
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1385,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.1591,
+          "y": -0.0503,
+          "z": 0.515
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.1694,
+          "y": -0.0812,
+          "z": 0.0721
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2518,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.28,
+          "y": -0.03,
+          "z": 1.71
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.3,
+          "y": -0.03,
+          "z": 1.93
+        }
+      ],
+      "contacts": [
+        "Left foot on floor",
+        "Right foot on floor"
+      ]
+    },
+    {
+      "time_s": 3.8,
+      "origin": "inferred",
+      "action_id": "lower_both_arms",
+      "description": "Arms halfway down, out to the sides.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": -0.0148,
+          "y": 0.0012,
+          "z": 0.9785
+        },
+        {
+          "joint": "neck",
+          "x": -0.0148,
+          "y": -0.0194,
+          "z": 1.4832
+        },
+        {
+          "joint": "head",
+          "x": -0.0148,
+          "y": -0.04,
+          "z": 1.6995
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.1087,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1191,
+          "y": -0.0194,
+          "z": 0.515
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.1294,
+          "y": 0.0012,
+          "z": 0.0721
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.222,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.45,
+          "y": -0.05,
+          "z": 1.55
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.6,
+          "y": -0.05,
+          "z": 1.7
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1385,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.1591,
+          "y": -0.0503,
+          "z": 0.515
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.1694,
+          "y": -0.0812,
+          "z": 0.0721
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2518,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.48,
+          "y": -0.05,
+          "z": 1.55
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.63,
+          "y": -0.05,
+          "z": 1.7
+        }
+      ],
+      "contacts": [
+        "Left foot on floor",
+        "Right foot on floor"
+      ]
+    },
+    {
+      "time_s": 4.6,
+      "origin": "inferred",
+      "action_id": "lower_both_arms",
+      "description": "Arms lowered to the sides, back at the initial arm pose.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": -0.0148,
+          "y": 0.0012,
+          "z": 0.9785
+        },
+        {
+          "joint": "neck",
+          "x": -0.0148,
+          "y": -0.0194,
+          "z": 1.4832
+        },
+        {
+          "joint": "head",
+          "x": -0.0148,
+          "y": -0.04,
+          "z": 1.6995
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.1087,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1191,
+          "y": -0.0194,
+          "z": 0.515
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.1294,
+          "y": 0.0012,
+          "z": 0.0721
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.222,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.2941,
+          "y": -0.0715,
+          "z": 1.1791
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.3059,
+          "y": -0.1481,
+          "z": 0.9707
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1385,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.1591,
+          "y": -0.0503,
+          "z": 0.515
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.1694,
+          "y": -0.0812,
+          "z": 0.0721
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2518,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3172,
+          "y": -0.0122,
+          "z": 1.1766
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.3244,
+          "y": -0.0369,
+          "z": 0.9555
+        }
+      ],
+      "contacts": [
+        "Left foot on floor",
+        "Right foot on floor"
+      ]
+    },
+    {
+      "time_s": 6,
+      "origin": "inferred",
+      "action_id": "lower_both_arms",
+      "description": "Final hold with arms down.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": -0.0148,
+          "y": 0.0012,
+          "z": 0.9785
+        },
+        {
+          "joint": "neck",
+          "x": -0.0148,
+          "y": -0.0194,
+          "z": 1.4832
+        },
+        {
+          "joint": "head",
+          "x": -0.0148,
+          "y": -0.04,
+          "z": 1.6995
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.1087,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1191,
+          "y": -0.0194,
+          "z": 0.515
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.1294,
+          "y": 0.0012,
+          "z": 0.0721
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.222,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.2941,
+          "y": -0.0715,
+          "z": 1.1791
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.3059,
+          "y": -0.1481,
+          "z": 0.9707
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1385,
+          "y": 0.0012,
+          "z": 0.9579
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.1591,
+          "y": -0.0503,
+          "z": 0.515
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.1694,
+          "y": -0.0812,
+          "z": 0.0721
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2518,
+          "y": -0.0194,
+          "z": 1.442
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.3172,
+          "y": -0.0122,
+          "z": 1.1766
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.3244,
+          "y": -0.0369,
+          "z": 0.9555
+        }
+      ],
+      "contacts": [
+        "Left foot on floor",
+        "Right foot on floor"
+      ]
+    }
+  ],
+  "retrieval": [],
+  "unsupported_requirements": []
+}

@@ -1,0 +1,883 @@
+{
+  "initial_pose": {
+    "pose_class": "seated",
+    "observations": [
+      "Character sits on a chair with back against the chair back, torso upright, facing toward the viewer and slightly toward the viewer's right.",
+      "Thighs roughly horizontal, knees bent about 90 degrees, shins vertical, feet on floor.",
+      "Character's right arm (image left) bent at elbow with hand resting near the right thigh.",
+      "Character's left arm (image right) hangs down with slight elbow bend, hand near left thigh.",
+      "Joint positions adjusted by silhouette fitting against the input image (render-and-compare)."
+    ],
+    "uncertainties": [
+      "Depth estimates are approximate due to the three-quarter view.",
+      "Exact torso lean and yaw are uncertain.",
+      "Which side is left/right assumed from the character facing the camera."
+    ],
+    "joints": [
+      {
+        "joint": "pelvis",
+        "x": 0.0255,
+        "y": 0.0614,
+        "z": 0.5424
+      },
+      {
+        "joint": "neck",
+        "x": 0.0255,
+        "y": 0.0614,
+        "z": 1.0961
+      },
+      {
+        "joint": "head",
+        "x": 0.0255,
+        "y": 0.0275,
+        "z": 1.3221
+      },
+      {
+        "joint": "Lhip",
+        "x": 0.161,
+        "y": 0.0614,
+        "z": 0.5424
+      },
+      {
+        "joint": "Lknee",
+        "x": 0.1949,
+        "y": -0.4131,
+        "z": 0.565
+      },
+      {
+        "joint": "Lankle",
+        "x": 0.2175,
+        "y": -0.4471,
+        "z": 0.0791
+      },
+      {
+        "joint": "Lshoulder",
+        "x": 0.2853,
+        "y": 0.0614,
+        "z": 1.0509
+      },
+      {
+        "joint": "Lelbow",
+        "x": 0.3645,
+        "y": 0.0348,
+        "z": 0.764
+      },
+      {
+        "joint": "Lwrist",
+        "x": 0.3306,
+        "y": -0.1172,
+        "z": 0.589
+      },
+      {
+        "joint": "Rhip",
+        "x": -0.1101,
+        "y": 0.0614,
+        "z": 0.5424
+      },
+      {
+        "joint": "Rknee",
+        "x": -0.144,
+        "y": -0.3906,
+        "z": 0.5198
+      },
+      {
+        "joint": "Rankle",
+        "x": -0.0875,
+        "y": -0.3679,
+        "z": 0.0565
+      },
+      {
+        "joint": "Rshoulder",
+        "x": -0.2344,
+        "y": 0.0614,
+        "z": 1.0509
+      },
+      {
+        "joint": "Relbow",
+        "x": -0.2836,
+        "y": 0.0202,
+        "z": 0.7591
+      },
+      {
+        "joint": "Rwrist",
+        "x": -0.1559,
+        "y": -0.1985,
+        "z": 0.6132
+      }
+    ],
+    "contacts": [
+      "pelvis on chair seat",
+      "back against chair back",
+      "left foot on floor",
+      "right foot on floor",
+      "right hand on right thigh"
+    ]
+  },
+  "actions": [
+    {
+      "id": "wave_left",
+      "request_quote": "왼손을 어깨 높이로 들어 한 번 왕복해 흔든 뒤 내려라",
+      "side": "left",
+      "repetitions": 1,
+      "completion": "Left hand is raised to about shoulder height, swings out and back once, then returns down beside the left thigh."
+    },
+    {
+      "id": "hold_seated",
+      "request_quote": "앉은 자세를 유지하면서",
+      "side": "none",
+      "repetitions": null,
+      "completion": "Pelvis stays on the chair seat and both feet stay on the floor for the whole clip."
+    }
+  ],
+  "retrieval": [
+    {
+      "entry_id": "wave_left",
+      "used_for": "Semantic structure raise-wave-lower for the left arm. The dictionary has no trajectories, so the joint values are inferred."
+    }
+  ],
+  "keyframes": [
+    {
+      "time_s": 0,
+      "origin": "observed",
+      "action_id": null,
+      "description": "Initial seated pose, left arm hanging.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "neck",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 1.0961
+        },
+        {
+          "joint": "head",
+          "x": 0.0255,
+          "y": 0.0275,
+          "z": 1.3221
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.161,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1949,
+          "y": -0.4131,
+          "z": 0.565
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.2175,
+          "y": -0.4471,
+          "z": 0.0791
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.2853,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.3645,
+          "y": 0.0348,
+          "z": 0.764
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.3306,
+          "y": -0.1172,
+          "z": 0.589
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1101,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.144,
+          "y": -0.3906,
+          "z": 0.5198
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.0875,
+          "y": -0.3679,
+          "z": 0.0565
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2344,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.2836,
+          "y": 0.0202,
+          "z": 0.7591
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.1559,
+          "y": -0.1985,
+          "z": 0.6132
+        }
+      ],
+      "contacts": [
+        "pelvis on chair seat",
+        "back against chair back",
+        "left foot on floor",
+        "right foot on floor",
+        "right hand on right thigh"
+      ]
+    },
+    {
+      "time_s": 1.2,
+      "origin": "inferred",
+      "action_id": "wave_left",
+      "description": "Left arm raised: elbow out to the side at shoulder height, forearm forward-up, hand near shoulder height.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "neck",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 1.0961
+        },
+        {
+          "joint": "head",
+          "x": 0.0255,
+          "y": 0.0275,
+          "z": 1.3221
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.161,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1949,
+          "y": -0.4131,
+          "z": 0.565
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.2175,
+          "y": -0.4471,
+          "z": 0.0791
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.2853,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.55,
+          "y": 0.03,
+          "z": 1.03
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.6,
+          "y": -0.17,
+          "z": 1.08
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1101,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.144,
+          "y": -0.3906,
+          "z": 0.5198
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.0875,
+          "y": -0.3679,
+          "z": 0.0565
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2344,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.2836,
+          "y": 0.0202,
+          "z": 0.7591
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.1559,
+          "y": -0.1985,
+          "z": 0.6132
+        }
+      ],
+      "contacts": [
+        "pelvis on chair seat",
+        "back against chair back",
+        "left foot on floor",
+        "right foot on floor",
+        "right hand on right thigh"
+      ]
+    },
+    {
+      "time_s": 2,
+      "origin": "inferred",
+      "action_id": "wave_left",
+      "description": "Wave outward: hand swings away from the body.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "neck",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 1.0961
+        },
+        {
+          "joint": "head",
+          "x": 0.0255,
+          "y": 0.0275,
+          "z": 1.3221
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.161,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1949,
+          "y": -0.4131,
+          "z": 0.565
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.2175,
+          "y": -0.4471,
+          "z": 0.0791
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.2853,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.55,
+          "y": 0.03,
+          "z": 1.03
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.65,
+          "y": -0.15,
+          "z": 1.08
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1101,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.144,
+          "y": -0.3906,
+          "z": 0.5198
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.0875,
+          "y": -0.3679,
+          "z": 0.0565
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2344,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.2836,
+          "y": 0.0202,
+          "z": 0.7591
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.1559,
+          "y": -0.1985,
+          "z": 0.6132
+        }
+      ],
+      "contacts": [
+        "pelvis on chair seat",
+        "back against chair back",
+        "left foot on floor",
+        "right foot on floor",
+        "right hand on right thigh"
+      ]
+    },
+    {
+      "time_s": 2.8,
+      "origin": "inferred",
+      "action_id": "wave_left",
+      "description": "Wave inward: hand swings back toward the body, completing the round trip.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "neck",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 1.0961
+        },
+        {
+          "joint": "head",
+          "x": 0.0255,
+          "y": 0.0275,
+          "z": 1.3221
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.161,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1949,
+          "y": -0.4131,
+          "z": 0.565
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.2175,
+          "y": -0.4471,
+          "z": 0.0791
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.2853,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.55,
+          "y": 0.03,
+          "z": 1.03
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.5,
+          "y": -0.17,
+          "z": 1.08
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1101,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.144,
+          "y": -0.3906,
+          "z": 0.5198
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.0875,
+          "y": -0.3679,
+          "z": 0.0565
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2344,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.2836,
+          "y": 0.0202,
+          "z": 0.7591
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.1559,
+          "y": -0.1985,
+          "z": 0.6132
+        }
+      ],
+      "contacts": [
+        "pelvis on chair seat",
+        "back against chair back",
+        "left foot on floor",
+        "right foot on floor",
+        "right hand on right thigh"
+      ]
+    },
+    {
+      "time_s": 3.4,
+      "origin": "inferred",
+      "action_id": "wave_left",
+      "description": "Hand returns to the centred raised position, wave finished.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "neck",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 1.0961
+        },
+        {
+          "joint": "head",
+          "x": 0.0255,
+          "y": 0.0275,
+          "z": 1.3221
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.161,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1949,
+          "y": -0.4131,
+          "z": 0.565
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.2175,
+          "y": -0.4471,
+          "z": 0.0791
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.2853,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.55,
+          "y": 0.03,
+          "z": 1.03
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.6,
+          "y": -0.17,
+          "z": 1.08
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1101,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.144,
+          "y": -0.3906,
+          "z": 0.5198
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.0875,
+          "y": -0.3679,
+          "z": 0.0565
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2344,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.2836,
+          "y": 0.0202,
+          "z": 0.7591
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.1559,
+          "y": -0.1985,
+          "z": 0.6132
+        }
+      ],
+      "contacts": [
+        "pelvis on chair seat",
+        "back against chair back",
+        "left foot on floor",
+        "right foot on floor",
+        "right hand on right thigh"
+      ]
+    },
+    {
+      "time_s": 4.6,
+      "origin": "inferred",
+      "action_id": "wave_left",
+      "description": "Left arm lowered back to the hanging position.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "neck",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 1.0961
+        },
+        {
+          "joint": "head",
+          "x": 0.0255,
+          "y": 0.0275,
+          "z": 1.3221
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.161,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1949,
+          "y": -0.4131,
+          "z": 0.565
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.2175,
+          "y": -0.4471,
+          "z": 0.0791
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.2853,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.3645,
+          "y": 0.0348,
+          "z": 0.764
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.3306,
+          "y": -0.1172,
+          "z": 0.589
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1101,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.144,
+          "y": -0.3906,
+          "z": 0.5198
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.0875,
+          "y": -0.3679,
+          "z": 0.0565
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2344,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.2836,
+          "y": 0.0202,
+          "z": 0.7591
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.1559,
+          "y": -0.1985,
+          "z": 0.6132
+        }
+      ],
+      "contacts": [
+        "pelvis on chair seat",
+        "back against chair back",
+        "left foot on floor",
+        "right foot on floor",
+        "right hand on right thigh"
+      ]
+    },
+    {
+      "time_s": 6,
+      "origin": "inferred",
+      "action_id": "hold_seated",
+      "description": "Hold the seated pose with the left arm down until the end.",
+      "joints": [
+        {
+          "joint": "pelvis",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "neck",
+          "x": 0.0255,
+          "y": 0.0614,
+          "z": 1.0961
+        },
+        {
+          "joint": "head",
+          "x": 0.0255,
+          "y": 0.0275,
+          "z": 1.3221
+        },
+        {
+          "joint": "Lhip",
+          "x": 0.161,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Lknee",
+          "x": 0.1949,
+          "y": -0.4131,
+          "z": 0.565
+        },
+        {
+          "joint": "Lankle",
+          "x": 0.2175,
+          "y": -0.4471,
+          "z": 0.0791
+        },
+        {
+          "joint": "Lshoulder",
+          "x": 0.2853,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Lelbow",
+          "x": 0.3645,
+          "y": 0.0348,
+          "z": 0.764
+        },
+        {
+          "joint": "Lwrist",
+          "x": 0.3306,
+          "y": -0.1172,
+          "z": 0.589
+        },
+        {
+          "joint": "Rhip",
+          "x": -0.1101,
+          "y": 0.0614,
+          "z": 0.5424
+        },
+        {
+          "joint": "Rknee",
+          "x": -0.144,
+          "y": -0.3906,
+          "z": 0.5198
+        },
+        {
+          "joint": "Rankle",
+          "x": -0.0875,
+          "y": -0.3679,
+          "z": 0.0565
+        },
+        {
+          "joint": "Rshoulder",
+          "x": -0.2344,
+          "y": 0.0614,
+          "z": 1.0509
+        },
+        {
+          "joint": "Relbow",
+          "x": -0.2836,
+          "y": 0.0202,
+          "z": 0.7591
+        },
+        {
+          "joint": "Rwrist",
+          "x": -0.1559,
+          "y": -0.1985,
+          "z": 0.6132
+        }
+      ],
+      "contacts": [
+        "pelvis on chair seat",
+        "back against chair back",
+        "left foot on floor",
+        "right foot on floor",
+        "right hand on right thigh"
+      ]
+    }
+  ],
+  "assumptions": [
+    "The dictionary entry wave_left only gives semantics (raise-wave-lower), so all joint trajectories are inferred.",
+    "'Left' is the character's own left (+X, image right).",
+    "The wave is a single out-and-back swing of the forearm and hand, with the elbow held at about shoulder height.",
+    "Torso, head, legs and the right arm stay still. The right hand stays on the right thigh.",
+    "Segment lengths are only approximately preserved in the raised arm (about 0.21 to 0.22 m forearm)."
+  ],
+  "unsupported_requirements": []
+}
