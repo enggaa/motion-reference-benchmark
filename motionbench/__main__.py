@@ -11,7 +11,7 @@ def main():
  c=sub.add_parser('plan');c.add_argument('--split',choices=['development','calibration','test'],required=True);c.add_argument('--out',required=True);c.add_argument('--repeats',type=int,default=3);c.add_argument('--seed',type=int,default=20261029)
  c=sub.add_parser('record');c.add_argument('--run',required=True);c.add_argument('--attempt',required=True);c.add_argument('--status',choices=['succeeded','failed','blocked'],required=True);c.add_argument('--stage');c.add_argument('--output')
  c=sub.add_parser('review');c.add_argument('--run',required=True);c.add_argument('--attempt',required=True);c.add_argument('--file',required=True)
- c=sub.add_parser('summarize');c.add_argument('--run',required=True);c.add_argument('--out')
+ c=sub.add_parser('summarize');c.add_argument('--run',required=True);c.add_argument('--out');c.add_argument('--bootstrap',type=int,default=2000)
  c=sub.add_parser('review-template');c.add_argument('--case',required=True);c.add_argument('--out',required=True)
  c=sub.add_parser('artifact');c.add_argument('--run',required=True);c.add_argument('--attempt',required=True);c.add_argument('--kind',required=True);c.add_argument('--file',required=True)
  c=sub.add_parser('planner');c.add_argument('--run',required=True);c.add_argument('--backend',choices=['dry-run','claude-code'],default='dry-run');c.add_argument('--model',default='sonnet');c.add_argument('--max-calls',type=int,default=8);c.add_argument('--group');c.add_argument('--allow-test',action='store_true');c.add_argument('--pose-fit',action='store_true')
@@ -30,7 +30,7 @@ def main():
  elif a.command=='import-ratings':result=import_ratings(a.run,a.mapping,a.rater,a.adjudication)
  elif a.command=='artifact':result=artifact(a.run,a.attempt,a.kind,a.file)
  elif a.command=='summarize':
-  result=summarize(a.run)
+  result=summarize(a.run,draws=a.bootstrap)
   if a.out:save(a.out,result)
  elif a.command=='review-template':
   contract=next(c for c in read(ROOT/'benchmark/evaluator/contracts.json') if c['case_id']==a.case)

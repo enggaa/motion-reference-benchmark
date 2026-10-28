@@ -110,9 +110,30 @@ def artifact(run,attempt,kind,path):
   peers=[r for r in rows if r['paired_reference_group']==row['paired_reference_group'] and kind in r['outputs']]
   if any(r['outputs'][kind]['sha256']!=sha(path) for r in peers):raise ValueError('Paired reference arms must start with identical candidate bytes')
  row['outputs'][kind]={'path':str(path),'sha256':sha(path)};save(run/'ledger.json',rows);return row['outputs'][kind]
-def summarize(run,root=ROOT):
+def cluster_bootstrap(values,clusters,draws=2000,seed=20261029):
+ """95% percentile interval of the mean of per-case values, resampling whole clusters (case or action family) with replacement."""
+ groups={}
+ for case,v in values.items():groups.setdefault(clusters[case],[]).append(v)
+ keys=sorted(groups);rng=random.Random(seed);means=[]
+ if len(keys)<2:return None
+ for _ in range(draws):
+  picked=[v for k in (rng.choice(keys) for _ in keys) for v in groups[k]];means.append(sum(picked)/len(picked))
+ means.sort();return [round(means[int(.025*draws)],4),round(means[min(draws-1,int(.975*draws))],4)]
+def _secondary(rows):
+ """Per-arm secondary results (RUBRIC): naturalness averaged over the two raters then over cases; other fields as pass shares of all non-null judgments."""
+ nat={};cat={};counts={}
+ for row in rows:
+  for rating in (row.get('review') or {}).get('ratings',[]):
+   for k,v in (rating.get('secondary') or {}).items():
+    if v is None:continue
+    if k=='naturalness':nat.setdefault(row['case_id'],[]).append(v)
+    else:cat.setdefault(k,[]).append(v);counts.setdefault(k,{'pass':0,'fail':0,'uncertain':0})[v]+=1
+ per_case=[sum(v)/len(v) for v in nat.values()]
+ return {'naturalness_case_mean':round(sum(per_case)/len(per_case),3) if per_case else None,'naturalness_cases':len(per_case),**{k:{'pass_share':round(c['pass']/sum(c.values()),3),**c} for k,c in counts.items()}}
+def summarize(run,root=ROOT,draws=2000):
  ensure_binding(run,root)
  rows=read(Path(run)/'ledger.json');contracts={x['case_id']:x for x in read(Path(root)/'benchmark/evaluator/contracts.json')};byarm={}
+ cases_meta={c['id']:c for c in read(Path(root)/'benchmark/cases.json')}
  for arm in ARMS:
   selected=[r for r in rows if r['arm']==arm];counts={k:0 for k in ['pending','failed','blocked','unreviewed','disputed','uncertain','pass','fail']};cases={}
   for row in selected:
@@ -122,10 +143,26 @@ def summarize(run,root=ROOT):
    outcome=consensus(row.get('review'),required) if row['status']=='succeeded' else row['status'];counts[outcome]+=1;cases.setdefault(row['case_id'],[]).append(outcome)
   complete=not any(counts[k] for k in ['pending','unreviewed','disputed'])
   fractions={c:sum(v=='pass' for v in outcomes)/len(outcomes) for c,outcomes in cases.items()}
-  byarm[arm]={'assigned':len(selected),'counts':counts,'complete':complete,'primary_case_mean':sum(fractions.values())/len(fractions) if complete and fractions else None,'case_pass_fractions':fractions if complete else None}
+  failure_stages={}
+  for row in selected:
+   if row['status'] in ('failed','blocked'):failure_stages[row['failure_stage']]=failure_stages.get(row['failure_stage'],0)+1
+  byarm[arm]={'assigned':len(selected),'counts':counts,'failure_stages':failure_stages,'complete':complete,'primary_case_mean':sum(fractions.values())/len(fractions) if complete and fractions else None,'case_pass_fractions':fractions if complete else None,
+   'primary_ci95_case_bootstrap':cluster_bootstrap(fractions,{c:c for c in fractions},draws) if complete and fractions else None,
+   'primary_ci95_family_bootstrap':cluster_bootstrap(fractions,{c:cases_meta[c]['action_family'] for c in fractions},draws) if complete and fractions else None,
+   'secondary':_secondary(selected)}
  deltas={}
  if all(v['complete'] for v in byarm.values()):
   for arm in ARMS[1:]:
    a=byarm[arm]['case_pass_fractions'] or {};b=byarm[ARMS[0]]['case_pass_fractions'] or {};shared=set(a)&set(b)
-   deltas[arm+'_minus_direct']=sum(a[c]-b[c] for c in shared)/len(shared) if shared else None
- return {'arms':byarm,'paired_case_mean_differences':deltas,'interpretation':'No performance score until assigned attempts are terminal and reviews resolved. Failed/blocked/uncertain attempts count as zero, not dropped. No inferential CI or superiority test implemented in v0.1.'}
+   diff={c:a[c]-b[c] for c in shared}
+   deltas[arm+'_minus_direct']={'mean':sum(diff.values())/len(diff) if diff else None,'ci95_case_bootstrap':cluster_bootstrap(diff,{c:c for c in diff},draws) if diff else None,
+    'ci95_family_bootstrap':cluster_bootstrap(diff,{c:cases_meta[c]['action_family'] for c in diff},draws) if diff else None}
+ refs=Path(run)/'reference_reviews.json';reference_stage=None
+ if refs.exists():
+  reference_stage={}
+  for item in read(refs).values():
+   for attempt in item['attempts']:
+    arm=next(r['arm'] for r in rows if r['attempt_id']==attempt);entry=reference_stage.setdefault(arm,{'pass':0,'fail':0,'uncertain':0,'disputed':0,'unreviewed':0})
+    entry[item.get('verdict','unreviewed')]+=1
+ return {'arms':byarm,'paired_case_mean_differences':deltas,'reference_stage':reference_stage,
+  'interpretation':'No performance score until assigned attempts are terminal and reviews resolved. Failed/blocked/uncertain attempts count as zero, not dropped. Intervals are 95% percentile bootstrap over cases or action families (descriptive; with 12 test cases they are wide and are not a superiority test).'}
