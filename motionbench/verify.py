@@ -31,6 +31,9 @@ def verify_group(run,group,backend,blender=None,root=ROOT):
  ensure_binding(run,root);run=Path(run).resolve();meta=read(run/'run.json');rows={r['attempt_id']:r for r in read(run/'ledger.json')}
  packets=[p for p in read(run/'generator_inputs.json') if p['paired_reference_group']==group]
  if not packets:raise ValueError('Unknown reference group '+group)
+ if meta['split']=='test':
+  from .freeze import check_frozen
+  check_frozen(run,root,planner_model=backend.model)
  packet=packets[0];c=next(p['attempt_id'] for p in packets if p['arm']=='verified_reference_r2v')
  if 'gate_decision' in rows[c]['outputs'] or rows[c]['status']!='pending':return {'group':group,'skipped':'already reviewed or terminal'}
  folder=run/'references'/group;plan_path=run/'plans'/group/'plan.json'

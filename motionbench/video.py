@@ -62,7 +62,10 @@ def _note(run,attempt,**fields):
 def generate_run(run,backend=None,resolution='480p',execute=False,max_usd=None,attempts=None,root=ROOT):
  """Dry run by default: writes video_requests/<attempt>.json and the cost estimate. execute=True calls the backend; max_usd caps the estimated total before any call."""
  ensure_binding(run,root);run=Path(run).resolve();meta=read(run/'run.json')
- if meta['split']=='test' and execute and not meta.get('frozen'):raise ValueError('Test generation requires a frozen run (run.json "frozen")')
+ if meta['split']=='test':
+  from .freeze import check_frozen
+  frozen=check_frozen(run,root,video_resolution=resolution)
+  if max_usd is None or max_usd>frozen['max_usd']:raise ValueError(f"Test generation needs --max-usd at or below the frozen cap {frozen['max_usd']}")
  packets={p['attempt_id']:p for p in read(run/'generator_inputs.json')};plans=[];skipped={}
  for row in read(run/'ledger.json'):
   if row['status']!='pending' or (attempts and row['attempt_id'] not in attempts):continue

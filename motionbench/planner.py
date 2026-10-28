@@ -137,11 +137,13 @@ def _call(backend,request):
   response=backend.call(request);tries.append(response)
   if 'transport_error' not in response:break
  return response,tries
-def plan_run(run,backend,max_calls=8,group=None,allow_test=False,pose_fit=None,root=ROOT):
+def plan_run(run,backend,max_calls=8,group=None,pose_fit=None,root=ROOT):
  """pose_fit: a Blender executable. When given, the initial pose comes from its own LLM call refined by silhouette fitting (motionbench.posefit)
  and the planner receives it fixed; otherwise one call estimates the pose and plans together. A call means one planned group, whatever the stages."""
  ensure_binding(run,root);run=Path(run);meta=read(run/'run.json')
- if meta['split']=='test' and not allow_test:raise ValueError('Planner on test split requires a frozen pipeline; pass allow_test explicitly')
+ if meta['split']=='test':
+  from .freeze import check_frozen
+  check_frozen(run,root,planner_model=getattr(backend,'model',None),planner_variant='posefit-v1' if pose_fit else 'single-call-v1')
  dry=isinstance(backend,DryRunBackend)
  if not dry:
   config=meta['configuration'];wanted={'planner_backend':backend.name,'planner_model':backend.model,'planner_variant':'posefit-v1' if pose_fit else 'single-call-v1'}
