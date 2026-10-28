@@ -62,6 +62,8 @@ python -m motionbench planner --run runs/dev-001 --backend claude-code --model s
 
 B/C의 같은 `paired_reference_group`에 계획 1개를 만들어 두 시도에 같은 `plan` 아티팩트로 등록합니다. 입력은 `generator_inputs.json`과 seed 사전의 의미 목록뿐이며 evaluator 파일은 읽지 않습니다. 전송 오류는 1회 재시도, 구조 검사 실패는 재생성하지 않고 `failed/planning`으로 기록합니다. 구조 검사(관절 15개, 0초 관측 키프레임, 원문 인용, 시간 순서)를 통과해도 **동작이 맞다는 뜻은 아닙니다.** 뼈 길이 변화는 경고로만 남깁니다. test 분할은 `--allow-test` 없이는 거부합니다.
 
+계획 확인용 그림: `python tools/plan_preview.py runs/dev-001/plans/D01-01` → 입력 이미지 옆에 키프레임별 정면/측면 막대 인형 SVG. 렌더러나 IK가 아니라 눈으로 보는 점검 도구입니다.
+
 `attempt`와 `case`는 계획된 ledger에서 확인해야 합니다. 예시의 0002가 반드시 R2V 조건이라는 뜻은 아닙니다. 조건 순서는 무작위입니다.
 
 ## 평가 규칙

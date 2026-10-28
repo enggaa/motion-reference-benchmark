@@ -54,8 +54,9 @@ python -m motionbench summarize --run runs/dev-001
 ## 6a. 진행 기록 (2026-10-29)
 
 - `motionbench/planner.py`와 `python -m motionbench planner` 추가. 경로 A: 로그인된 Claude Code CLI(`claude -p`, `--safe-mode --tools "" --json-schema`)를 구독 사용량으로 호출한다. 비용 최소화가 사용자 방침이라 기본 모델은 `sonnet`. API 키 경로(B)는 후속 개선이며 test 동결 전에 하나로 확정한다.
-- 이 PC의 독립 CLI는 아직 로그인되지 않았다(데스크톱 앱 세션 인증과 별개). 사용자가 CLI에서 `/login`을 한 번 해야 실제 호출이 된다.
-- 실제 planner 출력, 계획 기반 레퍼런스 렌더러, Seedance 계정/API 연결은 아직 없다. Seedance는 사용자가 계정·크레딧을 준비해야 한다.
+- 첫 실제 planner 호출: D01(development) 1건, `claude-sonnet-5-5`, 구조 검사 오류/경고 0, 출력 토큰 약 13.5k, 66초, CLI 표기 명목 비용 $0.18(구독 사용량이며 별도 과금 아님). 9개 키프레임(들기→좌우 2회 왕복→내리기→유지)을 `tools/plan_preview.py`로 눈으로 확인했다. 초기 자세는 서기로 맞게 분류했지만 관절 높이를 6–10cm 낮게 추정했다(평가 정답과 개발 측에서만 비교). 독립 평가나 영상 결과는 아니다. 나머지 development 7건은 미호출.
+- Windows 데스크톱 앱(MSIX) 번들 CLI의 실제 경로는 `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\claude-code\<버전>\...\claude.exe`다. 독립 CLI 로그인은 2026-10-29에 완료했다.
+- 계획 기반 레퍼런스 렌더러, Seedance 계정/API 연결은 아직 없다. Seedance는 사용자가 계정·크레딧을 준비해야 한다.
 
 ## 6. 다음 구현 순서
 
