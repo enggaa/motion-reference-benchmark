@@ -56,4 +56,22 @@ class PoseFitTests(unittest.TestCase):
    run=Path(d)/'r';make_run(run,'development',1)
    with mock.patch.object(posefit,'fit',fake_fit):plan_run(run,PoseBackend(),max_calls=1,pose_fit='blender')
    with self.assertRaises(ValueError):plan_run(run,PoseBackend(),max_calls=1)
+class FitSearchTests(unittest.TestCase):
+ """fit() against a fake renderer whose "image" is a parameter vector: overlap falls with distance from a hidden target pose."""
+ def run_fit(self,target,iterations=6):
+  from motionbench.planner import JOINTS
+  truth=transform(POSE,target)
+  def fake_masks(path):return ('target',None)
+  def fake_render(poses,chair,blender,keep=None):return [('pose',p) for p in poses]
+  def fake_score(t,m):return 1/(1+sum(math.dist(m[1][j],truth[j]) for j in JOINTS))
+  with mock.patch.object(posefit,'masks',fake_masks),mock.patch.object(posefit,'render_batch',fake_render),mock.patch.object(posefit,'score',fake_score):
+   return posefit.fit('img.png',{'joints':points(POSE),'pose_class':'standing','contacts':[]},'blender',iterations)
+ def test_recovers_lean_and_arm(self):
+  pose,log=self.run_fit({'lean_side':16,'Rarm_side':24})
+  self.assertAlmostEqual(log['params']['lean_side'],16,delta=2);self.assertAlmostEqual(log['params']['Rarm_side'],24,delta=3)
+  self.assertGreater(log['score_end'],log['score_start'])
+ def test_penalty_keeps_unneeded_params_at_zero(self):
+  pose,log=self.run_fit({})
+  self.assertEqual(log['params'],{});self.assertEqual(log['penalty'],0)
+  self.assertEqual(pose['joints'],points(POSE))
 if __name__=='__main__':unittest.main()
