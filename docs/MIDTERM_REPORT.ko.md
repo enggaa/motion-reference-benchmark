@@ -2,54 +2,191 @@
 
 **제목(가제): 행동 사전 기반 LLM 모션 추론과 검증된 레퍼런스를 이용한 영상 생성의 행동 정확도 평가**
 
-- 작성일: 2026-10-29
+- 작성일: 2026-11-10
 - 코드 및 데이터: https://github.com/enggaa/motion-reference-benchmark
 
-## 요약
+## 개요
 
-본 연구는 이미지와 자연어 요청으로 영상을 생성할 때 요청된 행동, 좌우 구분, 동작 순서, 초기 자세가 보존되는지를 평가한다. 제안 방법에서는 LLM이 행동 사전을 참조하여 키프레임 계획을 수립하고, 이를 마네킹 레퍼런스 영상으로 렌더링하여 최종 영상 모델에 조건으로 제공한다. 이 방법을 직접 I2V 조건 및 검증을 거친 레퍼런스 조건과 비교한다.
+**연구 배경:** 확산 모델 기반 영상 생성 모델은 이미지 한 장과 텍스트로 사실적인 인물 영상을 생성할 수 있다(image-to-video, I2V). 그러나 텍스트 조건만으로는 다음 세부 사항이 보장되지 않는다.
+- 어느 손으로 움직이는지(좌우)
+- 몇 번 반복하는지(횟수)
+- 어떤 순서로 수행하는지(순서)
+- 입력 이미지의 자세에서 자연스럽게 시작하는지(초기 자세)
 
-현재까지 24문항 규모의 벤치마크를 구축하고, 레퍼런스 생성 파이프라인과 평가 도구를 구현하였다. 개발용 문항에서 다음 두 가지를 확인하였다.
-- 실루엣 정합으로 초기 자세의 평균 관절 오차가 0.113 m에서 0.068 m로 감소하였다.
-- LLM 기반 레퍼런스 검증은 반복 횟수와 같은 세밀한 요구에서 판정이 불안정하였다.
+동작을 정밀하게 제어하는 기존 방법은 동작 데이터를 별도로 요구한다. 포즈 시퀀스 기반 애니메이션은 구동용 포즈 시퀀스가 있어야 하고, 텍스트-모션 생성 모델은 학습 데이터에 있는 동작과 선 자세에서 시작하는 동작에 한정된다. 따라서 사용자가 문장으로 요청한 동작을, 입력 이미지의 자세에서 시작하는 동작 레퍼런스로 얻는 방법은 아직 부족하다. 레퍼런스를 추가하는 것이 실제로 행동 정확도를 높이는지 측정할 평가 체계도 부족하다.
 
-최종 영상 생성과 사람 평가는 향후 수행할 예정이다.
+**제안 방법:** 대형 언어 모델(LLM)이 소규모 행동 사전을 참조하여 다음 과정을 수행한다.
+1. 입력 이미지의 초기 자세를 추정한다.
+2. 요청된 행동을 시간별 관절 키프레임으로 계획한다.
 
-## 1. 연구 배경 및 목적
+이 계획을 고전적 컴퓨터 애니메이션 기법으로 마네킹 레퍼런스 영상으로 만든다. 사용한 기법은 키프레임 보간, 순기구학·역기구학, 뼈 길이 보존이다. 만든 레퍼런스는 참조 영상 기반 생성(reference-to-video, R2V) 모델에 조건으로 제공한다. 초기 자세는 렌더링-비교 방식의 실루엣 정합으로 보정한다. 레퍼런스는 렌더링된 프레임을 근거로 검토하여 최대 1회 수정한다.
 
-최근 영상 생성 모델은 이미지와 텍스트로부터 고품질 영상을 생성한다[1]. 그러나 이 영상들이 요청된 행동의 종류, 좌우, 순서, 횟수를 정확히 따르는지는 별도로 검증되어야 한다. 관련 연구로는 다음이 제안된 바 있다.
-- 포즈 시퀀스를 조건으로 캐릭터 영상을 생성하는 연구[2]
-- LLM이 영상 생성 계획을 수립하는 연구[3]
-- 텍스트로부터 모션을 생성하는 학습 기반 연구[4]
+사용 모델은 다음과 같다. 학습이나 미세조정은 수행하지 않는다.
+- LLM: Anthropic Claude Sonnet 5.5
+- 최종 영상 생성: ByteDance Seedance 2.0
+- 렌더링: Blender
 
-본 연구는 소규모 행동 사전과 LLM 추론을 결합하여 모션 레퍼런스를 구성한다. 핵심 과제는 다음 두 가지 추론이다.
-- 사전에 존재하지 않는 행동의 추론
-- 선 자세가 아닌 초기 상태의 추론
+**실험 설계:**
+- **벤치마크**: 24문항으로 구성하였다. 문항마다 입력 이미지, 요청 문장, 요구 단위 채점 기준이 있다.
+- **비교 조건**: 다음 세 조건을 같은 입력에서 비교한다.
+  - A: 직접 I2V
+  - B: 검증하지 않은 레퍼런스를 사용한 R2V
+  - C: 검증한 레퍼런스를 사용한 R2V
+- **평가**: 주 지표는 모든 명시적 요구를 충족한 영상의 비율이다. 평가자 2인이 조건을 모르는 상태에서 판정한다.
 
-레퍼런스는 추가 정보인 동시에 추가 실패 경로이다. 잘못된 레퍼런스는 최종 생성에 잘못된 제약으로 작용할 수 있으므로, 중간 단계의 추가가 곧 성능 향상이라고 가정하지 않는다.
+**현재 결과:** 개발용 8문항에서 레퍼런스 생성 단계까지 네 차례 실행하였다.
+- **초기 자세 정합**: 평균 관절 오차가 0.113 m에서 0.068 m로 감소하였다. LLM이 반대로 추정한 기울기 방향도 교정되었다.
+- **자동 검증의 불안정성**: 반복 횟수와 같은 세밀한 요구에서 판정이 불안정하였다. 판정 규칙을 바꾸자 11건 중 8건의 판정이 바뀌었고, 같은 규칙으로 다시 실행해도 11건 중 9건만 일치하였다.
+- **레퍼런스 모호성 제거**: 반복 동작의 계획 규칙을 보강하자, 8건 모두에서 레퍼런스의 손 궤적이 요청된 왕복 수와 일치하였다.
 
-## 2. 연구 질문
+**남은 과제:** 최종 영상 생성과 사람 평가는 아직 수행하지 않았다. 따라서 제안 방법의 효과는 아직 판단할 수 없다. 향후 계획은 다음과 같다.
+1. 사람 평가로 자동 검증기를 보정한다.
+2. 개발용 문항에서 세 조건의 최종 영상을 생성한다.
+3. 파이프라인을 동결한 뒤 평가용 12문항에서 본 평가를 수행한다.
+
+## 1. 서론
+
+### 1.1 문제 상황
+
+**영상 생성 모델의 발전:** 영상 생성 모델은 확산 모델과 트랜스포머 구조를 기반으로 빠르게 발전하였다[1, 2, 3, 4]. 현재 상용 모델은 이미지 한 장과 짧은 문장만으로도 수 초 길이의 사실적인 인물 영상을 생성한다. 이에 따라 캐릭터 애니메이션, 광고, 사전 시각화와 같이 "이 인물이 이 동작을 하는 영상"이 필요한 작업에 생성 모델을 활용하려는 수요가 커지고 있다.
+
+**세부 동작 지시의 문제:** 이러한 작업에서 요청은 대개 구체적이다. 예를 들어 다음과 같은 요청을 생각할 수 있다.
+- "앉은 상태에서 왼손을 한 번 흔든 뒤 오른손을 한 번 흔든다"
+- "몸통을 세운 뒤 양손을 허리에 얹는다"
+
+생성 모델은 문장과 영상의 전반적인 의미 일치를 중심으로 학습된다. 그래서 다음과 같은 세부 사항을 지키지 못할 수 있다.
+- 사용하는 손(좌우)
+- 반복 횟수
+- 동작 순서
+- 입력 자세에서의 시작
+
+선행 연구도 이 어려움을 보고하였다.
+- 조합적 영상 생성 벤치마크[5]: 여러 대상에 서로 다른 행동을 정확히 배정하는 일(action binding)과 지정된 움직임 궤적을 따르는 일(motion binding)이 현재 모델에게 어려운 범주로 나타났다.
+- VBench-2.0[6]: 시각적 그럴듯함을 넘어 인체 해부학적 정확성과 같은 내재적 충실도를 평가해야 한다고 제기하였다.
+
+**기존 대안의 한계:** 동작을 정밀하게 제어하는 대안은 있으나 각각 한계가 있다.
+- **포즈 조건 애니메이션**[7, 8, 9]: 구동용 포즈 시퀀스를 주면 그 동작을 정확히 따른다. 그러나 사용자는 요청한 동작의 포즈 시퀀스를 갖고 있지 않으며, 이를 얻으려면 모션 캡처나 애니메이터의 작업이 필요하다.
+- **텍스트-모션 생성 모델**[10, 11, 12]: 문장에서 3차원 동작을 생성한다. 그러나 학습 데이터셋[13, 14]에 있는 동작에 성능이 의존하고, 주로 선 자세에서 시작하는 동작을 생성한다. 앉거나 기울어진 입력 이미지의 자세에서 시작하는 동작은 다루기 어렵다.
+
+**본 연구가 다루는 공백:** 정리하면 다음 두 가지가 비어 있다.
+- **레퍼런스 확보 수단**: 입력 이미지의 자세에서 시작하고, 요청 문장의 세부 사항을 정확히 반영하며, 학습 데이터에 없는 동작에도 적용할 수 있는 동작 레퍼런스를 얻는 방법이 없다.
+- **평가 수단**: 기존 영상 생성 벤치마크[5, 6, 15]는 전반적인 품질과 의미 일치를 주로 측정한다. 초기 자세가 주어진 상황에서 요구 하나하나의 충족 여부를 측정하지는 않는다.
+
+또한 레퍼런스를 추가하는 것이 항상 이로운지도 확인되지 않았다. 잘못된 레퍼런스는 오히려 잘못된 동작을 강제할 수 있다.
+
+### 1.2 연구 목적과 접근
+
+**LLM 계획의 확장:** LLM은 일반 상식과 추론 능력을 바탕으로 문장 속 동작을 단계로 분해할 수 있다. 선행 연구는 LLM이 장면 배치나 객체 이동 경로를 계획하고, 영상 생성 모델이 이를 따르게 하는 방식을 제안하였다[16, 17]. 다만 이 연구들의 계획 단위는 객체 상자이며, 인체 관절 수준의 동작은 다루지 않는다.
+
+**본 연구의 접근:** 본 연구는 LLM의 계획을 인체 관절 수준으로 확장한다.
+- LLM이 소규모 행동 사전을 참조하여 초기 자세와 관절 키프레임을 계획한다.
+- 고전적 애니메이션 기법이 이를 레퍼런스 영상으로 만든다.
+- 이 레퍼런스를 R2V 모델에 제공한다.
+
+**연구 목적:** 이 접근이 직접 I2V보다 요구 충족률을 높이는지 측정한다. 레퍼런스를 검증하는 단계가 잘못된 레퍼런스의 피해를 줄이는지도 함께 측정한다.
+
+### 1.3 기대 기여
+
+1. **행동 정확도 벤치마크**: 초기 자세와 사전 관계를 통제한 24문항 벤치마크와 요구 단위 채점 기준을 제공한다.
+2. **레퍼런스 생성 파이프라인**: LLM 관절 계획, 실루엣 정합, 고전적 애니메이션, 렌더링 기반 검증으로 구성한다.
+3. **통제된 비교**: 직접 I2V, 미검증 레퍼런스, 검증 레퍼런스를 같은 입력에서 비교한다. 부정적 결과도 포함하여 보고한다.
+
+## 2. 배경 지식 및 관련 연구
+
+### 2.1 확산 기반 영상 생성 모델
+
+**확산 모델의 원리:** 확산 모델[18]은 데이터에 잡음을 점진적으로 더하는 과정을 거꾸로 학습하여, 잡음에서 데이터를 생성한다.
+
+**구조의 발전:**
+- **잠재 확산 모델**[19]: 이 과정을 압축된 잠재 공간에서 수행하여 계산량을 줄였다.
+- **확산 트랜스포머(DiT)**[20]: 잡음 제거 신경망을 트랜스포머로 대체하여 규모 확장을 쉽게 하였다.
+- **영상으로의 확장**: Stable Video Diffusion[2], Sora[1], Wan[3], Seedance[4, 21] 등은 이 구조를 시간 축으로 확장한 모델이다.
+
+**조건 입력 방식:** 영상 생성 모델은 다음 방식으로 조건을 받는다.
+- **텍스트-영상(T2V)**: 문장만 입력한다.
+- **이미지-영상(I2V)**: 첫 프레임이 될 이미지와 문장을 입력한다.
+- **참조 영상 기반 생성(R2V)**: 이미지와 함께 참조 영상을 입력하여 동작이나 카메라 움직임을 참고하게 한다.
+
+본 연구의 비교 조건 A는 I2V를, 조건 B와 C는 R2V를 사용한다.
+
+### 2.2 포즈 조건 인물 애니메이션
+
+ControlNet[22]은 사전 학습된 확산 모델에 포즈와 같은 공간 조건을 추가하는 방법을 제시하였다. 이를 바탕으로 다음과 같은 인물 애니메이션 연구가 이어졌다.
+- **Animate Anyone**[7]: 참조 이미지의 외형을 유지하면서 포즈 시퀀스를 따르는 영상을 생성한다.
+- **MagicAnimate**[8]: 시간적 일관성을 강화하였다.
+- **Champ**[9]: 3차원 인체 모델 SMPL[23]의 깊이·법선 정보를 조건으로 추가하여 체형까지 맞추었다.
+
+이 방법들은 포즈 시퀀스를 정확히 따르지만, **포즈 시퀀스 자체는 외부에서 주어져야 한다.** 본 연구는 이 포즈 시퀀스에 해당하는 동작 레퍼런스를 요청 문장으로부터 만드는 문제를 다룬다.
+
+### 2.3 텍스트 기반 인체 모션 생성
+
+**데이터셋:** KIT Motion-Language[13]과 HumanML3D[14]는 모션 캡처 데이터에 문장 설명을 붙인 데이터셋이다.
+
+**생성 모델:** 이 데이터로 학습한 대표적인 모델은 다음과 같다.
+- **MDM**[10]: 확산 모델로 관절 시퀀스를 생성한다.
+- **T2M-GPT**[11]: 동작을 이산 토큰으로 바꾸어 자기회귀적으로 생성한다.
+- **MotionGPT**[12]: 동작을 언어 모델의 어휘처럼 다룬다.
+
+**한계:** 이 모델들은 학습 데이터의 동작 분포와 표준 시작 자세에 맞추어져 있다. 따라서 임의의 초기 자세에서 시작하는 동작이나 데이터에 드문 동작에는 직접 적용하기 어렵다.
+
+### 2.4 LLM 기반 생성 계획
+
+LLM을 생성 과정의 계획 단계로 사용하는 연구가 제안되었다.
+- **VideoDirectorGPT**[16]: LLM이 장면 구성과 객체 배치를 담은 영상 계획을 작성한다.
+- **LLM-grounded Video Diffusion**[17]: LLM이 프레임별 객체 상자 궤적을 생성하고, 이를 영상 확산 모델의 어텐션 조정에 사용한다.
+
+이 연구들은 LLM이 문장으로부터 시공간적 움직임을 계획할 수 있음을 보였다. 다만 계획 단위는 객체 상자이다. 본 연구는 계획 단위를 인체 관절로 낮추고, 계획을 실제 골격 동작으로 바꾸는 단계를 추가한다.
+
+### 2.5 영상 생성 평가와 LLM 판정
+
+**영상 생성 벤치마크:**
+- **VBench**[15]: 영상 품질을 여러 세부 차원으로 나누어 자동 평가한다.
+- **T2V-CompBench**[5]: 속성, 행동, 움직임의 조합적 일치를 평가한다.
+- **VBench-2.0**[6]: 물리 법칙, 상식, 인체 해부학적 정확성과 같은 내재적 충실도를 평가한다.
+
+**LLM 판정의 한계:**
+- LLM을 평가자로 사용하는 방식은 사람 판정과 상당히 일치하지만, 위치·장황함 편향과 같은 한계가 보고되었다[24].
+- 외부 신호 없이 LLM이 스스로 답을 수정하면 오히려 성능이 떨어질 수 있다는 보고도 있다[25].
+
+**본 연구의 평가 방식:** 본 연구의 주 지표는 사람 평가자의 요구 단위 판정이다. LLM 검토자의 판정은 사람 판정과의 일치도를 별도로 측정하여 신뢰성을 확인한다.
+
+### 2.6 본 연구에서 사용한 모델과 도구
+
+본 연구는 새로운 모델을 학습하거나 미세조정하지 않는다. 공개된 모델을 추론 단계에서만 사용한다.
+
+| 구분 | 모델 및 도구 | 용도 |
+|---|---|---|
+| 대형 언어 모델 | Anthropic Claude Sonnet 5.5[26] | 초기 자세 추정, 관절 키프레임 계획, 레퍼런스 검토 |
+| 영상 생성 모델 | ByteDance Seedance 2.0[21, 27] | 조건 A의 I2V, 조건 B·C의 R2V |
+| 3차원 렌더링 | Blender 4.2 LTS, Workbench 엔진[28] | 입력 이미지와 레퍼런스 영상 렌더링 |
+| 모션 데이터 | KIT Motion-Language Dataset[13] | 선행 작업의 동작 재생 기준선 |
+
+## 3. 연구 질문
 
 1. LLM 레퍼런스 조건은 직접 I2V 대비 명시적 행동 요구의 충족률을 높이는가?
 2. 레퍼런스 검증·수정 단계는 최초 레퍼런스의 오류와 최종 실패를 줄이는가?
 3. 그 효과는 사전 내·조합·사전 외 행동 및 비표준 초기 자세에 따라 어떻게 달라지는가?
 4. 개선이 확인될 경우, 그 개선은 추가 비용·지연·중단율과 어떠한 관계를 가지는가?
 
-## 3. 제안 방법
+## 4. 제안 방법
 
 ![제안 방법의 구조](figures/method_overview.png)
 
 *그림 1. 제안 방법의 구조*
 
-LLM은 초기 자세, 행동 단계, 키프레임을 제안한다. 자세 정합과 애니메이션 생성은 수치 계산 모듈이 담당한다. 애니메이션 생성에는 학습 기반 모션 모델[2, 4] 대신 고전적 컴퓨터 애니메이션 기법(5.3절)을 사용한다. 이를 통해 다음 두 가지를 얻는다.
+**구성 요소의 역할:**
+- **LLM**: 초기 자세, 행동 단계, 키프레임을 제안한다.
+- **수치 계산 모듈**: 자세 정합과 애니메이션 생성을 담당한다.
+
+**고전적 기법의 선택:** 애니메이션 생성에는 학습 기반 모션 모델[7, 10] 대신 고전적 컴퓨터 애니메이션 기법(6.3절)을 사용한다. 이를 통해 다음 두 가지를 얻는다.
 - 동일 입력에 대해 동일 결과를 얻을 수 있다.
 - LLM 계획의 오류가 측정 가능한 형태로 남는다.
 
-각 단계의 실패는 초기 자세, 계획, 리타기팅, 레퍼런스 검토로 구분하여 기록한다. 이를 통해 최종 영상만으로 실패 원인을 추정하는 것을 방지한다.
+**실패 위치 기록:** 각 단계의 실패는 초기 자세, 계획, 리타기팅, 레퍼런스 검토로 구분하여 기록한다. 이를 통해 최종 영상만으로 실패 원인을 추정하는 것을 방지한다.
 
-## 4. 실험 설계
+## 5. 실험 설계
 
-### 4.1 문항 구성
+### 5.1 문항 구성
 
 | 분할 | 문항 수 | 용도 |
 |---|---:|---|
@@ -61,7 +198,7 @@ LLM은 초기 자세, 행동 단계, 키프레임을 제안한다. 자세 정합
 - **입력 이미지**: 외부 캐릭터 자산 없이 3D 기본 도형으로 생성한 절차적 마네킹이다.
 - **정보 분리**: 요구 단위의 채점 기준과 관절 정답은 생성 과정에 제공하지 않는다.
 
-### 4.2 비교 조건
+### 5.2 비교 조건
 
 | 조건 | 내용 |
 |---|---|
@@ -73,13 +210,13 @@ LLM은 초기 자세, 행동 단계, 키프레임을 제안한다. 자세 정합
 - **레퍼런스 공유**: 동일 반복 내에서 B와 C는 최초 레퍼런스를 공유한다. 따라서 두 조건의 차이는 검증 단계의 효과로 해석할 수 있다.
 - **선별 금지**: 재생성 및 최선 결과 선별은 허용하지 않는다.
 - **결측 처리**: 미실행 결과는 실패로 간주하지 않고 결측으로 처리한다.
-- **사전 동결**: 평가용 문항 실행 전에 코드, 프롬프트, 모델, 비용 상한을 동결하고[5], 결과 확인 후에는 동일 버전을 수정하지 않는다.
+- **사전 동결**: 평가용 문항 실행 전에 코드, 프롬프트, 모델, 비용 상한을 동결하고[29], 결과 확인 후에는 동일 버전을 수정하지 않는다.
 
 **실행 규모:**
 - 기능 시험: 개발용 8문항 × 3조건 × 1회
 - 본 평가: 평가용 12문항 × 3조건 × 3회
 
-### 4.3 평가 지표
+### 5.3 평가 지표
 
 **주 지표**는 모든 명시적 요구를 충족한 최종 영상의 비율이다. 사례별로 산출한 뒤 사례 간 평균을 구한다.
 - 실패, 중단, 합의된 불확실 판정은 성공으로 계수하지 않는다.
@@ -90,24 +227,24 @@ LLM은 초기 자세, 행동 단계, 키프레임을 제안한다. 자세 정합
 - 레퍼런스 자체의 요구 충족, 비용, 지연, 중단율
 
 **통계 처리:**
-- 신뢰구간은 사례·행동군 단위 군집 부트스트랩[6, 7]으로 산출한다.
-- 검증기와 사람 판정의 일치도는 Cohen's κ[8, 9]로 산출한다.
+- 신뢰구간은 사례·행동군 단위 군집 부트스트랩[30, 31]으로 산출한다.
+- 검증기와 사람 판정의 일치도는 Cohen's κ[32, 33]로 산출한다.
 - 평가용 문항 수가 적으므로 결과는 기술 통계로 제시하며, 우월성 검정에는 사용하지 않는다.
 
-## 5. 진행 현황
+## 6. 진행 현황
 
 본 장의 수치는 개발용 8문항을 문항당 1회 실행한 결과이다. 개발 과정의 기록이며 성능 평가 결과가 아니다.
 
-### 5.1 선행 작업
+### 6.1 선행 작업
 
-기존 리그와 KIT 동작 자료[10, 11]를 기반으로 착수하였다.
+기존 리그와 KIT 동작 자료[13, 14]를 기반으로 착수하였다.
 - **문제 확인**: 수치 지표는 개선되었으나, 화면상으로는 팔이 뒤로 처지는 오류가 잔존하였다.
-- **원인 추적**: 원본 마커, MMM 골격[12], 로컬 관절 입력, 최종 리그를 단계별로 대조하였다. 그 결과 팔의 부모 관절 설정이 잘못된 변환 경로를 재현하였다.
+- **원인 추적**: 원본 마커, MMM 골격[34], 로컬 관절 입력, 최종 리그를 단계별로 대조하였다. 그 결과 팔의 부모 관절 설정이 잘못된 변환 경로를 재현하였다.
 - **기준선 구축**: 원본 마커로 관절을 재구성하여 흔들기와 스쿼트 동작의 재생 기준선을 마련하였다.
 
-### 5.2 LLM 계획기
+### 6.2 LLM 계획기
 
-LLM(Anthropic Claude Sonnet 5.5)이 입력 이미지와 요청으로부터 초기 자세와 시간별 키프레임을 구조화된 형식으로 출력하도록 구현하였다.
+LLM(Claude Sonnet 5.5[26])이 입력 이미지와 요청으로부터 초기 자세와 시간별 키프레임을 구조화된 형식으로 출력하도록 구현하였다.
 
 1차 실행 결과는 다음과 같다.
 - 8건 모두 형식 검사를 통과하였고, 사용 손과 동작 순서가 요청과 일치하였다.
@@ -116,32 +253,32 @@ LLM(Anthropic Claude Sonnet 5.5)이 입력 이미지와 요청으로부터 초�
 
 이는 형식 검사 통과가 계획의 정확성을 보장하지 않음을 보여 준다.
 
-### 5.3 레퍼런스 렌더러
+### 6.3 레퍼런스 렌더러
 
-LLM이 출력한 키프레임을 프레임별 골격 동작으로 변환하고 렌더링한다. 키프레임 애니메이션[13]의 구성에 따라, LLM은 주요 시점의 자세만 지정하고 중간 프레임은 다음 절차로 생성한다.
+LLM이 출력한 키프레임을 프레임별 골격 동작으로 변환하고 렌더링한다. 키프레임 애니메이션[35]의 구성에 따라, LLM은 주요 시점의 자세만 지정하고 중간 프레임은 다음 절차로 생성한다.
 
 - **골격 구성**: 15관절 골격을 사용한다. 각 뼈의 길이는 첫 키프레임을 기준으로 고정한다.
 - **몸통과 팔**: 관절 위치 대신 뼈 방향 벡터를 시간에 대해 보간하고 정규화한다. 이후 골반에서부터 뼈 방향과 길이를 순차적으로 누적하는 순기구학(FK)으로 관절 위치를 산출한다.
-  - 이 방식은 회전 보간[14]의 단순화 형태로, 팔이 원호를 따라 움직인다.
+  - 이 방식은 회전 보간[36]의 단순화 형태로, 팔이 원호를 따라 움직인다.
   - 초기에 적용한 관절 위치 선형 보간은 팔을 드는 도중 팔꿈치가 측방으로 꺾이는 문제를 보여, 이 방식으로 변경하였다.
-- **보간 곡선**: 단조 3차 Hermite 보간을 사용하며, 접선은 Fritsch–Butland 방식[15, 16]으로 정한다. 극값에서 기울기가 0이 되므로 키프레임 값을 넘어서는 오버슈트가 생기지 않는다.
-- **다리**: 발목 위치를 보간한 뒤, 고관절–슬관절–족관절을 코사인 법칙으로 푸는 2관절 해석적 역기구학(IK)[17]을 적용한다. 이로써 지지발이 미끄러지지 않는다.
-- **길이 보존**: 계획이 뼈 길이를 바꾸더라도 리타기팅[18]의 길이 보존 원칙에 따라 길이를 고정하고, 도달하지 못한 거리를 오차로 기록한다. 따라서 LLM 계획의 오류가 영상에서 숨겨지지 않고 측정 가능한 값으로 남는다.
-- **렌더링**: 입력 이미지와 동일한 절차적 마네킹·카메라·조명을 Blender Workbench 엔진[19]으로 렌더링한다(576×768, 24 fps). 검토용으로 정면 정사영 시점 영상도 함께 생성한다.
+- **보간 곡선**: 단조 3차 Hermite 보간을 사용하며, 접선은 Fritsch–Butland 방식[37, 38]으로 정한다. 극값에서 기울기가 0이 되므로 키프레임 값을 넘어서는 오버슈트가 생기지 않는다.
+- **다리**: 발목 위치를 보간한 뒤, 고관절–슬관절–족관절을 코사인 법칙으로 푸는 2관절 해석적 역기구학(IK)[39]을 적용한다. 이로써 지지발이 미끄러지지 않는다.
+- **길이 보존**: 계획이 뼈 길이를 바꾸더라도 리타기팅[40]의 길이 보존 원칙에 따라 길이를 고정하고, 도달하지 못한 거리를 오차로 기록한다. 따라서 LLM 계획의 오류가 영상에서 숨겨지지 않고 측정 가능한 값으로 남는다.
+- **렌더링**: 입력 이미지와 동일한 절차적 마네킹·카메라·조명을 Blender Workbench 엔진[28]으로 렌더링한다(576×768, 24 fps). 검토용으로 정면 정사영 시점 영상도 함께 생성한다.
 
 1차 실행에서 D08의 렌더 첫 프레임은 입력과 반대 방향으로 기운 상태로 출력되었다. 이로써 계획 단계의 오류가 최종 출력까지 전파됨을 확인하였다.
 
-### 5.4 초기 자세 실루엣 정합
+### 6.4 초기 자세 실루엣 정합
 
-입력 이미지와 렌더 결과를 비교하여 자세를 보정하는 분석-합성(analysis-by-synthesis) 방식[20]을 적용하였다.
+입력 이미지와 렌더 결과를 비교하여 자세를 보정하는 분석-합성(analysis-by-synthesis) 방식[41]을 적용하였다.
 
 **정합 절차:**
 1. LLM이 추정한 자세에 변화를 준 후보들을 입력과 동일한 조건으로 렌더링한다.
-2. 입력 이미지와의 실루엣 IoU 및 피부 영역 IoU[21]의 평균을 점수로 사용한다.
-3. 좌표별 패턴 탐색[22]으로 점수를 최대화한다. 탐색은 몸 전체, 팔, 전체의 순서로 진행한다.
+2. 입력 이미지와의 실루엣 IoU 및 피부 영역 IoU[42]의 평균을 점수로 사용한다.
+3. 좌표별 패턴 탐색[43]으로 점수를 최대화한다. 탐색은 몸 전체, 팔, 전체의 순서로 진행한다.
 4. 단일 시점에서는 깊이를 관측할 수 없으므로, 전후 방향 변화에는 벌점을 부과한다.
 
-**기각한 방법:** LLM에게 렌더 결과와 입력의 차이를 제시하고 스스로 수정하도록 하였으나, 2회 모두 오차가 확대되었다. 이는 외부 신호가 없는 자기 수정의 한계에 관한 선행 보고[23]와 일치한다.
+**기각한 방법:** LLM에게 렌더 결과와 입력의 차이를 제시하고 스스로 수정하도록 하였으나, 2회 모두 오차가 확대되었다. 이는 외부 신호가 없는 자기 수정의 한계에 관한 선행 보고[25]와 일치한다.
 
 | 지표 | 1차 실행 (정합 없음) | 2차 실행 | 3차 실행 | 4차 실행 |
 |---|---|---|---|---|
@@ -157,7 +294,7 @@ LLM이 출력한 키프레임을 프레임별 골격 동작으로 변환하고 �
 
 *그림 2. 실루엣 정합 전후 비교. 각 세 장 묶음은 입력, 정합 전, 정합 후 순서이며, 위 줄은 D02·D04, 아래 줄은 D07·D08이다.*
 
-### 5.5 레퍼런스 검증 게이트
+### 6.5 레퍼런스 검증 게이트
 
 검토자(LLM)는 계획이 아닌 렌더링된 프레임을 근거로 요구별 판정을 내린다. 시점은 입력 카메라 시점과 정면 정사영 시점을 함께 사용한다. 프레임 이미지만으로는 반복 횟수를 판별하기 어려우므로 동작 계측값을 함께 제공한다. 계측값은 렌더 골격에서 프레임마다 측정한 다음 항목이다.
 - 손의 좌우 위치 시계열
@@ -188,18 +325,18 @@ LLM이 출력한 키프레임을 프레임별 골격 동작으로 변환하고 �
 
 *그림 3. 4차 실행 흔들기 문항의 정면 시점 프레임. 두 칸씩 D01·D02, D03·D05, D06·D07 순서이다.*
 
-### 5.6 평가 도구
+### 6.6 평가 도구
 
 - **익명 평가 패키지**: 영상 메타데이터를 제거하고 임의 식별자를 부여하여, 평가자가 조건을 알 수 없게 하였다.
 - **집계 도구**: 주·부 지표, 실패 위치별 빈도, 군집 부트스트랩 신뢰구간, 검증기와 사람 판정의 일치도를 산출한다.
 
-### 5.7 최종 영상 생성 모듈
+### 6.7 최종 영상 생성 모듈
 
-최종 영상 모델로 Seedance 2.0[1, 25]을 채택하였다.
+최종 영상 생성에는 Seedance 2.0[21, 27]을 사용한다.
 - **사용 기능**: 조건 A는 image-to-video, 조건 B·C는 reference-to-video 기능을 사용한다.
 - **조건 간 차이**: reference-to-video에서는 입력 이미지가 시작 프레임으로 강제되지 않는다. 이 차이를 고려하여 시작 연속성을 부 지표로 별도 평가한다.
 
-## 6. 결과 확보 현황
+## 7. 결과 확보 현황
 
 | 항목 | 현황 |
 |---|---|
@@ -210,14 +347,14 @@ LLM이 출력한 키프레임을 프레임별 골격 동작으로 변환하고 �
 | 최종 영상 생성 (A/B/C) | 미실시 |
 | 제안 방법의 효과 | 판단 불가 |
 
-## 7. 연구의 한계
+## 8. 연구의 한계
 
 - **입력의 범위**: 입력이 합성 마네킹 단일 계열로 한정된다. 실루엣 정합은 카메라 정보를 안다고 가정하므로, 실사 이미지에는 그대로 적용할 수 없다.
 - **깊이 모호성**: 단일 시점 실루엣으로는 전후 깊이를 구분할 수 없어, 기울기 각도의 과소 추정이 잔존한다.
 - **표본 규모**: 평가 셀당 1문항에 불과하여 통계적 검정력을 주장할 수 없다.
 - **검증 신뢰성**: 세밀한 요구에서 자동 판정이 불안정하며, 조건 C의 효과는 이 판정 품질에 직접적으로 의존한다.
 
-## 8. 향후 계획
+## 9. 향후 계획
 
 1. **사람 평가**: 레퍼런스에 대한 사람 평가를 수행하고, 자동 검증기와의 일치도를 산출한다.
 2. **검증기 보정**: 보정용 문항에서 사람 판정과 검증기 판정을 대조하여 검증기를 보정한다.
@@ -227,28 +364,46 @@ LLM이 출력한 키프레임을 프레임별 골격 동작으로 변환하고 �
 
 ## 참고 문헌
 
-1. Gao, Y. et al. Seedance 1.0: Exploring the boundaries of video generation models. arXiv:2506.09113, 2025.
-2. Hu, L. et al. Animate Anyone: Consistent and controllable image-to-video synthesis for character animation. *CVPR* 2024, 8153–8163.
-3. Lin, H., Zala, A., Cho, J., Bansal, M. VideoDirectorGPT: Consistent multi-scene video generation via LLM-guided planning. arXiv:2309.15091, 2023.
-4. Tevet, G. et al. Human motion diffusion model. *ICLR* 2023.
-5. Nosek, B. A. et al. The preregistration revolution. *PNAS* 115(11):2600–2606, 2018.
-6. Efron, B., Tibshirani, R. J. *An Introduction to the Bootstrap.* Chapman & Hall, 1993.
-7. Field, C. A., Welsh, A. H. Bootstrapping clustered data. *J. R. Stat. Soc. B* 69(3):369–390, 2007.
-8. Cohen, J. A coefficient of agreement for nominal scales. *Educ. Psychol. Meas.* 20(1):37–46, 1960.
-9. Landis, J. R., Koch, G. G. The measurement of observer agreement for categorical data. *Biometrics* 33(1):159–174, 1977.
-10. Plappert, M., Mandery, C., Asfour, T. The KIT Motion-Language Dataset. *Big Data* 4(4):236–252, 2016.
-11. Guo, C. et al. Generating diverse and natural 3D human motions from text. *CVPR* 2022.
-12. Terlemez, Ö. et al. Master Motor Map (MMM): Framework and toolkit for capturing, representing, and reproducing human motion on humanoid robots. *IEEE-RAS Humanoids* 2014.
-13. Lasseter, J. Principles of traditional animation applied to 3D computer animation. *Computer Graphics (SIGGRAPH '87)* 21(4):35–44, 1987.
-14. Shoemake, K. Animating rotation with quaternion curves. *Computer Graphics (SIGGRAPH '85)* 19(3):245–254, 1985.
-15. Fritsch, F. N., Butland, J. A method for constructing local monotone piecewise cubic interpolants. *SIAM J. Sci. Stat. Comput.* 5(2):300–304, 1984.
-16. Fritsch, F. N., Carlson, R. E. Monotone piecewise cubic interpolation. *SIAM J. Numer. Anal.* 17(2):238–246, 1980.
-17. Tolani, D., Goswami, A., Badler, N. I. Real-time inverse kinematics techniques for anthropomorphic limbs. *Graphical Models* 62(5):353–388, 2000.
-18. Gleicher, M. Retargetting motion to new characters. *Proc. SIGGRAPH '98*, 33–42, 1998.
-19. Blender Foundation. Blender Manual: Workbench render engine. https://docs.blender.org/manual/en/4.2/render/workbench/index.html
-20. Bogo, F. et al. Keep it SMPL: Automatic estimation of 3D human pose and shape from a single image. *ECCV* 2016.
-21. Jaccard, P. The distribution of the flora in the alpine zone. *New Phytologist* 11(2):37–50, 1912.
-22. Hooke, R., Jeeves, T. A. "Direct search" solution of numerical and statistical problems. *J. ACM* 8(2):212–229, 1961.
-23. Huang, J. et al. Large language models cannot self-correct reasoning yet. *ICLR* 2024.
+1. Brooks, T. et al. Video generation models as world simulators. OpenAI Technical Report, 2024. https://openai.com/index/video-generation-models-as-world-simulators/
+2. Blattmann, A. et al. Stable Video Diffusion: Scaling latent video diffusion models to large datasets. arXiv:2311.15127, 2023.
+3. Wan Team. Wan: Open and advanced large-scale video generative models. arXiv:2503.20314, 2025.
+4. Gao, Y. et al. Seedance 1.0: Exploring the boundaries of video generation models. arXiv:2506.09113, 2025.
+5. Sun, K. et al. T2V-CompBench: A comprehensive benchmark for compositional text-to-video generation. *CVPR* 2025.
+6. Zheng, D. et al. VBench-2.0: Advancing video generation benchmark suite for intrinsic faithfulness. arXiv:2503.21755, 2025.
+7. Hu, L. et al. Animate Anyone: Consistent and controllable image-to-video synthesis for character animation. *CVPR* 2024, 8153–8163.
+8. Xu, Z. et al. MagicAnimate: Temporally consistent human image animation using diffusion model. *CVPR* 2024, 1481–1490.
+9. Zhu, S. et al. Champ: Controllable and consistent human image animation with 3D parametric guidance. *ECCV* 2024.
+10. Tevet, G. et al. Human motion diffusion model. *ICLR* 2023.
+11. Zhang, J. et al. T2M-GPT: Generating human motion from textual descriptions with discrete representations. *CVPR* 2023.
+12. Jiang, B. et al. MotionGPT: Human motion as a foreign language. *NeurIPS* 2023.
+13. Plappert, M., Mandery, C., Asfour, T. The KIT Motion-Language Dataset. *Big Data* 4(4):236–252, 2016.
+14. Guo, C. et al. Generating diverse and natural 3D human motions from text. *CVPR* 2022.
+15. Huang, Z. et al. VBench: Comprehensive benchmark suite for video generative models. *CVPR* 2024.
+16. Lin, H., Zala, A., Cho, J., Bansal, M. VideoDirectorGPT: Consistent multi-scene video generation via LLM-guided planning. arXiv:2309.15091, 2023.
+17. Lian, L., Shi, B., Yala, A., Darrell, T., Li, B. LLM-grounded video diffusion models. *ICLR* 2024.
+18. Ho, J., Jain, A., Abbeel, P. Denoising diffusion probabilistic models. *NeurIPS* 2020.
+19. Rombach, R. et al. High-resolution image synthesis with latent diffusion models. *CVPR* 2022.
+20. Peebles, W., Xie, S. Scalable diffusion models with transformers. *ICCV* 2023.
+21. ByteDance Seed. Seedance 2.0: Advancing video generation for world complexity. arXiv:2604.14148, 2026.
+22. Zhang, L., Rao, A., Agrawala, M. Adding conditional control to text-to-image diffusion models. *ICCV* 2023.
+23. Loper, M. et al. SMPL: A skinned multi-person linear model. *ACM Trans. Graph.* 34(6):248, 2015.
 24. Zheng, L. et al. Judging LLM-as-a-judge with MT-Bench and Chatbot Arena. *NeurIPS* 2023 Datasets and Benchmarks.
-25. fal.ai. Seedance 2.0 API documentation. https://fal.ai/models/bytedance/seedance-2.0/reference-to-video/api
+25. Huang, J. et al. Large language models cannot self-correct reasoning yet. *ICLR* 2024.
+26. Anthropic. Claude Sonnet 5.5 model overview. https://platform.claude.com/docs/en/models/sonnet-5-5/overview
+27. fal.ai. Seedance 2.0 API documentation. https://fal.ai/models/bytedance/seedance-2.0/reference-to-video/api
+28. Blender Foundation. Blender Manual: Workbench render engine. https://docs.blender.org/manual/en/4.2/render/workbench/index.html
+29. Nosek, B. A. et al. The preregistration revolution. *PNAS* 115(11):2600–2606, 2018.
+30. Efron, B., Tibshirani, R. J. *An Introduction to the Bootstrap.* Chapman & Hall, 1993.
+31. Field, C. A., Welsh, A. H. Bootstrapping clustered data. *J. R. Stat. Soc. B* 69(3):369–390, 2007.
+32. Cohen, J. A coefficient of agreement for nominal scales. *Educ. Psychol. Meas.* 20(1):37–46, 1960.
+33. Landis, J. R., Koch, G. G. The measurement of observer agreement for categorical data. *Biometrics* 33(1):159–174, 1977.
+34. Terlemez, Ö. et al. Master Motor Map (MMM): Framework and toolkit for capturing, representing, and reproducing human motion on humanoid robots. *IEEE-RAS Humanoids* 2014.
+35. Lasseter, J. Principles of traditional animation applied to 3D computer animation. *Computer Graphics (SIGGRAPH '87)* 21(4):35–44, 1987.
+36. Shoemake, K. Animating rotation with quaternion curves. *Computer Graphics (SIGGRAPH '85)* 19(3):245–254, 1985.
+37. Fritsch, F. N., Butland, J. A method for constructing local monotone piecewise cubic interpolants. *SIAM J. Sci. Stat. Comput.* 5(2):300–304, 1984.
+38. Fritsch, F. N., Carlson, R. E. Monotone piecewise cubic interpolation. *SIAM J. Numer. Anal.* 17(2):238–246, 1980.
+39. Tolani, D., Goswami, A., Badler, N. I. Real-time inverse kinematics techniques for anthropomorphic limbs. *Graphical Models* 62(5):353–388, 2000.
+40. Gleicher, M. Retargetting motion to new characters. *Proc. SIGGRAPH '98*, 33–42, 1998.
+41. Bogo, F. et al. Keep it SMPL: Automatic estimation of 3D human pose and shape from a single image. *ECCV* 2016.
+42. Jaccard, P. The distribution of the flora in the alpine zone. *New Phytologist* 11(2):37–50, 1912.
+43. Hooke, R., Jeeves, T. A. "Direct search" solution of numerical and statistical problems. *J. ACM* 8(2):212–229, 1961.
