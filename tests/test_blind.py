@@ -32,6 +32,12 @@ class BlindTests(unittest.TestCase):
     f=Path(d)/f'{name}.json';f.write_text(json.dumps(sheet),encoding='utf-8');files.append(f)
    result=import_ratings(run,Path(d)/'mapping.json',files);self.assertEqual(set(result['verdicts'].values()),{'pass'})
    self.assertTrue(all(r['review'] for r in read(run/'ledger.json') if r['case_id']=='D01'))
+ def test_single_rater_import(self):
+  with tempfile.TemporaryDirectory() as d:
+   run,_=self.setup_final(d);package(run,Path(d)/'pkg',Path(d)/'mapping.json',seed=4);sheet=read(Path(d)/'pkg/ratings_template.json');sheet['rater_id']='A'
+   for item in sheet['items'].values():item['requirements']={k:'pass' for k in item['requirements']};item['secondary']={'naturalness':3}
+   f=Path(d)/'A.json';f.write_text(json.dumps(sheet),encoding='utf-8')
+   self.assertEqual(set(import_ratings(run,Path(d)/'mapping.json',[f])['verdicts'].values()),{'pass'})
  def test_bad_secondary_value_rejected(self):
   with tempfile.TemporaryDirectory() as d:
    run,_=self.setup_final(d);package(run,Path(d)/'pkg',Path(d)/'mapping.json',seed=3);template=read(Path(d)/'pkg/ratings_template.json');files=[]

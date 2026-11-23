@@ -8,7 +8,8 @@ def _match(contract_quote,verifier_requirements):
  hits=[r for r in verifier_requirements if contract_quote in r.get('quote','') or r.get('quote','') in contract_quote]
  return min(hits,key=lambda r:len(r['quote']))['status'] if hits else None
 def _human(review):
- """Consensus per requirement: agreed value, or the adjudicator's when the two raters differ, else None (disputed)."""
+ """Human label per requirement: the single rater's value, or for two raters the agreed value, or the adjudicator's when the two raters differ, else None (disputed)."""
+ if len(review['ratings'])==1:return dict(review['ratings'][0]['requirements'])
  a,b=[r['requirements'] for r in review['ratings']];adj=(review.get('adjudication') or {}).get('requirements') or {}
  return {k:(a[k] if a[k]==b.get(k) else adj.get(k)) for k in a}
 def kappa(pairs):

@@ -73,13 +73,14 @@ def record(run,attempt,status,stage=None,output=None,root=ROOT):
 def consensus(review,required):
  if not review:return 'unreviewed'
  ratings=review.get('ratings',[])
- if len(ratings)!=2 or len({r.get('rater_id') for r in ratings})!=2 or any(not r.get('rater_id') for r in ratings):raise ValueError('Two distinct raters required')
+ # One rater (single-rater protocol, docs/PROTOCOL.md) or two distinct raters with adjudication of disagreements.
+ if len(ratings) not in (1,2) or len({r.get('rater_id') for r in ratings})!=len(ratings) or any(not r.get('rater_id') for r in ratings):raise ValueError('One rater or two distinct raters required')
  outcomes=[]
  for rating in ratings:
   checks=rating.get('requirements',{})
   if set(checks)!=set(required) or any(v not in ('pass','fail','uncertain') for v in checks.values()):raise ValueError('Every requirement must be rated')
   outcomes.append(checks)
- if outcomes[0]!=outcomes[1]:
+ if len(outcomes)==2 and outcomes[0]!=outcomes[1]:
   adjudication=review.get('adjudication')
   if not adjudication:return 'disputed'
   if adjudication.get('rater_id') in [r['rater_id'] for r in ratings] or not adjudication.get('rater_id'):raise ValueError('Independent adjudicator required')

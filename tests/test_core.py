@@ -28,6 +28,13 @@ class BenchmarkTests(unittest.TestCase):
  def test_missing_requirement_rejected(self):
   r={'ratings':[{'rater_id':name,'requirements':{'R1':'pass'}} for name in ['A','B']]}
   with self.assertRaises(ValueError):consensus(r,['R1','R2'])
+ def test_single_rater(self):
+  r={'ratings':[{'rater_id':'A','requirements':{'R1':'pass','R2':'uncertain'}}]};self.assertEqual(consensus(r,['R1','R2']),'uncertain')
+  r={'ratings':[{'rater_id':'A','requirements':{'R1':'pass'}}]};self.assertEqual(consensus(r,['R1']),'pass')
+ def test_single_rater_needs_id_and_full_sheet(self):
+  with self.assertRaises(ValueError):consensus({'ratings':[{'requirements':{'R1':'pass'}}]},['R1'])
+  with self.assertRaises(ValueError):consensus({'ratings':[{'rater_id':'A','requirements':{'R1':'pass'}}]},['R1','R2'])
+  with self.assertRaises(ValueError):consensus({'ratings':[{'rater_id':n,'requirements':{'R1':'pass'}} for n in 'ABC']},['R1'])
  def test_independent_adjudicator(self):
   r={'ratings':[{'rater_id':'A','requirements':{'R1':'pass'}},{'rater_id':'B','requirements':{'R1':'fail'}}],'adjudication':{'rater_id':'A','requirements':{'R1':'pass'}}}
   with self.assertRaises(ValueError):consensus(r,['R1'])

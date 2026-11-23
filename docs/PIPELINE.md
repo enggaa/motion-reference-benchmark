@@ -16,7 +16,7 @@
   ▼
 ④ 게이트(C)   렌더 프레임 검토 → 계획 1회 수정 → 재렌더 → 재검토      실패: reference_review (blocked)
   └─[C] 통과한 레퍼런스 (initial 또는 repaired) ─────▶ Seedance R2V ─▶ final.mp4
-⑤ 평가        익명 패키지 → 평가자 2명(+조정자) → import → summarize
+⑤ 평가        익명 패키지 → 평가자 1명(2명+조정자도 가능) → import → summarize
 ```
 
 ## 단계별 명령
@@ -29,7 +29,7 @@
 | ④ | `verify-reference --run R --group D01-01` | Claude 구독 (그룹당 1–3회 호출) |
 | 최종 영상 | `generate --run R` (dry run) → `--execute --max-usd N` | fal.ai 결제 |
 | 평가 패키지 | `package-review --run R --out review/pkg --mapping private/map.json` | 없음 |
-| 평가 반영 | `import-ratings --run R --mapping private/map.json --rater A.json --rater B.json` | 없음 |
+| 평가 반영 | `import-ratings --run R --mapping private/map.json --rater A.json` (2인이면 `--rater B.json` 추가) | 없음 |
 | 집계 | `summarize --run R` | 없음 |
 
 레퍼런스 자체를 사람이 평가할 때는 `package-review --kind reference`를 씁니다. B/C가 공유하는 최초 레퍼런스는 한 항목으로 묶입니다.

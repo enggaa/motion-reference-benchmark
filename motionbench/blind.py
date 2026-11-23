@@ -59,9 +59,9 @@ def _check_secondary(values):
   if k=='naturalness' and v not in (1,2,3,4,5):raise ValueError('naturalness must be 1-5')
   if k!='naturalness' and v not in ('pass','fail','uncertain'):raise ValueError(k+' must be pass/fail/uncertain')
 def import_ratings(run,mapping,raters,adjudication=None,root=ROOT):
- """raters: two filled ratings files from different people. Final videos go into the ledger through review_attempt; reference ratings go to reference_reviews.json."""
+ """raters: one filled ratings file (single-rater protocol) or two from different people. Final videos go into the ledger through review_attempt; reference ratings go to reference_reviews.json."""
  mapping=read(mapping);sheets=[read(r) for r in raters];adj=read(adjudication) if adjudication else None
- if len(sheets)!=2:raise ValueError('Exactly two rater files are required')
+ if len(sheets) not in (1,2):raise ValueError('One or two rater files are required')
  results={}
  for item,info in mapping['items'].items():
   ratings=[]
