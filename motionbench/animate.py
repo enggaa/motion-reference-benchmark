@@ -74,7 +74,7 @@ def animate(plan,duration_s,fps=24):
   'unreachable_targets':{j:dict(v,max_deficit_m=round(v['max_deficit_m'],4)) for j,v in unreachable.items()},
   'max_keyframe_error_m':{j:round(v,4) for j,v in sorted(keyframe_error.items(),key=lambda x:-x[1]) if v>.005},
   'first_frame_shift_m':max(math.dist(frames[0]['joints'][j],rest[j]) for j in JOINTS),
-  'props':{'chair':plan['initial_pose']['pose_class']=='seated' or 'chair' in contacts or 'seat' in contacts},
+  'props':{'chair':plan['initial_pose']['pose_class']=='seated' or 'chair' in contacts or 'seat' in contacts,'body':plan.get('body'),'camera':plan.get('camera')},
   'note':'Lengths fixed to keyframe 0 of the plan; arms/torso interpolate segment directions, legs reach interpolated ankles. Unreachable targets are clamped, not stretched.'}
  return frames,telemetry
 def turning_points(times,values,threshold):

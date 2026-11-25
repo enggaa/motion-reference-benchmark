@@ -6,6 +6,7 @@ JOINTS=('pelvis','neck','head')+tuple(s+p for s in 'LR' for p in ('hip','knee','
 BONES=[('pelvis','neck'),('neck','head')]+[(a,b) for s in 'LR' for a,b in [(s+'hip',s+'knee'),(s+'knee',s+'ankle'),(s+'shoulder',s+'elbow'),(s+'elbow',s+'wrist')]]
 POSE_CLASSES=('standing','seated','leaning','crouched','kneeling','lying','other')
 ORIGINS=('observed','retrieved','inferred')
+AGE_GROUPS=('child','teen','adult','older');BUILDS=('slim','average','muscular','heavy');FRAMINGS=('full_body','knees_up','waist_up','chest_up')
 PACKET_KEYS={'attempt_id','case_id','request','image','image_sha256','duration_s','arm','dictionary_version','paired_reference_group'}
 BONE_TOLERANCE=.15
 def _obj(props):return {'type':'object','properties':props,'required':list(props),'additionalProperties':False}
@@ -16,7 +17,11 @@ PLAN_SCHEMA=_obj({
  'actions':{'type':'array','items':_obj({'id':_S,'request_quote':_S,'side':{'type':'string','enum':['left','right','both','none']},'repetitions':{'type':['integer','null']},'completion':_S})},
  'retrieval':{'type':'array','items':_obj({'entry_id':_S,'used_for':_S})},
  'keyframes':{'type':'array','items':_obj({'time_s':_N,'origin':{'type':'string','enum':list(ORIGINS)},'action_id':{'type':['string','null']},'description':_S,'joints':{'type':'array','items':_POINT},'contacts':_SS})},
- 'assumptions':_SS,'unsupported_requirements':_SS})
+ 'assumptions':_SS,'unsupported_requirements':_SS,
+ # What the reference must look like besides the motion: the pictured person's body and the input camera (rendered by tools/render_reference_blender.py).
+ 'body':_obj({'height_m':_N,'age_group':{'type':'string','enum':list(AGE_GROUPS)},'build':{'type':'string','enum':list(BUILDS)}}),
+ 'camera':_obj({'yaw_deg':_N,'framing':{'type':'string','enum':list(FRAMINGS)}})})
+CORE_KEYS=('initial_pose','actions','retrieval','keyframes','assumptions','unsupported_requirements')
 RIG="""Rig: 15 joints pelvis, neck, head, L/R hip, knee, ankle, shoulder, elbow, wrist. L/R are the character's own left/right. Coordinates in metres: character's left +X, character's front -Y, up +Z, floor z=0. Approximate segment lengths: pelvis-neck 0.49, neck-head 0.21, upper arm 0.27, forearm 0.22, thigh 0.43, shin 0.43, shoulder half-width 0.23, hip half-width 0.12."""
 SYSTEM_PROMPT=f"""You are the motion planner between an action/keyframe dictionary and a reference-video renderer.
 Input: one image of a person (a photo-like picture; camera, viewpoint and framing vary, and parts of the body may be outside the frame), a verbatim request (usually a short everyday Korean phrase such as "인사해"), the clip duration and a seed dictionary that lists known action ids and semantics only (it contains no trajectories).
@@ -27,7 +32,8 @@ Rules:
 3. keyframes: the first one is at time_s 0 with origin "observed" and the same joints as initial_pose. Every keyframe lists all 15 joints. Times increase and stay within [0, duration]. Hold the final state visibly before the clip ends. Preserve segment lengths and contacts the request does not ask to change.
 4. origin is "retrieved" only when the keyframe follows a dictionary entry listed in retrieval, otherwise "inferred". Actions outside the dictionary are allowed: infer them and say so in assumptions.
 5. List requirements you cannot satisfy in unsupported_requirements instead of silently dropping them. Do not claim certainty you do not have.
-6. For repeated motions such as waves, make each repetition one clear swing out to one extreme and back to the other, all at the same height. After the last swing, go straight into the next action (for example lowering the arm). Do not add a return to a middle position in between: an extra sideways move like that reads as another half repetition."""
+6. body and camera describe the pictured person and shot, so the reference can be drawn with a matching mannequin and camera. body.height_m is the person's estimated standing height (an adult is about 1.6-1.9 m, a child about 1.1-1.5 m); age_group and build follow what you see. Size every segment for that person: start from the rig lengths above scaled by height_m / 1.75, and for a child make the limbs relatively shorter. Keep those lengths in every keyframe. camera.yaw_deg is where the camera stands around the character: 0 when the character faces the camera, positive when the camera sees more of the character's own left side (the character then appears turned toward image left), negative for their right side, about +-90 for a profile and 180 from behind. camera.framing is how much of the body the input image shows. Do not change the coordinate convention for the view: joints stay in the character's own frame.
+7. For repeated motions such as waves, make each repetition one clear swing out to one extreme and back to the other, all at the same height. After the last swing, go straight into the next action (for example lowering the arm). Do not add a return to a middle position in between: an extra sideways move like that reads as another half repetition."""
 def _guard_packet(packet,root=ROOT):
  extra=set(packet)-PACKET_KEYS
  if extra:raise ValueError('Generator packet carries non-generator fields: '+', '.join(sorted(extra)))
@@ -63,7 +69,7 @@ def _lengths(pose):return {(a,b):math.dist(pose[a],pose[b]) for a,b in BONES if 
 def check_plan(plan,packet,dictionary):
  """Structural/self-consistency check only; it does not show the motion is semantically right."""
  errors=[];warnings=[]
- for key in PLAN_SCHEMA['required']:
+ for key in CORE_KEYS:
   if key not in plan:errors.append('missing '+key)
  if errors:return {'errors':errors,'warnings':warnings}
  initial=plan['initial_pose']
