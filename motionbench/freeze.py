@@ -9,7 +9,7 @@ def fingerprint(root=ROOT):
  code=hashlib.sha256();prompts={}
  for f in files:code.update(f.relative_to(root).as_posix().encode()+b'\0'+f.read_bytes())
  for name,text in {'planner_system':planner.SYSTEM_PROMPT,'plan_schema':json.dumps(planner.PLAN_SCHEMA,sort_keys=True),'pose_system':posefit.POSE_PROMPT,'pose_penalty':json.dumps(posefit.PENALTY,sort_keys=True),
-  'verify_system':verify.VERIFY_PROMPT,'verdict_schema':json.dumps(verify.VERDICT_SCHEMA,sort_keys=True),'video_prompts':video.R2V_PREFIX+'|'+video.SUFFIX,'video_models':json.dumps(video.MODELS,sort_keys=True)}.items():
+  'verify_system':verify.VERIFY_PROMPT,'verdict_schema':json.dumps(verify.VERDICT_SCHEMA,sort_keys=True),'video_prompts':video.SYSTEM_TEXT+'|'+video.R2V_PREFIX+'|'+video.SUFFIX,'video_models':json.dumps(video.MODELS,sort_keys=True)}.items():
   prompts[name]=hashlib.sha256(text.encode()).hexdigest()
  return {'code_sha256':code.hexdigest(),'prompt_sha256':prompts}
 def _git(root,*args):

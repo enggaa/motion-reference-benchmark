@@ -29,7 +29,8 @@ class VideoTests(unittest.TestCase):
   self.assertAlmostEqual(estimate_usd('480p',6),480*640*6*24/1024/1000*.014,places=4)
   self.assertLess(estimate_usd('480p',6,6)/2,estimate_usd('480p',6))
  def test_prompts_share_request_and_suffix(self):
-  a,b=prompt('direct_i2v','오른손을 흔들어라'),prompt('llm_reference_r2v','오른손을 흔들어라');self.assertIn('오른손을 흔들어라',a);self.assertTrue(b.endswith(a))
+  a,b=prompt('direct_i2v','오른손을 흔들어라'),prompt('llm_reference_r2v','오른손을 흔들어라');self.assertIn('Action: 오른손을 흔들어라.',a);self.assertIn('Action: 오른손을 흔들어라.',b)
+  self.assertIn('6-second',a);self.assertIn('Do not add cuts, facial acting, or audio.',b)
   self.assertIn('@Video1',b);self.assertNotIn('@Video1',a);self.assertEqual(prompt('llm_reference_r2v','x'),prompt('verified_reference_r2v','x'))
  def test_dry_run_plans_ready_attempts_only(self):
   with tempfile.TemporaryDirectory() as d:
@@ -57,6 +58,15 @@ class VideoTests(unittest.TestCase):
    run,ids=self.run_with_refs(d);fake=FakeFal(fail=True);generate_run(run,fake,execute=True,attempts=[ids['direct_i2v']])
    row=next(r for r in read(run/'ledger.json') if r['attempt_id']==ids['direct_i2v']);self.assertEqual(len(fake.calls),2)
    self.assertEqual((row['status'],row['failure_stage']),('failed','final_generation'))
+ def test_accepted_job_is_collected_not_resubmitted(self):
+  # dev-007 0001: the download failed after the job finished, and the retry submitted and paid for a second job.
+  class Flaky(FakeFal):
+   def generate(self,model,payload,out):self.calls.append(('submit',model));raise video.SubmittedJobError('URLError: ssl','req-1')
+   def collect(self,model,request_id,out):self.calls.append(('collect',request_id));Path(out).write_bytes(MP4+b'final');return {'request_id':request_id,'seed':1,'latency_s':1.0}
+  with tempfile.TemporaryDirectory() as d:
+   run,ids=self.run_with_refs(d);fake=Flaky();generate_run(run,fake,execute=True,attempts=[ids['direct_i2v']])
+   self.assertEqual(fake.calls,[('submit',MODELS['direct_i2v']),('collect','req-1')])
+   self.assertEqual(next(r for r in read(run/'ledger.json') if r['attempt_id']==ids['direct_i2v'])['status'],'succeeded')
  def test_test_split_needs_frozen_run(self):
   with tempfile.TemporaryDirectory() as d:
    run=Path(d)/'r';make_run(run,'test',1)
