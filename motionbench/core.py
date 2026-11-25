@@ -11,18 +11,19 @@ def ensure_binding(run,root=ROOT):
  for field,file in [('cases_sha256','cases.json'),('contracts_sha256','evaluator/contracts.json'),('dictionary_sha256','seed_dictionary.json')]:
   if meta[field]!=sha(root/'benchmark'/file):raise ValueError('Benchmark changed after run planning: '+field)
 def validate(root=ROOT):
- root=Path(root);cases=read(root/'benchmark/cases.json');contracts=read(root/'benchmark/evaluator/contracts.json');errors=[];seen=set();images=set()
+ root=Path(root);cases=read(root/'benchmark/cases.json');contracts=read(root/'benchmark/evaluator/contracts.json');errors=[];seen=set();images={}
  byid={c['case_id']:c for c in contracts};groups={};families={};cells=set()
  for c in cases:
   if c['id'] in seen:errors.append('duplicate case '+c['id'])
   seen.add(c['id']);path=(root/'benchmark'/c['image']).resolve()
   if not path.is_relative_to((root/'benchmark/images').resolve()):errors.append('image outside asset directory');continue
   if not path.is_file() or sha(path)!=c['image_sha256']:errors.append('image missing/hash mismatch '+c['id'])
-  if c['image_sha256'] in images:errors.append('duplicate image bytes '+c['id'])
-  images.add(c['image_sha256'])
+  # One image serves several requests (v0.2); the same bytes may not appear under two different images/groups.
+  if images.get(c['image_sha256'],c['variant_group'])!=c['variant_group']:errors.append('duplicate image bytes '+c['id'])
+  images[c['image_sha256']]=c['variant_group']
   groups.setdefault(c['variant_group'],set()).add(c['split'])
   if c['dictionary_relationship']=='unseen':families.setdefault(c['action_family'],set()).add(c['split'])
-  if c['split']=='test':cells.add((c['dictionary_relationship'],c['initial_pose']))
+  if c['split']=='test':cells.add((c['variant_group'],c['initial_pose']))
   if c['id'] not in byid:errors.append('missing contract '+c['id']);continue
   reqs=byid[c['id']]['requirements']
   if len({r['id'] for r in reqs})!=len(reqs):errors.append('duplicate requirement id '+c['id'])
@@ -30,7 +31,7 @@ def validate(root=ROOT):
    if r['quote'] not in c['request']:errors.append('unbound requirement '+c['id'])
  if any(len(s)>1 for s in groups.values()):errors.append('variant group crosses split')
  if any('test' in s and len(s)>1 for s in families.values()):errors.append('unseen test family leaked into development/calibration')
- if len(cells)!=12:errors.append('test coverage is not 3 novelty x 4 poses')
+ if len(cells)!=4 or {p for _,p in cells}!={'standing','seated','leaning','crouched'}:errors.append('test images do not cover the four initial poses once each')
  freeze=root/'benchmark/freeze.json'
  if freeze.exists():
   for name,expected in read(freeze)['files'].items():
@@ -52,7 +53,7 @@ def make_run(out,split,repeats=3,seed=20261029,root=ROOT):
     aid=f'{len(rows)+1:04d}';row={'attempt_id':aid,'case_id':case['id'],'arm':arm,'replicate':replicate,'paired_reference_group':initial_ref_group if arm!='direct_i2v' else None,'status':'pending','failure_stage':None,'outputs':{},'model_ids':{},'cost':None,'latency_s':None,'review':None}
     rows.append(row)
     # Generator packet intentionally excludes evaluator contracts, ground-truth pose and expected answers.
-    inputs.append({'attempt_id':aid,'case_id':case['id'],'request':case['request'],'image':str((root/'benchmark'/case['image']).resolve()),'image_sha256':case['image_sha256'],'duration_s':case['duration_s'],'arm':arm,'dictionary_version':'seed-v0.1','paired_reference_group':row['paired_reference_group']})
+    inputs.append({'attempt_id':aid,'case_id':case['id'],'request':case['request'],'image':str((root/'benchmark'/case['image']).resolve()),'image_sha256':case['image_sha256'],'duration_s':case['duration_s'],'arm':arm,'dictionary_version':read(root/'benchmark/seed_dictionary.json')['version'],'paired_reference_group':row['paired_reference_group']})
  save(out/'ledger.json',rows);save(out/'generator_inputs.json',inputs)
  save(out/'run.json',{'version':'0.1.0','split':split,'repeats':repeats,'seed':seed,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'cases_sha256':sha(root/'benchmark/cases.json'),'contracts_sha256':sha(root/'benchmark/evaluator/contracts.json'),'dictionary_sha256':sha(root/'benchmark/seed_dictionary.json'),'configuration':{'planner_model':None,'video_model':None,'numeric_cost_cap':None,'conditioning_modes_confirmed':False},'execution_enabled':False,'note':'Planning does not execute models. Reference arms share one initial LLM candidate per replicate; only verified arm may inspect/repair it.'})
  return {'attempts':len(rows),'out':str(out)}

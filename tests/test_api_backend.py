@@ -26,7 +26,7 @@ class Client:
     return types.SimpleNamespace(get_final_message=lambda:client.result)
    def __exit__(s,*a):return False
   return Ctx()
-IMAGE=str(ROOT/'benchmark/images/D01.png')
+IMAGE=str(ROOT/'benchmark/images/D1.png')
 class APIBackendTests(unittest.TestCase):
  def backend(self,result):
   sdk=fake_sdk()

@@ -4,32 +4,8 @@
     "requirements": [
       {
         "id": "R1",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "어깨 높이",
-        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "몸 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "두 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "만세 해",
+        "criterion": "성공: 두 팔을 머리 위로 올림. 실패 예: 한 팔만 올림, 어깨 높이에서 멈춤.",
         "mandatory": true
       }
     ],
@@ -38,47 +14,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "D02",
     "requirements": [
       {
         "id": "R1",
-        "quote": "앉은 자세를 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "어깨 높이",
-        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "기지개 켜",
+        "criterion": "성공: 팔을 위나 옆으로 뻗으며 몸을 늘임. 실패 예: 팔을 조금만 움직임.",
         "mandatory": true
       }
     ],
@@ -87,41 +41,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "D03",
     "requirements": [
       {
         "id": "R1",
-        "quote": "기울어진 몸통 자세를 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 기울어진 몸통 자세를 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "몸 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "quote": "브이 해",
+        "criterion": "성공: 손가락 두 개를 펴서 브이 모양을 보임. 실패 예: 손만 들고 모양이 안 보임.",
         "mandatory": true
       }
     ],
@@ -130,41 +68,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "D04",
     "requirements": [
       {
         "id": "R1",
-        "quote": "현재 낮춘 자세",
-        "criterion": "영상에서 다음 명시 요구를 충족: 현재 낮춘 자세",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "양 무릎을 펴며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양 무릎을 펴며",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "일어나",
-        "criterion": "영상에서 다음 명시 요구를 충족: 일어나",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "똑바로 선 자세",
-        "criterion": "영상에서 다음 명시 요구를 충족: 똑바로 선 자세",
+        "quote": "하품해",
+        "criterion": "성공: 입을 크게 벌리는 하품 동작. 실패 예: 입만 살짝 벌림.",
         "mandatory": true
       }
     ],
@@ -173,47 +95,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "D05",
     "requirements": [
       {
         "id": "R1",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "내린 다음",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내린 다음",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "춤 춰",
+        "criterion": "성공: 몸을 리듬 있게 반복해서 움직임. 실패 예: 한두 번 흔들고 멈춤.",
         "mandatory": true
       }
     ],
@@ -222,47 +122,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "D06",
     "requirements": [
       {
         "id": "R1",
-        "quote": "앉은 자세를 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "내린 다음",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내린 다음",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
+        "quote": "돌아봐",
+        "criterion": "성공: 상체를 옆이나 뒤로 돌려 바라봄 (상체 회전이 반드시 있어야 함). 실패 예: 고개만 돌림, 눈만 움직임.",
         "mandatory": true
       }
     ],
@@ -271,41 +149,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "D07",
     "requirements": [
       {
         "id": "R1",
-        "quote": "양팔",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양팔",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "머리 위",
-        "criterion": "영상에서 다음 명시 요구를 충족: 머리 위",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "1초간 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 1초간 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "양팔을 내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 내려라",
+        "quote": "만세 해",
+        "criterion": "성공: 두 팔을 머리 위로 올림. 실패 예: 한 팔만 올림, 어깨 높이에서 멈춤.",
         "mandatory": true
       }
     ],
@@ -314,47 +176,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "D08",
     "requirements": [
       {
         "id": "R1",
-        "quote": "몸통을 똑바로",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸통을 똑바로",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "세운 뒤",
-        "criterion": "영상에서 다음 명시 요구를 충족: 세운 뒤",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "양손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양손",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "각각 허리에",
-        "criterion": "영상에서 다음 명시 요구를 충족: 각각 허리에",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "멈춰라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 멈춰라",
+        "quote": "브이 해",
+        "criterion": "성공: 손가락 두 개를 펴서 브이 모양을 보임. 실패 예: 손만 들고 모양이 안 보임.",
         "mandatory": true
       }
     ],
@@ -363,237 +203,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
+    ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
     ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
-  },
-  {
-    "case_id": "C01",
-    "requirements": [
-      {
-        "id": "R1",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "몸 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
-        "mandatory": true
-      }
-    ],
-    "shared_requirements": [
-      {
-        "id": "S1",
-        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
-        "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
-      }
-    ],
-    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
-  },
-  {
-    "case_id": "C02",
-    "requirements": [
-      {
-        "id": "R1",
-        "quote": "낮춘 자세",
-        "criterion": "영상에서 다음 명시 요구를 충족: 낮춘 자세",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "일어나",
-        "criterion": "영상에서 다음 명시 요구를 충족: 일어나",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "양 무릎을 편",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양 무릎을 편",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "멈춰라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 멈춰라",
-        "mandatory": true
-      }
-    ],
-    "shared_requirements": [
-      {
-        "id": "S1",
-        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
-        "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
-      }
-    ],
-    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
-  },
-  {
-    "case_id": "C03",
-    "requirements": [
-      {
-        "id": "R1",
-        "quote": "앉은 자세를 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "고개만",
-        "criterion": "영상에서 다음 명시 요구를 충족: 고개만",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "자신의 오른쪽",
-        "criterion": "영상에서 다음 명시 요구를 충족: 자신의 오른쪽",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "1초 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 1초 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "정면",
-        "criterion": "영상에서 다음 명시 요구를 충족: 정면",
-        "mandatory": true
-      }
-    ],
-    "shared_requirements": [
-      {
-        "id": "S1",
-        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
-        "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
-      }
-    ],
-    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
-  },
-  {
-    "case_id": "C04",
-    "requirements": [
-      {
-        "id": "R1",
-        "quote": "몸통의 기울기를 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸통의 기울기를 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "두 손바닥",
-        "criterion": "영상에서 다음 명시 요구를 충족: 두 손바닥",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "가슴 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 가슴 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "맞대고",
-        "criterion": "영상에서 다음 명시 요구를 충족: 맞대고",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "멈춰라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 멈춰라",
-        "mandatory": true
-      }
-    ],
-    "shared_requirements": [
-      {
-        "id": "S1",
-        "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
-        "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
-      }
-    ],
-    "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T01",
     "requirements": [
       {
         "id": "R1",
-        "quote": "선 자세에서",
-        "criterion": "영상에서 다음 명시 요구를 충족: 선 자세에서",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "몸 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "어깨 높이",
-        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "세 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 세 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "인사해",
+        "criterion": "성공: 손을 흔들거나, 고개나 상체를 숙이는 것 중 하나. 실패 예: 손을 들기만 하고 멈춤, 고개만 살짝 까딱임.",
         "mandatory": true
       }
     ],
@@ -602,53 +230,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T02",
     "requirements": [
       {
         "id": "R1",
-        "quote": "앉은 자세를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "몸 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "어깨 높이",
-        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "세 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 세 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "박수 쳐",
+        "criterion": "성공: 두 손바닥을 마주치는 동작이 2번 이상. 실패 예: 손을 모으기만 함, 한 번만 닿음.",
         "mandatory": true
       }
     ],
@@ -657,53 +257,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T03",
     "requirements": [
       {
         "id": "R1",
-        "quote": "몸통의 기울기를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸통의 기울기를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "몸 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "어깨 높이",
-        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "세 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 세 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "팔짱 껴",
+        "criterion": "성공: 두 팔을 가슴 앞에서 엇갈려 끼고 멈춤. 실패 예: 팔을 겹치다 맒, 한 팔만 올림.",
         "mandatory": true
       }
     ],
@@ -712,53 +284,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T04",
     "requirements": [
       {
         "id": "R1",
-        "quote": "낮춘 자세를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 낮춘 자세를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "몸 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "어깨 높이",
-        "criterion": "영상에서 다음 명시 요구를 충족: 어깨 높이",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "세 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 세 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "일어나",
+        "criterion": "성공: 앉거나 쪼그린 상태에서 서 있는 자세까지 완료. 실패 예: 엉덩이만 들썩임, 중간에 멈춤.",
         "mandatory": true
       }
     ],
@@ -767,59 +311,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T05",
     "requirements": [
       {
         "id": "R1",
-        "quote": "선 자세에서",
-        "criterion": "영상에서 다음 명시 요구를 충족: 선 자세에서",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "완전히 내린 다음",
-        "criterion": "영상에서 다음 명시 요구를 충족: 완전히 내린 다음",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "두 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R7",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "인사해",
+        "criterion": "성공: 손을 흔들거나, 고개나 상체를 숙이는 것 중 하나. 실패 예: 손을 들기만 하고 멈춤, 고개만 살짝 까딱임.",
         "mandatory": true
       }
     ],
@@ -828,59 +338,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T06",
     "requirements": [
       {
         "id": "R1",
-        "quote": "앉은 자세를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "완전히 내린 다음",
-        "criterion": "영상에서 다음 명시 요구를 충족: 완전히 내린 다음",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "두 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R7",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "박수 쳐",
+        "criterion": "성공: 두 손바닥을 마주치는 동작이 2번 이상. 실패 예: 손을 모으기만 함, 한 번만 닿음.",
         "mandatory": true
       }
     ],
@@ -889,59 +365,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T07",
     "requirements": [
       {
         "id": "R1",
-        "quote": "몸통의 기울기를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸통의 기울기를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "완전히 내린 다음",
-        "criterion": "영상에서 다음 명시 요구를 충족: 완전히 내린 다음",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "두 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R7",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "인사해",
+        "criterion": "성공: 손을 흔들거나, 고개나 상체를 숙이는 것 중 하나. 실패 예: 손을 들기만 하고 멈춤, 고개만 살짝 까딱임.",
         "mandatory": true
       }
     ],
@@ -950,59 +392,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T08",
     "requirements": [
       {
         "id": "R1",
-        "quote": "낮춘 자세를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 낮춘 자세를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "오른손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른손",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "한 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 한 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "완전히 내린 다음",
-        "criterion": "영상에서 다음 명시 요구를 충족: 완전히 내린 다음",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "왼손",
-        "criterion": "영상에서 다음 명시 요구를 충족: 왼손",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "두 번 왕복",
-        "criterion": "영상에서 다음 명시 요구를 충족: 두 번 왕복",
-        "mandatory": true
-      },
-      {
-        "id": "R7",
-        "quote": "내려라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 내려라",
+        "quote": "경례해",
+        "criterion": "성공: 한 손을 이마나 눈썹 옆에 대는 동작. 실패 예: 손을 머리 근처로 들다 맒.",
         "mandatory": true
       }
     ],
@@ -1011,47 +419,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T09",
     "requirements": [
       {
         "id": "R1",
-        "quote": "선 자세에서",
-        "criterion": "영상에서 다음 명시 요구를 충족: 선 자세에서",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "양팔을 몸 옆",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 몸 옆",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "상체를 앞으로 숙여",
-        "criterion": "영상에서 다음 명시 요구를 충족: 상체를 앞으로 숙여",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "1초 멈춘",
-        "criterion": "영상에서 다음 명시 요구를 충족: 1초 멈춘",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "처음의 몸통 자세",
-        "criterion": "영상에서 다음 명시 요구를 충족: 처음의 몸통 자세",
+        "quote": "뒤돌아",
+        "criterion": "성공: 몸 전체가 카메라 반대쪽을 향할 때까지 회전. 실패 예: 고개만 돌림, 반쯤만 돎.",
         "mandatory": true
       }
     ],
@@ -1060,47 +446,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T10",
     "requirements": [
       {
         "id": "R1",
-        "quote": "앉은 자세를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 앉은 자세를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "양팔을 몸 옆",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 몸 옆",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "상체를 앞으로 숙여",
-        "criterion": "영상에서 다음 명시 요구를 충족: 상체를 앞으로 숙여",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "1초 멈춘",
-        "criterion": "영상에서 다음 명시 요구를 충족: 1초 멈춘",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "처음의 몸통 자세",
-        "criterion": "영상에서 다음 명시 요구를 충족: 처음의 몸통 자세",
+        "quote": "일어나",
+        "criterion": "성공: 앉거나 쪼그린 상태에서 서 있는 자세까지 완료. 실패 예: 엉덩이만 들썩임, 중간에 멈춤.",
         "mandatory": true
       }
     ],
@@ -1109,53 +473,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T11",
     "requirements": [
       {
         "id": "R1",
-        "quote": "몸통의 기울기를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 몸통의 기울기를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "양팔을 가슴 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 가슴 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "교차",
-        "criterion": "영상에서 다음 명시 요구를 충족: 교차",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "오른쪽 팔뚝이 위",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른쪽 팔뚝이 위",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "1초 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 1초 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "양팔을 풀어라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 풀어라",
+        "quote": "점프해",
+        "criterion": "성공: 두 발이 바닥에서 떨어지는 장면이 보임. 실패 예: 무릎만 굽혔다 폄.",
         "mandatory": true
       }
     ],
@@ -1164,53 +500,25 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   },
   {
     "case_id": "T12",
     "requirements": [
       {
         "id": "R1",
-        "quote": "낮춘 자세를 유지하며",
-        "criterion": "영상에서 다음 명시 요구를 충족: 낮춘 자세를 유지하며",
-        "mandatory": true
-      },
-      {
-        "id": "R2",
-        "quote": "양팔을 가슴 앞",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 가슴 앞",
-        "mandatory": true
-      },
-      {
-        "id": "R3",
-        "quote": "교차",
-        "criterion": "영상에서 다음 명시 요구를 충족: 교차",
-        "mandatory": true
-      },
-      {
-        "id": "R4",
-        "quote": "오른쪽 팔뚝이 위",
-        "criterion": "영상에서 다음 명시 요구를 충족: 오른쪽 팔뚝이 위",
-        "mandatory": true
-      },
-      {
-        "id": "R5",
-        "quote": "1초 유지",
-        "criterion": "영상에서 다음 명시 요구를 충족: 1초 유지",
-        "mandatory": true
-      },
-      {
-        "id": "R6",
-        "quote": "양팔을 풀어라",
-        "criterion": "영상에서 다음 명시 요구를 충족: 양팔을 풀어라",
+        "quote": "팔짱 껴",
+        "criterion": "성공: 두 팔을 가슴 앞에서 엇갈려 끼고 멈춤. 실패 예: 팔을 겹치다 맒, 한 팔만 올림.",
         "mandatory": true
       }
     ],
@@ -1219,14 +527,16 @@
         "id": "S1",
         "criterion": "첫 동작 이전에 입력 자세를 다른 자세로 순간 초기화하지 않는다.",
         "mandatory": true
-      },
-      {
-        "id": "S2",
-        "criterion": "지정하지 않은 신체 좌우로 행동을 바꾸지 않는다.",
-        "mandatory": true
       }
     ],
+    "common_policy": [
+      "요청한 행동이 영상 안에서 눈에 보이게 시작해서 끝나야 성공이다.",
+      "거의 움직이지 않거나 숨 쉬는 정도의 움직임만 있으면 실패다.",
+      "행동하는 부위가 화면 밖에 있다가 끝까지 들어오지 않으면 실패다.",
+      "다른 행동을 하면 실패다.",
+      "가려지거나 각도 때문에 판단할 수 없을 때만 판단 불가(uncertain)다."
+    ],
     "ambiguity_policy": "If viewpoint or occlusion prevents a decision, mark uncertain; do not infer a pass.",
-    "completion_policy": "The required terminal state must be visible before the clip ends."
+    "completion_policy": "The required action must be visibly completed before the clip ends."
   }
 ]

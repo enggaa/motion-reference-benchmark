@@ -1,5 +1,5 @@
 {
-  "version": "seed-v0.1",
+  "version": "seed-v0.2",
   "actions": [
     "wave_right",
     "wave_left",
@@ -11,8 +11,11 @@
   ],
   "scope": "Semantic inventory only. Reference trajectory files must be supplied separately with their own license and provenance.",
   "disallowed_test_families": [
-    "bow",
-    "cross_arms"
+    "clap",
+    "cross_arms",
+    "jump",
+    "salute",
+    "turn_around"
   ],
   "training_policy": "Do not insert test action solutions, captions, poses, generated outputs or evaluator contracts into retrieval, finetuning or repair prompts."
 }
