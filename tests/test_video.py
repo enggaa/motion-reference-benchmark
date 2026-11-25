@@ -1,6 +1,8 @@
 import tempfile,unittest
 from pathlib import Path
 from motionbench.core import make_run,read,save,artifact
+from unittest import mock
+from motionbench import video
 from motionbench.video import generate_run,estimate_usd,prompt,MODELS
 MP4=b'\0\0\0\x18ftypisom'
 class FakeFal:
@@ -11,6 +13,9 @@ class FakeFal:
   if self.fail:raise RuntimeError('content policy')
   Path(out).write_bytes(MP4+b'final');return {'request_id':'r','seed':1,'latency_s':1.0}
 class VideoTests(unittest.TestCase):
+ # The fixtures are stub MP4 bytes that ffmpeg cannot decode; the upscaled submission copy is tested on its own below.
+ def setUp(self):
+  patcher=mock.patch.object(video,'submit_copy',lambda p:Path(p));patcher.start();self.addCleanup(patcher.stop)
  def run_with_refs(self,d,gate=None):
   run=Path(d)/'r';make_run(run,'development',1);ref=Path(d)/'ref.mp4';ref.write_bytes(MP4+b'ref');rows=[r for r in read(run/'ledger.json') if r['case_id']=='D01']
   for r in rows:
@@ -56,4 +61,13 @@ class VideoTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as d:
    run=Path(d)/'r';make_run(run,'test',1)
    with self.assertRaises(ValueError):generate_run(run,FakeFal(),execute=True)
+class SubmitCopyTests(unittest.TestCase):
+ def test_reference_upscaled_to_r2v_floor(self):
+  import subprocess
+  with tempfile.TemporaryDirectory() as d:
+   src=Path(d)/'ref.mp4'
+   subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-f','lavfi','-i','color=c=gray:s=576x768:d=1','-c:v','libx264','-pix_fmt','yuv420p',str(src)],check=True)
+   out=video.submit_copy(src)
+   size=subprocess.run(['ffprobe','-v','error','-select_streams','v:0','-show_entries','stream=width,height','-of','csv=p=0',str(out)],capture_output=True,text=True).stdout.strip()
+   self.assertEqual(size,'720,960');self.assertEqual(video.submit_copy(src),out)
 if __name__=='__main__':unittest.main()

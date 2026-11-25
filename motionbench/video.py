@@ -3,7 +3,7 @@ A: image-to-video, the input image is the start frame. B/C: reference-to-video, 
 in that mode the image is a reference, not a forced first frame, so start continuity is a separate secondary result (docs/PROTOCOL.md).
 Endpoint names, parameters and prices come from fal's model pages checked on 2026-10-29. The network path is unverified until a FAL_KEY exists;
 the dry run (payloads, cost estimate, budget cap) is what has been exercised."""
-import base64,datetime,json,os,time,urllib.request
+import base64,datetime,json,os,subprocess,time,urllib.request
 from pathlib import Path
 from .core import ROOT,read,save,sha,record,ensure_binding
 MODELS={'direct_i2v':'bytedance/seedance-2.0/image-to-video','llm_reference_r2v':'bytedance/seedance-2.0/reference-to-video','verified_reference_r2v':'bytedance/seedance-2.0/reference-to-video'}
@@ -29,10 +29,19 @@ def _reference_for(row):
  if decision['decision']!='pass':return None,'gate did not pass'
  ref=row['outputs'].get('reference_repaired' if decision['reference_for_final']=='repaired' else 'reference_initial')
  return (ref,None) if ref else (None,'gated reference missing')
+# fal's R2V accepts reference videos between about 480p (640x640) and 720p (834x1112); our renders are 576x768, below the floor
+# (dev-006 attempt 0002 was rejected with HTTP 422). The submitted copy is upscaled to 720x960; the registered reference is unchanged.
+SUBMIT_SIZE=(720,960)
+def submit_copy(path):
+ """Upscaled H.264 copy of a reference for submission, cached next to it."""
+ path=Path(path);out=path.with_name(path.stem+f'_submit{SUBMIT_SIZE[0]}x{SUBMIT_SIZE[1]}.mp4')
+ if not out.is_file():
+  subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(path),'-vf',f'scale={SUBMIT_SIZE[0]}:{SUBMIT_SIZE[1]}:flags=lanczos','-c:v','libx264','-pix_fmt','yuv420p','-an',str(out)],check=True)
+ return out
 def build_payload(row,packet,reference,resolution):
  base={'prompt':prompt(row['arm'],packet['request']),'resolution':resolution,'duration':str(int(packet['duration_s'])),'aspect_ratio':'3:4','generate_audio':False}
  if row['arm']=='direct_i2v':return dict(base,image_url=_data_uri(packet['image'],'image/png'))
- return dict(base,image_urls=[_data_uri(packet['image'],'image/png')],video_urls=[_data_uri(reference['path'],'video/mp4')])
+ return dict(base,image_urls=[_data_uri(packet['image'],'image/png')],video_urls=[_data_uri(submit_copy(reference['path']),'video/mp4')])
 class FalSeedance:
  name='fal-seedance-2.0'
  def __init__(self,key=None,poll_s=5,timeout_s=900):self.key=key or os.environ.get('FAL_KEY');self.poll_s=poll_s;self.timeout_s=timeout_s
@@ -73,7 +82,7 @@ def generate_run(run,backend=None,resolution='480p',execute=False,max_usd=None,a
   if why:skipped[row['attempt_id']]=why;continue
   packet=packets[row['attempt_id']];reference_s=packet['duration_s'] if ref else 0
   payload=build_payload(row,packet,ref,resolution);usd=estimate_usd(resolution,packet['duration_s'],reference_s)
-  logged=dict(payload,**({'image_url':{'path':packet['image'],'sha256':packet['image_sha256']}} if 'image_url' in payload else {'image_urls':[{'path':packet['image'],'sha256':packet['image_sha256']}],'video_urls':[{'path':ref['path'],'sha256':ref['sha256']}]}))
+  logged=dict(payload,**({'image_url':{'path':packet['image'],'sha256':packet['image_sha256']}} if 'image_url' in payload else {'image_urls':[{'path':packet['image'],'sha256':packet['image_sha256']}],'video_urls':[{'path':str(submit_copy(ref['path'])),'sha256':sha(submit_copy(ref['path'])),'upscaled_from':{'path':ref['path'],'sha256':ref['sha256']}}]}))
   (run/'video_requests').mkdir(exist_ok=True);save(run/'video_requests'/f"{row['attempt_id']}.json",{'model':MODELS[row['arm']],'arm':row['arm'],'case_id':row['case_id'],'payload':logged,'estimated_usd':usd})
   plans.append((row,MODELS[row['arm']],payload,usd))
  total=round(sum(p[3] for p in plans),2)

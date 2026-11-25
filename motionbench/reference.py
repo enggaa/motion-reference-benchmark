@@ -22,7 +22,7 @@ def render_plan(plan,duration_s,image,out,blender=None,fps=24,root=ROOT):
   if p.returncode!=0 or len(list(frames_dir.glob('frame_*.png')))!=len(frames):raise RuntimeError('Blender render failed: '+p.stdout[-1500:]+p.stderr[-1500:])
   _ffmpeg('-framerate',fps,'-i',frames_dir/'frame_%04d.png','-c:v','libx264','-pix_fmt','yuv420p','-crf',18,'-movflags','+faststart',out/name)
   _ffmpeg('-i',frames_dir/'frame_%04d.png','-vf',"select='"+'+'.join(f'eq(n\\,{i})' for i in picks)+"',scale=288:384,tile=4x2",'-fps_mode','vfr','-frames:v',1,out/f'grid_{view}.png')
- _ffmpeg('-i',image,'-i',out/'frames_input/frame_0000.png','-filter_complex','[0:v]format=rgb24[a];[1:v]format=rgb24[b];[a][b]hstack','-frames:v',1,out/'first_frame_vs_input.png')
+ _ffmpeg('-i',image,'-i',out/'frames_input/frame_0000.png','-filter_complex','[1:v]format=rgb24[b];[0:v]format=rgb24[a0];[a0][b]scale2ref=w=-2:h=ih[a][b2];[a][b2]hstack','-frames:v',1,out/'first_frame_vs_input.png')
  # Same silhouette + skin overlap as the pose fit: an automatic first-frame continuity signal, not a substitute for looking.
  telemetry['first_frame_match']=round(score(masks(image),masks(out/'frames_input/frame_0000.png')),4)
  telemetry.update(plan_sha256=None,video_sha256=sha(out/'reference.mp4'),front_video_sha256=sha(out/'reference_front.mp4'),blender=Path(blender).parent.name);save(out/'telemetry.json',telemetry)
