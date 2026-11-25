@@ -5,7 +5,8 @@ from .core import read
 from .planner import plan_run
 from .reference import render_group,find_blender
 from .verify import verify_group
-def run_pipeline(run,backend,pose_fit=True,max_groups=8,blender=None):
+def run_pipeline(run,backend,pose_fit=False,max_groups=8,blender=None):
+ # Silhouette pose fitting assumes the input shows the renderer's own mannequin and camera (v0.1); v0.2 inputs are pictures of people, so it is opt-in.
  blender=blender or find_blender();result={'plan':plan_run(run,backend,max_groups,pose_fit=blender if pose_fit else None),'groups':{}}
  rows={r['attempt_id']:r for r in read(Path(run)/'ledger.json')}
  for p in read(Path(run)/'generator_inputs.json'):

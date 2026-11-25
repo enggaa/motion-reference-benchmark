@@ -8,7 +8,7 @@
   ├─[A] ───────────────────────────────────────────────▶ Seedance I2V ─▶ final.mp4
   │
   ▼
-① 초기 자세   LLM 자세 호출 → 실루엣 맞춤 (posefit, --pose-fit)       실패: initial_pose
+① 초기 자세   LLM 자세 추정 (실루엣 맞춤은 마네킹 입력 전용, --pose-fit)  실패: initial_pose
 ② 계획        LLM 계획 호출 (행동 분해, 사전 참조, 키프레임)          실패: planning
 ③ 레퍼런스    뼈 길이 고정 FK/IK → Blender 마네킹 MP4                  실패: retargeting
   │            reference.mp4(입력 카메라) · reference_front.mp4 · grid_*.png · telemetry.json

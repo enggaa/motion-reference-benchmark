@@ -25,7 +25,7 @@ def main():
  c=sub.add_parser('import-ratings');c.add_argument('--run',required=True);c.add_argument('--mapping',required=True);c.add_argument('--rater',action='append',required=True);c.add_argument('--adjudication')
  c=sub.add_parser('generate');c.add_argument('--run',required=True);c.add_argument('--resolution',choices=['480p','720p'],default='480p');c.add_argument('--execute',action='store_true');c.add_argument('--max-usd',type=float);c.add_argument('--attempt',action='append')
  c=sub.add_parser('freeze-pipeline');c.add_argument('--run',required=True);c.add_argument('--planner-model',required=True);c.add_argument('--planner-variant',choices=['single-call-v1','posefit-v1'],required=True);c.add_argument('--video-resolution',choices=['480p','720p'],required=True);c.add_argument('--max-usd',type=float,required=True)
- c=sub.add_parser('pipeline');c.add_argument('--run',required=True);c.add_argument('--model',default='sonnet');c.add_argument('--backend',choices=['claude-code','anthropic-api'],default='claude-code');c.add_argument('--no-pose-fit',action='store_true');c.add_argument('--max-groups',type=int,default=8)
+ c=sub.add_parser('pipeline');c.add_argument('--run',required=True);c.add_argument('--model',default='sonnet');c.add_argument('--backend',choices=['claude-code','anthropic-api'],default='claude-code');c.add_argument('--pose-fit',action='store_true');c.add_argument('--max-groups',type=int,default=8)
  c=sub.add_parser('agreement');c.add_argument('--run',required=True)
  a=p.parse_args()
  if a.command=='validate':result=validate()
@@ -38,7 +38,7 @@ def main():
  elif a.command=='import-ratings':result=import_ratings(a.run,a.mapping,a.rater,a.adjudication)
  elif a.command=='generate':result=generate_run(a.run,resolution=a.resolution,execute=a.execute,max_usd=a.max_usd,attempts=a.attempt)
  elif a.command=='freeze-pipeline':result=freeze_run(a.run,a.planner_model,a.planner_variant,a.video_resolution,a.max_usd)
- elif a.command=='pipeline':result=run_pipeline(a.run,make_backend(a.backend,a.model),not a.no_pose_fit,a.max_groups)
+ elif a.command=='pipeline':result=run_pipeline(a.run,make_backend(a.backend,a.model),a.pose_fit,a.max_groups)
  elif a.command=='agreement':result=agreement(a.run)
  elif a.command=='artifact':result=artifact(a.run,a.attempt,a.kind,a.file)
  elif a.command=='summarize':

@@ -13,6 +13,7 @@ class PipelineTests(unittest.TestCase):
    def fake_verify(run_,gid,backend,blender):calls.append(('verify',gid));return {'decision':'pass','reference_for_final':'initial'}
    with mock.patch.object(pipeline,'plan_run',fake_plan),mock.patch.object(pipeline,'render_group',fake_render),mock.patch.object(pipeline,'verify_group',fake_verify):
     result=pipeline.run_pipeline(run,object(),blender='blender')
-   self.assertEqual(calls,[('plan','blender'),('render','D01-01',True),('verify','D01-01')])
+   # v0.2 inputs are photos of people: silhouette pose fitting is off unless asked for.
+   self.assertEqual(calls,[('plan',None),('render','D01-01',True),('verify','D01-01')])
    self.assertEqual(result['groups'],{'D01-01':{'first_frame_match':.8,'gate':'pass','reference_for_final':'initial'}})
 if __name__=='__main__':unittest.main()
