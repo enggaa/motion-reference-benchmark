@@ -1,4 +1,4 @@
-"""Author benchmark v0.2 tasks: eight AI-generated images of fictional people, each given several everyday action requests.
+"""Author benchmark v0.2 tasks: eight AI-generated character-style images of fictional people (photoreal versions were refused by Seedance as possible real-person likenesses), each given several everyday action requests.
 No model outputs or scores are generated. Image files are copied into benchmark/images/ before running this script."""
 import hashlib, json
 from pathlib import Path
@@ -69,7 +69,7 @@ def build():
    'image': f'images/{img}.png', 'image_sha256': sha(path),
    'initial_state_policy': 'Infer the starting pose from the supplied image; do not reset to T-pose or standing.',
    'novelty_definition': 'relative to seed_dictionary.json, not unseen in model pretraining',
-   'input_type': 'AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)'})
+   'input_type': 'AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)'})
   ok, fail = CRITERIA[family]
   contracts.append({'case_id': cid,
    'requirements': [{'id': 'R1', 'quote': request, 'criterion': f'성공: {ok}. 실패 예: {fail}.', 'mandatory': True}],

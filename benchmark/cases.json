@@ -13,10 +13,10 @@
     "request": "만세 해",
     "duration_s": 6,
     "image": "images/D1.png",
-    "image_sha256": "455219ab420b4d2c31311ad615f7c567d39cbed62782a2e6697e605707857bad",
+    "image_sha256": "cf88e1aeca0118a7c52f7d865d8caefff2f1dfa85c1704d1046510fe8e420ee5",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "D02",
@@ -32,10 +32,10 @@
     "request": "기지개 켜",
     "duration_s": 6,
     "image": "images/D1.png",
-    "image_sha256": "455219ab420b4d2c31311ad615f7c567d39cbed62782a2e6697e605707857bad",
+    "image_sha256": "cf88e1aeca0118a7c52f7d865d8caefff2f1dfa85c1704d1046510fe8e420ee5",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "D03",
@@ -51,10 +51,10 @@
     "request": "브이 해",
     "duration_s": 6,
     "image": "images/D2.png",
-    "image_sha256": "e49c35f4487219213eda0876176c2b02f90b4edc7a26085a38fedf78845cd51c",
+    "image_sha256": "f1844e40692af6a8c90c8a11086309221958197dfc9769ecce2ea3ab7c24f3f6",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "D04",
@@ -70,10 +70,10 @@
     "request": "하품해",
     "duration_s": 6,
     "image": "images/D2.png",
-    "image_sha256": "e49c35f4487219213eda0876176c2b02f90b4edc7a26085a38fedf78845cd51c",
+    "image_sha256": "f1844e40692af6a8c90c8a11086309221958197dfc9769ecce2ea3ab7c24f3f6",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "D05",
@@ -89,10 +89,10 @@
     "request": "춤 춰",
     "duration_s": 6,
     "image": "images/D3.png",
-    "image_sha256": "f2b14a8f531a4a3ab7be2cb6c91f970ce4ec979cd4bc0fd944c0c9161e03218f",
+    "image_sha256": "97cbaae4b9d7ef2c210577e646ce460cc4deac3c70f5634d4d5637e9017f31a2",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "D06",
@@ -108,10 +108,10 @@
     "request": "돌아봐",
     "duration_s": 6,
     "image": "images/D3.png",
-    "image_sha256": "f2b14a8f531a4a3ab7be2cb6c91f970ce4ec979cd4bc0fd944c0c9161e03218f",
+    "image_sha256": "97cbaae4b9d7ef2c210577e646ce460cc4deac3c70f5634d4d5637e9017f31a2",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "D07",
@@ -127,10 +127,10 @@
     "request": "만세 해",
     "duration_s": 6,
     "image": "images/D4.png",
-    "image_sha256": "ea0b8e7aa55fdd31310ba4d3c25f0427d1c1a12cde4fb4ffd9e08761e6d5233f",
+    "image_sha256": "e40fc12d1784b7e389234f89b0950585ba8a24d04ae124766a68e2f0a97d3063",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "D08",
@@ -146,10 +146,10 @@
     "request": "브이 해",
     "duration_s": 6,
     "image": "images/D4.png",
-    "image_sha256": "ea0b8e7aa55fdd31310ba4d3c25f0427d1c1a12cde4fb4ffd9e08761e6d5233f",
+    "image_sha256": "e40fc12d1784b7e389234f89b0950585ba8a24d04ae124766a68e2f0a97d3063",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T01",
@@ -165,10 +165,10 @@
     "request": "인사해",
     "duration_s": 6,
     "image": "images/T1.png",
-    "image_sha256": "89f1a2ed6e4ffc1a8f0d8ca8f8debeddb8b508338af86bb457da544704371b68",
+    "image_sha256": "7fd3bdf68354e98a3aafeef9a9efc38e28ea923f58a0bc4a109e138f9b9af3a0",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T02",
@@ -184,10 +184,10 @@
     "request": "박수 쳐",
     "duration_s": 6,
     "image": "images/T1.png",
-    "image_sha256": "89f1a2ed6e4ffc1a8f0d8ca8f8debeddb8b508338af86bb457da544704371b68",
+    "image_sha256": "7fd3bdf68354e98a3aafeef9a9efc38e28ea923f58a0bc4a109e138f9b9af3a0",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T03",
@@ -203,10 +203,10 @@
     "request": "팔짱 껴",
     "duration_s": 6,
     "image": "images/T1.png",
-    "image_sha256": "89f1a2ed6e4ffc1a8f0d8ca8f8debeddb8b508338af86bb457da544704371b68",
+    "image_sha256": "7fd3bdf68354e98a3aafeef9a9efc38e28ea923f58a0bc4a109e138f9b9af3a0",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T04",
@@ -222,10 +222,10 @@
     "request": "일어나",
     "duration_s": 6,
     "image": "images/T2.png",
-    "image_sha256": "95d33cebbc82a4a058dae245454cadf10703c6cfbe55e7c1cd4ced71225673e8",
+    "image_sha256": "ff75a4bb2cc11a790a239de2bf9a76e30338b9a0a72c3a9ff004cb650c17215a",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T05",
@@ -241,10 +241,10 @@
     "request": "인사해",
     "duration_s": 6,
     "image": "images/T2.png",
-    "image_sha256": "95d33cebbc82a4a058dae245454cadf10703c6cfbe55e7c1cd4ced71225673e8",
+    "image_sha256": "ff75a4bb2cc11a790a239de2bf9a76e30338b9a0a72c3a9ff004cb650c17215a",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T06",
@@ -260,10 +260,10 @@
     "request": "박수 쳐",
     "duration_s": 6,
     "image": "images/T2.png",
-    "image_sha256": "95d33cebbc82a4a058dae245454cadf10703c6cfbe55e7c1cd4ced71225673e8",
+    "image_sha256": "ff75a4bb2cc11a790a239de2bf9a76e30338b9a0a72c3a9ff004cb650c17215a",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T07",
@@ -279,10 +279,10 @@
     "request": "인사해",
     "duration_s": 6,
     "image": "images/T3.png",
-    "image_sha256": "9bc826a5848f8ddd338a95cd985879e6a3828a2091246aeb1b596c628ffd18c0",
+    "image_sha256": "12e4648b04bd04cd9384e617a0df18364b57842827a68c0a3b053889e45013b9",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T08",
@@ -298,10 +298,10 @@
     "request": "경례해",
     "duration_s": 6,
     "image": "images/T3.png",
-    "image_sha256": "9bc826a5848f8ddd338a95cd985879e6a3828a2091246aeb1b596c628ffd18c0",
+    "image_sha256": "12e4648b04bd04cd9384e617a0df18364b57842827a68c0a3b053889e45013b9",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T09",
@@ -317,10 +317,10 @@
     "request": "뒤돌아",
     "duration_s": 6,
     "image": "images/T3.png",
-    "image_sha256": "9bc826a5848f8ddd338a95cd985879e6a3828a2091246aeb1b596c628ffd18c0",
+    "image_sha256": "12e4648b04bd04cd9384e617a0df18364b57842827a68c0a3b053889e45013b9",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T10",
@@ -336,10 +336,10 @@
     "request": "일어나",
     "duration_s": 6,
     "image": "images/T4.png",
-    "image_sha256": "78300b6b78e76a292067d6f5db76eced77ac37bbb8149e1fe6d2847d8fd8de7a",
+    "image_sha256": "574880dadd40c203d003d05861ae73dfe67945038e20962937025989fe2ed2f0",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T11",
@@ -355,10 +355,10 @@
     "request": "점프해",
     "duration_s": 6,
     "image": "images/T4.png",
-    "image_sha256": "78300b6b78e76a292067d6f5db76eced77ac37bbb8149e1fe6d2847d8fd8de7a",
+    "image_sha256": "574880dadd40c203d003d05861ae73dfe67945038e20962937025989fe2ed2f0",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   },
   {
     "id": "T12",
@@ -374,9 +374,9 @@
     "request": "팔짱 껴",
     "duration_s": 6,
     "image": "images/T4.png",
-    "image_sha256": "78300b6b78e76a292067d6f5db76eced77ac37bbb8149e1fe6d2847d8fd8de7a",
+    "image_sha256": "574880dadd40c203d003d05861ae73dfe67945038e20962937025989fe2ed2f0",
     "initial_state_policy": "Infer the starting pose from the supplied image; do not reset to T-pose or standing.",
     "novelty_definition": "relative to seed_dictionary.json, not unseen in model pretraining",
-    "input_type": "AI-generated photorealistic image of a fictional person (OpenAI image generation, 2026-11)"
+    "input_type": "AI-generated character-style (non-photoreal) image of a fictional person (OpenAI image generation, 2026-11)"
   }
 ]
