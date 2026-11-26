@@ -10,7 +10,7 @@
 | B | 동일 입력 + LLM이 생성한 최초 레퍼런스 → R2V |
 | C | B와 동일한 최초 레퍼런스를 검토하고 필요 시 1회 수정 → R2V |
 
-- 중간보고서: [docs/MIDTERM_REPORT.ko.md](docs/MIDTERM_REPORT.ko.md)
+- 최종보고서: [docs/FINAL_REPORT.ko.md](docs/FINAL_REPORT.ko.md)
 - 개발 실행 결과: [results/README.md](results/README.md)
 
 ## 벤치마크 구성
@@ -31,7 +31,7 @@
 | `tools/` | 입력 이미지 생성, Blender 렌더링 스크립트, 개발용 분석 도구 |
 | `tests/` | 단위 시험 |
 | `results/` | 개발 실행 결과 요약과 그림 |
-| `docs/` | 중간보고서, 실험 프로토콜, 채점 기준, 파이프라인 설명, 출처 |
+| `docs/` | 최종보고서, 실험 프로토콜, 채점 기준, 파이프라인 설명, 출처 |
 
 ## 실행 환경
 
@@ -71,7 +71,7 @@ python -m motionbench summarize --run runs/dev                              # �
 
 ## 문서
 
-- [중간보고서](docs/MIDTERM_REPORT.ko.md)
+- [최종보고서](docs/FINAL_REPORT.ko.md)
 - [실험 프로토콜](docs/PROTOCOL.md)
 - [채점 기준](docs/RUBRIC.md)
 - [생성 파이프라인과 정보 경계](docs/PIPELINE.md)

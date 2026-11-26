@@ -1,5 +1,5 @@
-"""Convert docs/MIDTERM_REPORT.ko.md to a submission .docx (A4, Malgun Gothic; needs python-docx).
-Usage: python tools/report_to_docx.py docs/MIDTERM_REPORT.ko.md out.docx [cover.json]
+"""Convert docs/FINAL_REPORT.ko.md to a submission .docx (A4, Malgun Gothic; needs python-docx).
+Usage: python tools/report_to_docx.py docs/FINAL_REPORT.ko.md out.docx [cover.json]
 cover.json (optional, kept out of the repository) adds a cover page: {"학교":..., "학과":..., "학번":..., "성명":..., "지도교수":..., "제출일":...}"""
 import json, re, sys
 from pathlib import Path
@@ -112,16 +112,15 @@ def add_bullet(text, level):
 def add_cover(lines, cover):
     """Cover page from the report's own title line plus the student details; the body then starts at the summary."""
     sec.different_first_page_header_footer = True
-    title = next(l for l in lines if '제목(가제)' in l).split(':', 1)[1].strip(' *')
+    title = next(l for l in lines if l.startswith('**제목')).split(':', 1)[1].strip(' *')
     repo = next((l.split(':', 1)[1].strip() for l in lines if '코드 및 데이터' in l), None)
     def centered(text, size, bold=False, before=0, after=0):
         p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p.paragraph_format.space_before, p.paragraph_format.space_after = Pt(before), Pt(after)
         p.paragraph_format.line_spacing = 1.3
         r = p.add_run(text); r.bold = bold or None; set_font(r, size)
-    centered('졸업논문 중간보고서', 16, True, before=80, after=36)
-    centered(title, 19, True, after=6)
-    centered('(가제)', 11, after=100)
+    centered('졸업논문 최종보고서', 16, True, before=80, after=36)
+    centered(title, 19, True, after=100)
     rows = [(k, cover.get(k, '')) for k in ('학교', '학과', '학번', '성명', '지도교수', '제출일') if cover.get(k)]
     t = doc.add_table(rows=len(rows), cols=2); t.alignment = WD_TABLE_ALIGNMENT.CENTER; t.autofit = False
     for ri, (k, v) in enumerate(rows):
@@ -175,6 +174,6 @@ while i < len(lines):
         p = doc.add_paragraph(); add_inline(p, stripped)
     i += 1
 if table: add_table(table)
-doc.core_properties.title = '졸업논문 중간보고서'
+doc.core_properties.title = '졸업논문 최종보고서'
 doc.save(OUT)
 print('saved', OUT)
